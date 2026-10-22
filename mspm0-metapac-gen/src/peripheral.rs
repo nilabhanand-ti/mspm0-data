@@ -25,6 +25,8 @@ const GENERATE_PERIPHERALS: &[PeripheralType] = &[
     PeripheralType::Tim,
     PeripheralType::Trng,
     PeripheralType::Uart,
+    PeripheralType::Unicomm,
+    PeripheralType::UnicommUart,
     PeripheralType::Wwdt,
 ];
 
@@ -45,7 +47,10 @@ fn generate_peripheral_imports(
     // Sort the peripherals by type for generation.
     let mut peripheral_types = chip.peripherals.iter().collect::<Vec<_>>();
     peripheral_types.sort_by_key(|(a, _)| *a);
-    peripheral_types.dedup_by_key(|(_, v)| v.ty);
+    // Keep the first peripheral of each type. The types are not necessarily adjacent: the AM13
+    // UNICOMM sub-blocks (UC0, UC0_UART, UC1, ...) interleave.
+    let mut seen = BTreeSet::new();
+    peripheral_types.retain(|(_, v)| seen.insert(v.ty.to_string()));
 
     peripheral_types
         .iter()
@@ -100,7 +105,9 @@ fn generate_const(peripheral: &Peripheral) -> TokenStream {
         return TokenStream::new();
     };
 
-    if !GENERATE_PERIPHERALS.iter().any(|ty| ty == &peripheral.ty) {
+    // Without a version there is no register block to type the peripheral with. That is the
+    // case for the UNICOMM instances of the MSPM0 parts, whose registers are not curated yet.
+    if !GENERATE_PERIPHERALS.iter().any(|ty| ty == &peripheral.ty) || peripheral.version.is_none() {
         let comment = format!("Address: {}", address);
         return quote! {
             #[doc = #comment]

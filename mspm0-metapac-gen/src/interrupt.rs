@@ -1,7 +1,6 @@
 use heck::ToPascalCase;
 use proc_macro2::{Ident, Literal, Span, TokenStream};
 use quote::quote;
-use std::array;
 
 use mspm0_data_types::{Chip, Interrupt};
 
@@ -9,11 +8,12 @@ pub fn generate(chip: &Chip) -> TokenStream {
     let interrupt_enum = interrupt_enum(chip);
     let group_enums = group_enums(chip);
     let rt_vectors = rt_vectors(chip);
+    // The Cortex-M0+ MSPM0 parts all have 2 bits.
+    let prio_bits = Literal::u32_unsuffixed(chip.nvic_priority_bits.unwrap_or(2) as u32);
 
     quote! {
-        // FIXME define this from metadata
         #[cfg(feature = "rt")]
-        pub const NVIC_PRIO_BITS: u32 = 2;
+        pub const NVIC_PRIO_BITS: u32 = #prio_bits;
         #interrupt_enum
         #group_enums
         #rt_vectors
@@ -100,9 +100,18 @@ fn group_enum(interrupt: &Interrupt) -> TokenStream {
 }
 
 fn rt_vectors(chip: &Chip) -> TokenStream {
-    let mut entries: [TokenStream; 32] = array::from_fn(|_| {
-        quote! { Vector { _reserved: 0 } }
-    });
+    // The Cortex-M0+ has 32 interrupt lines, the AM13 Cortex-M33 more.
+    let count = chip
+        .interrupts
+        .values()
+        .map(|interrupt| interrupt.num + 1)
+        .max()
+        .unwrap_or(0)
+        .max(32) as usize;
+    let mut entries = (0..count)
+        .map(|_| quote! { Vector { _reserved: 0 } })
+        .collect::<Vec<_>>();
+    let count = Literal::usize_unsuffixed(count);
 
     for interrupt in chip.interrupts.values() {
         let name = Ident::new(&interrupt.name, Span::call_site());
@@ -144,7 +153,7 @@ fn rt_vectors(chip: &Chip) -> TokenStream {
 
             #[link_section = ".vector_table.interrupts"]
             #[no_mangle]
-            pub static __INTERRUPTS: [Vector; 32] = [
+            pub static __INTERRUPTS: [Vector; #count] = [
                 #(#entries),*
             ];
         }

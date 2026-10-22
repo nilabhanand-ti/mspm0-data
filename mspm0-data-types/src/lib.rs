@@ -47,6 +47,12 @@ pub struct Chip {
     ///
     /// This is requried because we use a single adc_v1 pac for all chips.
     pub adc_vrsel: u8,
+
+    /// Number of NVIC priority bits.
+    ///
+    /// `None` for the Cortex-M0+ based MSPM0 parts, which all have 2.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub nvic_priority_bits: Option<u8>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -104,6 +110,9 @@ pub enum PeripheralType {
 
     Canfd,
 
+    /// Comparator subsystem (AM13 `CMPSS_LITE`).
+    Cmpss,
+
     Comp,
 
     Cpuss,
@@ -116,6 +125,18 @@ pub enum PeripheralType {
 
     Dma,
 
+    /// Error aggregator module.
+    Eam,
+
+    /// Enhanced capture.
+    Ecap,
+
+    /// External peripheral interface.
+    Epi,
+
+    /// Enhanced quadrature encoder pulse.
+    Eqep,
+
     Event,
 
     /// This region contains read-only device constants such as the device id, flash and SRAM
@@ -124,9 +145,15 @@ pub enum PeripheralType {
 
     FlashCtl,
 
+    /// Flash read interface: wait states, prefetch and cache.
+    Fri,
+
     GpAmp,
 
     Gpio,
+
+    /// Memory and peripheral firewall.
+    Gsc,
 
     I2c,
 
@@ -144,9 +171,18 @@ pub enum PeripheralType {
 
     Mathacl,
 
+    /// Motor control PWM.
+    Mcpwm,
+
+    /// SRAM configuration.
+    Memcfg,
+
     Npu,
 
     Opa,
+
+    /// Programmable gain amplifier.
+    Pga,
 
     Rtc,
 
@@ -167,7 +203,22 @@ pub enum PeripheralType {
 
     Uart,
 
+    /// A UNICOMM instance: the wrapper which powers the instance and selects its serial mode.
+    ///
+    /// The registers of each mode are separate peripherals, `UnicommUart` and so on.
     Unicomm,
+
+    /// I2C controller registers of a UNICOMM instance.
+    UnicommI2cc,
+
+    /// I2C target registers of a UNICOMM instance.
+    UnicommI2ct,
+
+    /// SPI registers of a UNICOMM instance.
+    UnicommSpi,
+
+    /// UART registers of a UNICOMM instance.
+    UnicommUart,
 
     Usbfs,
 
@@ -176,6 +227,9 @@ pub enum PeripheralType {
     Wuc,
 
     Wwdt,
+
+    /// Crossbars (input, output, PWM and sync).
+    Xbar,
 }
 
 impl fmt::Display for PeripheralType {
@@ -186,17 +240,24 @@ impl fmt::Display for PeripheralType {
             PeripheralType::Aes => "aes",
             PeripheralType::AesAdv => "aesadv",
             PeripheralType::Canfd => "canfd",
+            PeripheralType::Cmpss => "cmpss",
             PeripheralType::Comp => "comp",
             PeripheralType::Cpuss => "cpuss",
             PeripheralType::Crc => "crc",
             PeripheralType::Dac => "dac",
             PeripheralType::Debugss => "debugss",
             PeripheralType::Dma => "dma",
+            PeripheralType::Eam => "eam",
+            PeripheralType::Ecap => "ecap",
+            PeripheralType::Epi => "epi",
+            PeripheralType::Eqep => "eqep",
             PeripheralType::Event => "event",
             PeripheralType::FactoryRegion => "factoryregion",
             PeripheralType::FlashCtl => "flashctl",
+            PeripheralType::Fri => "fri",
             PeripheralType::GpAmp => "gpamp",
             PeripheralType::Gpio => "gpio",
+            PeripheralType::Gsc => "gsc",
             PeripheralType::I2c => "i2c",
             PeripheralType::I2s => "i2s",
             PeripheralType::Iomux => "iomux",
@@ -205,8 +266,11 @@ impl fmt::Display for PeripheralType {
             PeripheralType::Lcd => "lcd",
             PeripheralType::Lfss => "lfss",
             PeripheralType::Mathacl => "mathacl",
+            PeripheralType::Mcpwm => "mcpwm",
+            PeripheralType::Memcfg => "memcfg",
             PeripheralType::Npu => "npu",
             PeripheralType::Opa => "opa",
+            PeripheralType::Pga => "pga",
             PeripheralType::Rtc => "rtc",
             PeripheralType::Spgss => "spgss",
             PeripheralType::Spi => "spi",
@@ -215,10 +279,15 @@ impl fmt::Display for PeripheralType {
             PeripheralType::Trng => "trng",
             PeripheralType::Uart => "uart",
             PeripheralType::Unicomm => "unicomm",
+            PeripheralType::UnicommI2cc => "unicommi2cc",
+            PeripheralType::UnicommI2ct => "unicommi2ct",
+            PeripheralType::UnicommSpi => "unicommspi",
+            PeripheralType::UnicommUart => "unicommuart",
             PeripheralType::Usbfs => "usbfs",
             PeripheralType::Vref => "vref",
             PeripheralType::Wuc => "wuc",
             PeripheralType::Wwdt => "wwdt",
+            PeripheralType::Xbar => "xbar",
         };
 
         write!(f, "{content}")
