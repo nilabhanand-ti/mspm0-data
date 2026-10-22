@@ -1,4 +1,4 @@
-# DMA with 12 channels (AM13E230x), derived from dma_v1 by transforms/am13e230x.py.
+# DMA with 12 channels (AM13E2x), derived from dma_v1 by transforms/am13.py.
 block/CHAN:
   items:
   - name: CTL

@@ -1,4 +1,4 @@
-# UNICOMM wrapper (AM13E230x), written by transforms/am13e230x.py.
+# UNICOMM wrapper (AM13E2x), written by transforms/am13.py.
 block/UNICOMM:
   description: 'UNICOMM wrapper: power, reset and serial mode selection.'
   items:

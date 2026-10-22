@@ -1,5 +1,5 @@
-# UART of a UNICOMM instance (AM13E230x), derived from uart_v1 by
-# transforms/am13e230x.py.
+# UART of a UNICOMM instance (AM13E2x), derived from uart_v1 by
+# transforms/am13.py.
 block/UNICOMMUART:
   description: UART mode registers of a UNICOMM instance.
   items:

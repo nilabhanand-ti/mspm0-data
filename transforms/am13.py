@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Derive the AM13E230x register blocks which are MSPM0 IP with small changes.
+"""Derive the AM13E2x register blocks which are MSPM0 IP with small changes.
 
-The AM13E230x reuses several MSPM0 peripherals. Where the AM13 block is the MSPM0 block with a
+The AM13E230x and AM13E232x reuse several MSPM0 peripherals, identical on both families. Where the AM13 block is the MSPM0 block with a
 few fields resized or removed, it is derived here from the curated MSPM0 YAML rather than
 re-extracted from the AM13 SVD, so the two keep the same register, field and enum names and the
 HAL can drive both with the same code.
 
-Every difference applied below was checked against the AM13E230X SVD (built from the CCS
-targetdb by `tools/targetdb2svd.py` in mspm0-data-sources) and the AM13E230x TRM.
+Every difference applied below was checked against the AM13E230X and AM13E232X SVDs (built
+from the CCS targetdb by `tools/targetdb2svd.py` in mspm0-data-sources) and the AM13E230x TRM.
 
 Run from the repository root:
 
-    python transforms/am13e230x.py
+    python transforms/am13.py
 """
 
 import copy
@@ -52,12 +52,13 @@ def iomux():
     d = load("iomux_v1")
     pincm = item(d["block/IOMUX"], "PINCM")
     pincm["byte_offset"] = 0
-    # PINCM0..PINCM107. Index 106 is NRST, which has no pin function.
-    pincm["array"]["len"] = 108
+    # PINCM0..PINCM116 on the AM13E232x, PINCM0..PINCM107 on the AM13E230x. As with iomux_v1, the
+    # HAL only accesses the PINCM of pins the part has. Index 106 is NRST, which has no function.
+    pincm["array"]["len"] = 117
     save(
-        "iomux_am13e230x",
+        "iomux_am13",
         d,
-        "# AM13E230x IOMUX, derived from iomux_v1 by transforms/am13e230x.py.\n"
+        "# AM13E230x and AM13E232x IOMUX, derived from iomux_v1 by transforms/am13.py.\n"
         "# The PINCM array starts at offset 0 (PINCM0 = PA0) instead of 4.\n",
     )
 
@@ -99,7 +100,7 @@ def dma():
     save(
         "dma_v2",
         d,
-        "# DMA with 12 channels (AM13E230x), derived from dma_v1 by transforms/am13e230x.py.\n",
+        "# DMA with 12 channels (AM13E2x), derived from dma_v1 by transforms/am13.py.\n",
     )
 
 
@@ -242,8 +243,8 @@ def unicommuart():
     save(
         "unicommuart_v1",
         out,
-        "# UART of a UNICOMM instance (AM13E230x), derived from uart_v1 by\n"
-        "# transforms/am13e230x.py.\n",
+        "# UART of a UNICOMM instance (AM13E2x), derived from uart_v1 by\n"
+        "# transforms/am13.py.\n",
     )
 
 
@@ -306,7 +307,7 @@ def unicomm():
     save(
         "unicomm_v1",
         out,
-        "# UNICOMM wrapper (AM13E230x), written by transforms/am13e230x.py.\n",
+        "# UNICOMM wrapper (AM13E2x), written by transforms/am13.py.\n",
     )
 
 

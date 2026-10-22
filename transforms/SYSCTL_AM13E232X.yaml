@@ -1,0 +1,38 @@
+# Transform using SYSCTL from AM13E232X
+#
+# The AM13E230X SVD is built from the CCS targetdb (tools/targetdb2svd.py in mspm0-data-sources),
+# which names fieldsets and enums after their register and field already, so this mostly removes
+# noise.
+transforms:
+  - !DeleteFieldsets
+    from: .*
+    useless: true
+
+  - !DeleteUselessEnums
+
+  # IMASK, RIS, MIS, ISET, ICLR are the same type
+  - !MergeFieldsets
+    from: (IMASK|RIS|MIS|ISET|ICLR)
+    to: INT
+
+  # NMIRIS, NMIISET and NMIICLR are the same type
+  - !MergeFieldsets
+    from: NMI(RIS|ISET|ICLR)
+    to: NMI
+
+  # Single bit fields are flags. Their enums are ENABLE/DISABLE, TRUE/FALSE and so on.
+  - !DeleteEnums
+    from: .*
+    bit_size: 1
+
+  # These "enums" only mark the minimum and maximum of a numeric field.
+  - !DeleteEnums
+    from: (QDIV|XTALTIME|TESTSEL)
+
+  # TI lists TYPE2 and TYPE3 as 0xA and 0xB, which do not fit the 2-bit field (in the targetdb and
+  # in hw_sysctl.h alike). Leave the field a plain number until TI corrects it.
+  - !DeleteEnums
+    from: SDFMTYPE
+
+  ## Cleanup
+  - !Sort
