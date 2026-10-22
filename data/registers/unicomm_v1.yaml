@@ -1,0 +1,119 @@
+# UNICOMM wrapper (AM13E230x), written by transforms/am13e230x.py.
+block/UNICOMM:
+  description: 'UNICOMM wrapper: power, reset and serial mode selection.'
+  items:
+  - name: GPRCM
+    array:
+      len: 1
+      stride: 24
+    byte_offset: 2048
+    block: GPRCM
+  - name: IPMODE
+    description: Mode Selection Register.
+    byte_offset: 4352
+    fieldset: IPMODE
+block/GPRCM:
+  items:
+  - name: PWREN
+    description: Power enable.
+    byte_offset: 0
+    fieldset: PWREN
+  - name: RSTCTL
+    description: Reset Control.
+    byte_offset: 4
+    access: Write
+    fieldset: RSTCTL
+  - name: CLKCFG
+    description: Peripheral Clock Configuration Register.
+    byte_offset: 8
+    fieldset: CLKCFG
+  - name: GPRCM_STAT
+    description: Status Register.
+    byte_offset: 20
+    access: Read
+    fieldset: GPRCM_STAT
+fieldset/CLKCFG:
+  description: Peripheral Clock Configuration Register.
+  fields:
+  - name: BLOCKASYNC
+    description: Async Clock Request is blocked from starting SYSOSC or forcing bus clock to 32MHz.
+    bit_offset: 8
+    bit_size: 1
+  - name: KEY
+    description: KEY to Allow State Change A9h = KEY to allow write access to this register
+    bit_offset: 24
+    bit_size: 8
+    enum: CLKCFG_KEY
+fieldset/GPRCM_STAT:
+  description: Status Register.
+  fields:
+  - name: RESETSTKY
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 16
+    bit_size: 1
+fieldset/IPMODE:
+  description: Mode Selection Register.
+  fields:
+  - name: SELECT
+    description: Selects which serial protocol the UNICOMM instance runs.
+    bit_offset: 0
+    bit_size: 2
+    enum: SELECT
+fieldset/PWREN:
+  description: Power enable.
+  fields:
+  - name: ENABLE
+    description: Enable the power.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: KEY to allow Power State Change 26h = KEY to allow write access to this register
+    bit_offset: 24
+    bit_size: 8
+    enum: PWREN_KEY
+fieldset/RSTCTL:
+  description: Reset Control.
+  fields:
+  - name: RESETASSERT
+    description: Assert reset to the peripheral.
+    bit_offset: 0
+    bit_size: 1
+  - name: RESETSTKYCLR
+    description: Clear the RESETSTKY bit in the STAT register.
+    bit_offset: 1
+    bit_size: 1
+  - name: KEY
+    description: Unlock key B1h = KEY to allow write access to this register
+    bit_offset: 24
+    bit_size: 8
+    enum: RESET_KEY
+enum/CLKCFG_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    value: 169
+enum/PWREN_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    value: 38
+enum/RESET_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    value: 177
+enum/SELECT:
+  bit_size: 2
+  variants:
+  - name: UART
+    description: UART mode.
+    value: 0
+  - name: SPI
+    description: SPI mode.
+    value: 1
+  - name: I2C_CONTROLLER
+    description: I2C controller mode.
+    value: 2
+  - name: I2C_TARGET
+    description: I2C target mode.
+    value: 3

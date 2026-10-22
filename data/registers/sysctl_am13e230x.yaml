@@ -1,0 +1,2042 @@
+block/SYSCTL:
+  description: SYSCTL module.
+  items:
+  - name: IIDX
+    description: SYSCTL interrupt index.
+    byte_offset: 4128
+    fieldset: IIDX
+  - name: IMASK
+    description: SYSCTL interrupt mask.
+    byte_offset: 4136
+    fieldset: INT
+  - name: RIS
+    description: SYSCTL raw interrupt status.
+    byte_offset: 4144
+    fieldset: INT
+  - name: MIS
+    description: SYSCTL masked interrupt status.
+    byte_offset: 4152
+    fieldset: INT
+  - name: ISET
+    description: SYSCTL interrupt set.
+    byte_offset: 4160
+    fieldset: INT
+  - name: ICLR
+    description: SYSCTL interrupt clear.
+    byte_offset: 4168
+    fieldset: INT
+  - name: NMIIIDX
+    description: NMI interrupt index.
+    byte_offset: 4176
+    fieldset: NMIIIDX
+  - name: NMIRIS
+    description: NMI raw interrupt status.
+    byte_offset: 4192
+    fieldset: NMI
+  - name: NMIISET
+    description: NMI interrupt set.
+    byte_offset: 4208
+    fieldset: NMI
+  - name: NMIICLR
+    description: NMI interrupt clear.
+    byte_offset: 4216
+    fieldset: NMI
+  - name: SYSOSCCFG
+    description: SYSOSC configuration.
+    byte_offset: 4352
+    fieldset: SYSOSCCFG
+  - name: MCLKCFG
+    description: Main clock (MCLK) configuration.
+    byte_offset: 4356
+    fieldset: MCLKCFG
+  - name: HSCLKEN
+    description: High-speed clock (HSCLK) source enable/disable.
+    byte_offset: 4360
+    fieldset: HSCLKEN
+  - name: HSCLKCFG
+    description: High-speed clock (HSCLK) source selection.
+    byte_offset: 4364
+    fieldset: HSCLKCFG
+  - name: HFCLKCLKCFG
+    description: High-frequency clock (HFCLK) configuration.
+    byte_offset: 4368
+    fieldset: HFCLKCLKCFG
+  - name: SYSPLLCFG0
+    description: SYSPLL reference and output configuration.
+    byte_offset: 4384
+    fieldset: SYSPLLCFG0
+  - name: SYSPLLCFG1
+    description: SYSPLL reference and feedback divider.
+    byte_offset: 4388
+    fieldset: SYSPLLCFG1
+  - name: SYSPLLPARAM0
+    description: SYSPLL PARAM0 (load from FACTORY region).
+    byte_offset: 4392
+    fieldset: SYSPLLPARAM0
+  - name: SYSPLLPARAM1
+    description: SYSPLL PARAM1 (load from FACTORY region).
+    byte_offset: 4396
+    fieldset: SYSPLLPARAM1
+  - name: SYSPLLPARAM2
+    description: SYSPLL PARAM2 (load from FACTORY region).
+    byte_offset: 4400
+    fieldset: SYSPLLPARAM2
+  - name: SYSPLLLDOCTL
+    description: SYSPLL LDO CTL (load from FACTORY region).
+    byte_offset: 4404
+    fieldset: SYSPLLLDOCTL
+  - name: SYSPLLLDOPROG
+    description: SYSPLL LDO VOUT PROG (load from FACTORY region).
+    byte_offset: 4408
+    fieldset: SYSPLLLDOPROG
+  - name: GENCLKEN
+    description: General clock enable control.
+    byte_offset: 4412
+    fieldset: GENCLKEN
+  - name: GENCLKCFG
+    description: General clock configuration.
+    byte_offset: 4416
+    fieldset: GENCLKCFG
+  - name: PMODECFG
+    description: Power mode configuration.
+    byte_offset: 4420
+    fieldset: PMODECFG
+  - name: MLDOLPENCFG
+    description: LDO Configuration Control.
+    byte_offset: 4424
+    fieldset: MLDOLPENCFG
+  - name: FCC
+    description: Frequency clock counter (FCC) count.
+    byte_offset: 4432
+    fieldset: FCC
+  - name: PMULDOSPARECTL
+    description: LDO Spare Control.
+    byte_offset: 4436
+  - name: SYSCTL_ECO_REG1
+    description: Sysctl ECO Reg 1.
+    byte_offset: 4440
+  - name: SYSCTL_ECO_REG2
+    description: Sysctl ECO Reg 2.
+    byte_offset: 4444
+  - name: SYSTEMCFG
+    description: System configuration.
+    byte_offset: 4480
+    fieldset: SYSTEMCFG
+  - name: SRAMCFG
+    description: System SRAM configuration.
+    byte_offset: 4484
+    fieldset: SRAMCFG
+  - name: WRITELOCK
+    description: SYSCTL register write lockout.
+    byte_offset: 4608
+    fieldset: WRITELOCK
+  - name: CLKSTATUS
+    description: Clock module (CKM) status.
+    byte_offset: 4612
+    fieldset: CLKSTATUS
+  - name: SYSSTATUS
+    description: System status information.
+    byte_offset: 4616
+    fieldset: SYSSTATUS
+  - name: RSTCAUSE
+    description: Reset cause.
+    byte_offset: 4640
+    fieldset: RSTCAUSE
+  - name: RESETLEVEL
+    description: Reset level for application-triggered reset command.
+    byte_offset: 4864
+    fieldset: RESETLEVEL
+  - name: RESETCMD
+    description: Execute an application-triggered reset command.
+    byte_offset: 4868
+    fieldset: RESETCMD
+  - name: SYSOSCFCLCTL
+    description: SYSOSC frequency correction loop (FCL) ROSC enable.
+    byte_offset: 4880
+    fieldset: SYSOSCFCLCTL
+  - name: SHDNIOREL
+    description: SHUTDOWN IO release control.
+    byte_offset: 4892
+    fieldset: SHDNIOREL
+  - name: EXRSTPIN
+    description: Disable the reset function of the NRST pin.
+    byte_offset: 4896
+    fieldset: EXRSTPIN
+  - name: SYSSTATUSCLR
+    description: Clear sticky bits of SYSSTATUS.
+    byte_offset: 4900
+    fieldset: SYSSTATUSCLR
+  - name: SWDJCFG
+    description: Disable the SWD/JTAG function on the SWD/JTAG pins.
+    byte_offset: 4904
+    fieldset: SWDJCFG
+  - name: FCCCMD
+    description: Frequency clock counter start capture.
+    byte_offset: 4908
+    fieldset: FCCCMD
+  - name: SHUTDNSTORE0
+    description: Shutdown storage memory (byte 0).
+    byte_offset: 5120
+    fieldset: SHUTDNSTORE0
+  - name: SHUTDNSTORE1
+    description: Shutdown storage memory (byte 1).
+    byte_offset: 5124
+    fieldset: SHUTDNSTORE1
+  - name: SHUTDNSTORE2
+    description: Shutdown storage memory (byte 2).
+    byte_offset: 5128
+    fieldset: SHUTDNSTORE2
+  - name: SHUTDNSTORE3
+    description: Shutdown storage memory (byte 3).
+    byte_offset: 5132
+    fieldset: SHUTDNSTORE3
+  - name: ADCSEQFRCGB
+    description: ADC Global Sequence Force.
+    byte_offset: 5136
+    fieldset: ADCSEQFRCGB
+  - name: ADCSEQFRCGBSEL
+    description: ADC Global Sequence Force Select.
+    byte_offset: 5140
+    fieldset: ADCSEQFRCGBSEL
+  - name: M33SPARESOCLOCK1
+    description: M33C1 Spare SOC LOCK Reg 1.
+    byte_offset: 5144
+  - name: M33SPARESOCLOCK2
+    description: M33C1 Spare SOC LOCK Reg 2.
+    byte_offset: 5148
+  - name: SYSCTL_READ_REG
+    description: Sysctl read only Reg.
+    byte_offset: 5152
+  - name: PWREN_MCPERIPH
+    description: Register to control the power state.
+    byte_offset: 5156
+    fieldset: PWREN_MCPERIPH
+  - name: RSTCTL_ASSERT_MCPERIPH
+    description: rstctl assert register to control reset assertion - Write Only Register, Always Read as 0.
+    byte_offset: 5160
+    fieldset: RSTCTL_ASSERT_MCPERIPH
+  - name: RSTCTL_CLEAR_MCPERIPH
+    description: rstctl clear register to control reset de-assertion - Write Only Register, Always Read as 0.
+    byte_offset: 5164
+    fieldset: RSTCTL_CLEAR_MCPERIPH
+  - name: STAT_MCPERIPH
+    description: IP State Register - Read Only.
+    byte_offset: 5168
+    fieldset: STAT_MCPERIPH
+  - name: PWREN_SYSPERIPH
+    description: Register to control the power state.
+    byte_offset: 5172
+    fieldset: PWREN_SYSPERIPH
+  - name: RSTCTL_ASSERT_SYSPERIPH
+    description: rstcl assert Register - Write Only Register, Always Read as 0.
+    byte_offset: 5176
+    fieldset: RSTCTL_ASSERT_SYSPERIPH
+  - name: RSTCTL_CLEAR_SYSPERIPH
+    description: rstctl clear register to control reset de-assertion - Write Only Register, Always Read as 0.
+    byte_offset: 5180
+    fieldset: RSTCTL_CLEAR_SYSPERIPH
+  - name: STAT_SYSPERIPH
+    description: IP State Register - Read Only.
+    byte_offset: 5184
+    fieldset: STAT_SYSPERIPH
+  - name: CMPHPMXSEL
+    description: Bits to select one of the many sources on CompHP inputs. Refer to Pinmux diagram for details.
+    byte_offset: 5188
+    fieldset: CMPHPMXSEL
+  - name: CMPLPMXSEL
+    description: Bits to select one of the many sources on CompLP inputs. Refer to Pinmux diagram for details.
+    byte_offset: 5196
+    fieldset: CMPLPMXSEL
+  - name: CMPHNMXSEL
+    description: Bits to select one of the many sources on CompHN inputs. Refer to Pinmux diagram for details.
+    byte_offset: 5200
+    fieldset: CMPHNMXSEL
+  - name: CMPLNMXSEL
+    description: Bits to select one of the many sources on CompLN inputs. Refer to Pinmux diagram for details.
+    byte_offset: 5204
+    fieldset: CMPLNMXSEL
+  - name: TSNSCFG
+    description: Temperature Sensor Config Register.
+    byte_offset: 5208
+  - name: TSNSSCTL
+    description: Temperature Sensor Control Register.
+    byte_offset: 5212
+    fieldset: TSNSSCTL
+  - name: PGACONFIG
+    description: PGA Configuration Register.
+    byte_offset: 5216
+  - name: REFCONFIGA
+    description: Reference Configuration Regsiter.
+    byte_offset: 5220
+  - name: INTERNALTESTCTL
+    description: Internal Test Node Control Register.
+    byte_offset: 5224
+    fieldset: INTERNALTESTCTL
+  - name: I2VCTL
+    description: I2V Logic Control.
+    byte_offset: 5228
+  - name: ADCDACLOOPBACK
+    description: Not used in AM13.
+    byte_offset: 5232
+  - name: XTALCR
+    description: XTAL Control Register.
+    byte_offset: 5236
+    fieldset: XTALCR
+  - name: XTALCR2
+    description: XTAL Control Register for pad init.
+    byte_offset: 5240
+    fieldset: XTALCR2
+  - name: X1CNT
+    description: x1cnt status register.
+    byte_offset: 5244
+    fieldset: X1CNT
+  - name: CMPSSCTL
+    description: CMPSS control register.
+    byte_offset: 5248
+    fieldset: CMPSSCTL
+  - name: CMPSSDACBUFCONFIG
+    description: Config bits for CMPSS DAC buffer.
+    byte_offset: 5252
+  - name: ANAREFCTL
+    description: Analog Reference Select.
+    byte_offset: 5256
+    fieldset: ANAREFCTL
+  - name: PERCLKCR
+    description: PWM Time Base Clock sync.
+    byte_offset: 5260
+    fieldset: PERCLKCR
+  - name: ADC_MMR_OVRD_CTL
+    description: 'ADC MMR Override control register for DFT: Control ADC enable override.'
+    byte_offset: 5264
+  - name: ADC_MMR_OVRD_VAL
+    description: 'ADC MMR Override value register for DFT : Value of ADC enable override.'
+    byte_offset: 5268
+  - name: VREGCONFIGDEBUG
+    description: VREG Configuration Debug Register.
+    byte_offset: 5272
+  - name: VREGCONFIGDFT
+    description: VREG Configuration DFT Register.
+    byte_offset: 5276
+  - name: AM13SPAREIREFENSOCLOCK
+    description: AM13 Spare IREFEN SOC LOCK Reg.
+    byte_offset: 5280
+    fieldset: AM13SPAREIREFENSOCLOCK
+  - name: AM13SPARESOCLOCK2
+    description: AM13 Spare SOC LOCK Reg 2.
+    byte_offset: 5284
+    fieldset: AM13SPARESOCLOCK2
+  - name: AM13SPARESOCLOCK3
+    description: AM13 Spare SOC LOCK Reg 3.
+    byte_offset: 5288
+  - name: AM13SPARESOCLOCK4
+    description: AM13 Spare SOC LOCK Reg 4.
+    byte_offset: 5292
+fieldset/ADCSEQFRCGB:
+  description: ADC Global Sequence Force.
+  fields:
+  - name: SEQ0
+    description: Generate synchronous SW trigger for SEQ0.
+    bit_offset: 0
+    bit_size: 1
+  - name: SEQ1
+    description: Generate synchronous SW trigger for SEQ1.
+    bit_offset: 1
+    bit_size: 1
+  - name: SEQ2
+    description: Generate synchronous SW trigger for SEQ2.
+    bit_offset: 2
+    bit_size: 1
+  - name: SEQ3
+    description: Generate synchronous SW trigger for SEQ3.
+    bit_offset: 3
+    bit_size: 1
+fieldset/ADCSEQFRCGBSEL:
+  description: ADC Global Sequence Force Select.
+  fields:
+  - name: ADCA
+    description: Generate synchronous SW trigger for ADCA.
+    bit_offset: 0
+    bit_size: 1
+  - name: ADCB
+    description: Generate synchronous SW trigger for ADCB.
+    bit_offset: 1
+    bit_size: 1
+  - name: ADCC
+    description: Generate synchronous SW trigger for ADCC.
+    bit_offset: 2
+    bit_size: 1
+fieldset/AM13SPAREIREFENSOCLOCK:
+  description: AM13 Spare IREFEN SOC LOCK Reg.
+  fields:
+  - name: SPARE
+    description: Spare IREFEN SOC LOCK Register.
+    bit_offset: 0
+    bit_size: 6
+fieldset/AM13SPARESOCLOCK2:
+  description: AM13 Spare SOC LOCK Reg 2.
+  fields:
+  - name: SRAM3_STATIC_MUX_SEL
+    description: SRAM3 static mux select between CBUS and SBUS.
+    bit_offset: 0
+    bit_size: 1
+  - name: SPARE
+    description: Spare SOC LOCK Register 2.
+    bit_offset: 1
+    bit_size: 31
+fieldset/ANAREFCTL:
+  description: Analog Reference Select.
+  fields:
+  - name: ANAREFSEL
+    description: Analog reference mode select. This bit selects whether the VREFHI pin uses internal reference mode (the device drives a voltage onto the VREFHI pin) or external reference mode (the system is expected to drive a voltage into the VREFHI pin). 0 - Internal reference mode 1 - External reference mode.
+    bit_offset: 0
+    bit_size: 1
+  - name: ANAREF2P5SEL
+    description: Analog reference 2.5V source select. In internal reference mode, this bit selects which voltage the internal reference buffer drives onto the VREFHI pin. The buffer can drive either 1.65V onto the pin, resulting in a reference range of 0 to 3.3V, or the buffer can drive 2.5V onto the pin, resulting in a reference range of 0 to 2.5V. If switching between these two modes, the user must allow adequate time for the external capacitor to charge to the new voltage before using the ADC or buffered DAC. 0 - Internal 1.65V reference mode (3.3V reference range) 1 - Internal 2.5V reference mode (2.5V reference range).
+    bit_offset: 8
+    bit_size: 1
+fieldset/CLKSTATUS:
+  description: Clock module (CKM) status.
+  fields:
+  - name: SYSOSCFREQ
+    description: SYSOSCFREQ indicates the current SYSOSC operating frequency.
+    bit_offset: 0
+    bit_size: 2
+    enum: SYSOSCFREQ
+  - name: HSCLKMUX
+    description: HSCLKMUX indicates if MCLK is currently sourced from the high-speed clock (HSCLK).
+    bit_offset: 4
+    bit_size: 1
+  - name: HFCLKGOOD
+    description: HFCLKGOOD indicates that the HFCLK started correctly. When the XTAL is started or HFCLK_IN is selected as the HFCLK source, this bit will be set by hardware if a valid HFCLK is detected, and cleared if HFCLK is not operating within the expected range.
+    bit_offset: 8
+    bit_size: 1
+  - name: SYSPLLGOOD
+    description: SYSPLLGOOD indicates if the SYSPLL started correctly. When the SYSPLL is started, SYSPLLGOOD is cleared by hardware. After the startup settling time has expired, the SYSPLL status is tested. If the SYSPLL started successfully the SYSPLLGOOD bit is set, else it is left cleared.
+    bit_offset: 9
+    bit_size: 1
+  - name: LFOSCGOOD
+    description: LFOSCGOOD indicates when the LFOSC startup has completed and the LFOSC is ready for use.
+    bit_offset: 11
+    bit_size: 1
+  - name: HSCLKSOFF
+    description: HSCLKSOFF is set when the high speed clock sources (SYSPLL, HFCLK) are disabled or dead. It is the logical AND of HFCLKOFF and SYSPLLOFF.
+    bit_offset: 12
+    bit_size: 1
+  - name: HFCLKOFF
+    description: HFCLKOFF indicates if the HFCLK is disabled or was dead at startup. When the HFCLK is started, HFCLKOFF is cleared by hardware. Following startup of the HFCLK, if the HFCLK startup monitor determines that the HFCLK was not started correctly, HFCLKOFF is set.
+    bit_offset: 13
+    bit_size: 1
+  - name: SYSPLLOFF
+    description: SYSPLLOFF indicates if the SYSPLL is disabled or was dead at startup. When the SYSPLL is started, SYSPLLOFF is cleared by hardware. Following startup of the SYSPLL, if the SYSPLL startup monitor determines that the SYSPLL was not started correctly, SYSPLLOFF is set.
+    bit_offset: 14
+    bit_size: 1
+  - name: CURHSCLKSEL
+    description: CURHSCLKSEL indicates the current clock source for HSCLK.
+    bit_offset: 16
+    bit_size: 1
+  - name: HSCLKDEAD
+    description: HSCLKDEAD is set by hardware if the selected source for HSCLK was started but did not start successfully.
+    bit_offset: 20
+    bit_size: 1
+  - name: HSCLKGOOD
+    description: HSCLKGOOD is set by hardware if the selected clock source for HSCLK started successfully.
+    bit_offset: 21
+    bit_size: 1
+  - name: FCLMODE
+    description: FCLMODE indicates if the SYSOSC frequency correction loop (FCL) is enabled.
+    bit_offset: 24
+    bit_size: 1
+  - name: FCCDONE
+    description: FCCDONE indicates when a frequency clock counter capture is complete.
+    bit_offset: 25
+    bit_size: 1
+  - name: HFCLKBLKUPD
+    description: HFCLKBLKUPD indicates when writes to the HFCLKCLKCFG register are blocked.
+    bit_offset: 28
+    bit_size: 1
+  - name: SYSPLLBLKUPD
+    description: SYSPLLBLKUPD indicates when writes to SYSPLLCFG0/1 and SYSPLLPARAM0/1 are blocked.
+    bit_offset: 29
+    bit_size: 1
+fieldset/CMPHNMXSEL:
+  description: Bits to select one of the many sources on CompHN inputs. Refer to Pinmux diagram for details.
+  fields:
+  - name: CMP0HNMXSEL
+    description: CMP0HNMXSEL bits.
+    bit_offset: 0
+    bit_size: 1
+  - name: CMP1HNMXSEL
+    description: CMP1HNMXSEL bits.
+    bit_offset: 1
+    bit_size: 1
+  - name: CMP2HNMXSEL
+    description: CMP2HNMXSEL bits.
+    bit_offset: 2
+    bit_size: 1
+  - name: CMP3HNMXSEL
+    description: CMP3HNMXSEL bits.
+    bit_offset: 3
+    bit_size: 1
+fieldset/CMPHPMXSEL:
+  description: Bits to select one of the many sources on CompHP inputs. Refer to Pinmux diagram for details.
+  fields:
+  - name: CMP0HPMXSEL
+    description: CMP0HPMXSEL bits.
+    bit_offset: 0
+    bit_size: 3
+  - name: CMP1HPMXSEL
+    description: CMP1HPMXSEL bits.
+    bit_offset: 3
+    bit_size: 3
+  - name: CMP2HPMXSEL
+    description: CMP2HPMXSEL bits.
+    bit_offset: 6
+    bit_size: 3
+  - name: CMP3HPMXSEL
+    description: CMP3HPMXSEL bits.
+    bit_offset: 9
+    bit_size: 3
+fieldset/CMPLNMXSEL:
+  description: Bits to select one of the many sources on CompLN inputs. Refer to Pinmux diagram for details.
+  fields:
+  - name: CMP0LNMXSEL
+    description: CMP0LNMXSEL bits.
+    bit_offset: 0
+    bit_size: 1
+  - name: CMP1LNMXSEL
+    description: CMP1LNMXSEL bits.
+    bit_offset: 1
+    bit_size: 1
+  - name: CMP2LNMXSEL
+    description: CMP2LNMXSEL bits.
+    bit_offset: 2
+    bit_size: 1
+  - name: CMP3LNMXSEL
+    description: CMP3LNMXSEL bits.
+    bit_offset: 3
+    bit_size: 1
+fieldset/CMPLPMXSEL:
+  description: Bits to select one of the many sources on CompLP inputs. Refer to Pinmux diagram for details.
+  fields:
+  - name: CMP0LPMXSEL
+    description: CMP0LPMXSEL bits.
+    bit_offset: 0
+    bit_size: 3
+  - name: CMP1LPMXSEL
+    description: CMP1LPMXSEL bits.
+    bit_offset: 3
+    bit_size: 3
+  - name: CMP2LPMXSEL
+    description: CMP2LPMXSEL bits.
+    bit_offset: 6
+    bit_size: 3
+  - name: CMP3LPMXSEL
+    description: CMP3LPMXSEL bits.
+    bit_offset: 9
+    bit_size: 3
+fieldset/CMPSSCTL:
+  description: CMPSS control register.
+  fields:
+  - name: CMP2LDACOUTEN
+    description: Enable general purpose DAC functionality for CMPSS2 COMPDACL.
+    bit_offset: 0
+    bit_size: 1
+  - name: CMP3LDACOUTEN
+    description: Enable general purpose DAC functionality for CMPSS3 COMPDACL.
+    bit_offset: 1
+    bit_size: 1
+  - name: CMPSSCTLEN
+    description: Enable the CMPSSCTL Register.
+    bit_offset: 31
+    bit_size: 1
+fieldset/EXRSTPIN:
+  description: Disable the reset function of the NRST pin.
+  fields:
+  - name: DISABLE
+    description: Set DISABLE to disable the reset function of the NRST pin. Once set, this configuration is locked until the next POR.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: EXRSTPIN_KEY
+fieldset/FCC:
+  description: Frequency clock counter (FCC) count.
+  fields:
+  - name: DATA
+    description: Frequency clock counter (FCC) count value.
+    bit_offset: 0
+    bit_size: 22
+fieldset/FCCCMD:
+  description: Frequency clock counter start capture.
+  fields:
+  - name: GO
+    description: Set GO to start a capture with the frequency clock counter (FCC).
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: FCCCMD_KEY
+fieldset/GENCLKCFG:
+  description: General clock configuration.
+  fields:
+  - name: EXCLKSRC
+    description: EXCLKSRC selects the source for the CLK_OUT external clock output block. ULPCLK and MFPCLK require the CLK_OUT divider (EXCLKDIVEN) to be enabled.
+    bit_offset: 0
+    bit_size: 3
+    enum: EXCLKSRC
+  - name: EXCLKDIVVAL
+    description: EXCLKDIVVAL selects the divider value for the divider in the CLK_OUT external clock output block.
+    bit_offset: 4
+    bit_size: 3
+    enum: EXCLKDIVVAL
+  - name: EXCLKDIVEN
+    description: EXCLKDIVEN enables or disables the divider function of the CLK_OUT external clock output block.
+    bit_offset: 7
+    bit_size: 1
+  - name: CANCLKSRC
+    description: CANCLKSRC selects the CANCLK source.
+    bit_offset: 8
+    bit_size: 1
+  - name: FCCSELCLK
+    description: FCCSELCLK selectes the frequency clock counter (FCC) clock source.
+    bit_offset: 16
+    bit_size: 4
+    enum: FCCSELCLK
+  - name: FCCTRIGSRC
+    description: FCCTRIGSRC selects the frequency clock counter (FCC) trigger source.
+    bit_offset: 20
+    bit_size: 1
+  - name: FCCLVLTRIG
+    description: FCCLVLTRIG selects the frequency clock counter (FCC) trigger mode.
+    bit_offset: 21
+    bit_size: 1
+  - name: FCCTRIGCNT
+    description: FCCTRIGCNT specifies the number of trigger clock periods in the trigger window. FCCTRIGCNT=0h (one trigger clock period) up to 1Fh (32 trigger clock periods) may be specified.
+    bit_offset: 24
+    bit_size: 5
+fieldset/GENCLKEN:
+  description: General clock enable control.
+  fields:
+  - name: EXCLKEN
+    description: EXCLKEN enables the CLK_OUT external clock output block.
+    bit_offset: 0
+    bit_size: 1
+  - name: EXTDIVMCLK
+    description: EXTDIVMCLK selects the divider value for the divider for the PLL Source MCLK.
+    bit_offset: 8
+    bit_size: 3
+    enum: EXTDIVMCLK
+  - name: MCLKEXTDIVEN
+    description: MCLKEXTDIVEN enables or disables the divider function of the PLL Source to MCLK.
+    bit_offset: 11
+    bit_size: 1
+  - name: EXTDIVCAN
+    description: EXTDIVCAN selects the divider value for the divider for the PLL Source to CAN.
+    bit_offset: 12
+    bit_size: 3
+    enum: EXTDIVCAN
+  - name: CANEXTDIVEN
+    description: CANEXTDIVEN enables or disables the divider function of the PLL Source to CAN.
+    bit_offset: 15
+    bit_size: 1
+fieldset/HFCLKCLKCFG:
+  description: High-frequency clock (HFCLK) configuration.
+  fields:
+  - name: XTALTIME
+    description: XTALTIME specifies the XTAL startup time in 64us resolution. If the HFCLK startup monitor is enabled (HFCLKFLTCHK), XTAL will be checked after this time expires.
+    bit_offset: 0
+    bit_size: 8
+  - name: HFCLKFLTCHK
+    description: HFCLKFLTCHK enables or disables the HFCLK startup monitor.
+    bit_offset: 28
+    bit_size: 1
+fieldset/HSCLKCFG:
+  description: High-speed clock (HSCLK) source selection.
+  fields:
+  - name: HSCLKSEL
+    description: HSCLKSEL selects the HSCLK source (SYSPLL or HFCLK).
+    bit_offset: 0
+    bit_size: 1
+fieldset/HSCLKEN:
+  description: High-speed clock (HSCLK) source enable/disable.
+  fields:
+  - name: SYSPLLEN
+    description: SYSPLLEN enables or disables the system phase-lock loop (SYSPLL).
+    bit_offset: 8
+    bit_size: 1
+  - name: USEEXTHFCLK
+    description: USEEXTHFCLK selects the HFCLK_IN digital clock input to be the source for HFCLK.
+    bit_offset: 16
+    bit_size: 1
+fieldset/IIDX:
+  description: SYSCTL interrupt index.
+  fields:
+  - name: STAT
+    description: The SYSCTL interrupt index (IIDX) register generates a value corresponding to the highest priority pending interrupt source. This value may be used as an address offset for fast, deterministic handling in the interrupt service routine. A read of the IIDX register will clear the corresponding interrupt status in the RIS and MIS registers.
+    bit_offset: 0
+    bit_size: 3
+    enum: IIDX_STAT
+fieldset/INT:
+  description: SYSCTL interrupt clear.
+  fields:
+  - name: LFOSCGOOD
+    description: Clear the LFOSCGOOD interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: FLASHSEC
+    description: Flash Single Error Correct.
+    bit_offset: 2
+    bit_size: 1
+  - name: HFCLKGOOD
+    description: HFCLK GOOD.
+    bit_offset: 4
+    bit_size: 1
+  - name: SYSPLLGOOD
+    description: SYSPLL GOOD.
+    bit_offset: 5
+    bit_size: 1
+  - name: HSCLKGOOD
+    description: HSCLK GOOD.
+    bit_offset: 6
+    bit_size: 1
+fieldset/INTERNALTESTCTL:
+  description: Internal Test Node Control Register.
+  fields:
+  - name: TESTSEL
+    description: Test Select.
+    bit_offset: 0
+    bit_size: 6
+fieldset/MCLKCFG:
+  description: Main clock (MCLK) configuration.
+  fields:
+  - name: USEHSCLK
+    description: USEHSCLK, together with USELFCLK, sets the MCLK source policy. Set USEHSCLK to use HSCLK (HFCLK or SYSPLL) as the MCLK source in RUN and SLEEP modes.
+    bit_offset: 16
+    bit_size: 1
+  - name: USELFCLK
+    description: LFCLK is not an MCLK sourcei in PD1, tied 0.
+    bit_offset: 20
+    bit_size: 1
+  - name: STOPCLKSTBY
+    description: STOPCLKSTBY sets the STANDBY mode policy (STANDBY0 or STANDBY1). When set, ULPCLK and LFCLK are disabled to all peripherals in STANDBY mode, with the exception of TIMG0 and TIMG1 which continue to run. Wake-up is only possible via an asynchronous fast clock request.
+    bit_offset: 21
+    bit_size: 1
+  - name: MCLKDEADCHK
+    description: MCLKDEADCHK enables or disables the continuous MCLK dead check monitor. LFCLK must be running before MCLKDEADCHK is enabled.
+    bit_offset: 22
+    bit_size: 1
+  - name: MCLKDIVCFG
+    description: MCLK Divider Configuration bits [1:0] are defined as MCLK4 is Bypass, MCLK2 is Bypass.
+    bit_offset: 24
+    bit_size: 3
+    enum: MCLKDIVCFG
+fieldset/MLDOLPENCFG:
+  description: LDO Configuration Control.
+  fields:
+  - name: CVLODIS
+    description: Control to disable lowering the core voltage for STOP and STANDBY.
+    bit_offset: 0
+    bit_size: 1
+fieldset/NMI:
+  description: NMI interrupt clear.
+  fields:
+  - name: WWDT0
+    description: Watch Dog 0 Fault.
+    bit_offset: 1
+    bit_size: 1
+  - name: SECURITY
+    description: Security Fault.
+    bit_offset: 2
+    bit_size: 1
+  - name: FLASHDED
+    description: Flash Double Error Detect.
+    bit_offset: 3
+    bit_size: 1
+  - name: SRAMPAR
+    description: SRAM Parity Error Detect.
+    bit_offset: 4
+    bit_size: 1
+  - name: TMUROMPAR
+    description: TMU ROM Parity error.
+    bit_offset: 5
+    bit_size: 1
+  - name: SYSMEMACC
+    description: SYSMEM Access error.
+    bit_offset: 6
+    bit_size: 1
+fieldset/NMIIIDX:
+  description: NMI interrupt index.
+  fields:
+  - name: STAT
+    description: The NMI interrupt index (NMIIIDX) register generates a value corresponding to the highest priority pending NMI source. This value may be used as an address offset for fast, deterministic handling in the NMI service routine. A read of the NMIIIDX register will clear the corresponding interrupt status in the NMIRIS register.
+    bit_offset: 0
+    bit_size: 3
+    enum: NMIIIDX_STAT
+fieldset/PERCLKCR:
+  description: PWM Time Base Clock sync.
+  fields:
+  - name: TBCLKSYNC
+    description: 'PWM Time Base Clock sync: When set PWM time bases of all the PWM modules belonging to the same CPU-Subsystem (as partitioned using their CPUSEL bits) start counting.'
+    bit_offset: 0
+    bit_size: 1
+fieldset/PMODECFG:
+  description: Power mode configuration.
+  fields:
+  - name: DSLEEP
+    description: DSLEEP selects the operating mode to enter upon a DEEPSLEEP request from the CPU.
+    bit_offset: 0
+    bit_size: 2
+    enum: DSLEEP
+fieldset/PWREN_MCPERIPH:
+  description: Register to control the power state.
+  fields:
+  - name: eqep0
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: eqep1
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: eqep2
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 2
+    bit_size: 1
+  - name: ecap0
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 3
+    bit_size: 1
+  - name: ecap1
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: pwm0
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 5
+    bit_size: 1
+  - name: pwm1
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 6
+    bit_size: 1
+  - name: pwm2
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 7
+    bit_size: 1
+  - name: pwm3
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 8
+    bit_size: 1
+  - name: pwm4
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 9
+    bit_size: 1
+  - name: cmpss0
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 10
+    bit_size: 1
+  - name: cmpss1
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 11
+    bit_size: 1
+  - name: cmpss2
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 12
+    bit_size: 1
+  - name: cmpss3
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 13
+    bit_size: 1
+  - name: xbar
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 14
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: PWREN_MCPERIPH_KEY
+fieldset/PWREN_SYSPERIPH:
+  description: Register to control the power state.
+  fields:
+  - name: tinie
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: pga0
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: pga1
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 2
+    bit_size: 1
+  - name: pga2
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 3
+    bit_size: 1
+  - name: epi
+    description: Enable the power to IP, KEY must be set to 26h to write to this bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: PWREN_SYSPERIPH_KEY
+fieldset/RESETCMD:
+  description: Execute an application-triggered reset command.
+  fields:
+  - name: GO
+    description: Execute the reset specified in RESETLEVEL.LEVEL. Must be written together with the KEY.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: RESETCMD_KEY
+fieldset/RESETLEVEL:
+  description: Reset level for application-triggered reset command.
+  fields:
+  - name: LEVEL
+    description: LEVEL is used to specify the type of reset to be issued when RESETCMD is set to generate a software triggered reset.
+    bit_offset: 0
+    bit_size: 3
+    enum: LEVEL
+fieldset/RSTCAUSE:
+  description: Reset cause.
+  fields:
+  - name: ID
+    description: ID is a read-to-clear field which indicates the lowest level reset cause since the last read.
+    bit_offset: 0
+    bit_size: 5
+    enum: ID
+fieldset/RSTCTL_ASSERT_MCPERIPH:
+  description: rstctl assert register to control reset assertion - Write Only Register, Always Read as 0.
+  fields:
+  - name: RESETASSERT_eqep0
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: RESETASSERT_eqep1
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: RESETASSERT_eqep2
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 2
+    bit_size: 1
+  - name: RESETASSERT_ecap0
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 3
+    bit_size: 1
+  - name: RESETASSERT_ecap1
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: RESETASSERT_pwm0
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 5
+    bit_size: 1
+  - name: RESETASSERT_pwm1
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 6
+    bit_size: 1
+  - name: RESETASSERT_pwm2
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 7
+    bit_size: 1
+  - name: RESETASSERT_pwm3
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 8
+    bit_size: 1
+  - name: RESETASSERT_pwm4
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 9
+    bit_size: 1
+  - name: RESETASSERT_cmpss0
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 10
+    bit_size: 1
+  - name: RESETASSERT_cmpss1
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 11
+    bit_size: 1
+  - name: RESETASSERT_cmpss2
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 12
+    bit_size: 1
+  - name: RESETASSERT_cmpss3
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 13
+    bit_size: 1
+  - name: RESETASSERT_xbar
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 14
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: RSTCTL_ASSERT_MCPERIPH_KEY
+fieldset/RSTCTL_ASSERT_SYSPERIPH:
+  description: rstcl assert Register - Write Only Register, Always Read as 0.
+  fields:
+  - name: RESETASSERT_tinie
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: RESETASSERT_pga0
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: RESETASSERT_pga1
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 2
+    bit_size: 1
+  - name: RESETASSERT_pga2
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 3
+    bit_size: 1
+  - name: RESETASSERT_epi
+    description: assert reset to the peripheral, KEY must be set to B1h to write to this bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: RSTCTL_ASSERT_SYSPERIPH_KEY
+fieldset/RSTCTL_CLEAR_MCPERIPH:
+  description: rstctl clear register to control reset de-assertion - Write Only Register, Always Read as 0.
+  fields:
+  - name: RESETSTKYCLR_eqep0
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: RESETSTKYCLR_eqep1
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: RESETSTKYCLR_eqep2
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 2
+    bit_size: 1
+  - name: RESETSTKYCLR_ecap0
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 3
+    bit_size: 1
+  - name: RESETSTKYCLR_ecap1
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: RESETSTKYCLR_pwm0
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 5
+    bit_size: 1
+  - name: RESETSTKYCLR_pwm1
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 6
+    bit_size: 1
+  - name: RESETSTKYCLR_pwm2
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 7
+    bit_size: 1
+  - name: RESETSTKYCLR_pwm3
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 8
+    bit_size: 1
+  - name: RESETSTKYCLR_pwm4
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 9
+    bit_size: 1
+  - name: RESETSTKYCLR_cmpss0
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 10
+    bit_size: 1
+  - name: RESETSTKYCLR_cmpss1
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 11
+    bit_size: 1
+  - name: RESETSTKYCLR_cmpss2
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 12
+    bit_size: 1
+  - name: RESETSTKYCLR_cmpss3
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 13
+    bit_size: 1
+  - name: RESETSTKYCLR_xbar
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 14
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: RSTCTL_CLEAR_MCPERIPH_KEY
+fieldset/RSTCTL_CLEAR_SYSPERIPH:
+  description: rstctl clear register to control reset de-assertion - Write Only Register, Always Read as 0.
+  fields:
+  - name: RESETSTKYCLR_tinie
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: RESETSTKYCLR_pga0
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: RESETSTKYCLR_pga1
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 2
+    bit_size: 1
+  - name: RESETSTKYCLR_pga2
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 3
+    bit_size: 1
+  - name: RESETSTKYCLR_epi
+    description: Clear the RESETSTKY bit in the STAT register, KEY must be set to B1h to write to this bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: RSTCTL_CLEAR_SYSPERIPH_KEY
+fieldset/SHDNIOREL:
+  description: SHUTDOWN IO release control.
+  fields:
+  - name: RELEASE
+    description: Set RELEASE to release the IO after a SHUTDOWN mode exit.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: SHDNIOREL_KEY
+fieldset/SHUTDNSTORE0:
+  description: Shutdown storage memory (byte 0).
+  fields:
+  - name: DATA
+    description: Shutdown storage byte 0.
+    bit_offset: 0
+    bit_size: 8
+fieldset/SHUTDNSTORE1:
+  description: Shutdown storage memory (byte 1).
+  fields:
+  - name: DATA
+    description: Shutdown storage byte 1.
+    bit_offset: 0
+    bit_size: 8
+fieldset/SHUTDNSTORE2:
+  description: Shutdown storage memory (byte 2).
+  fields:
+  - name: DATA
+    description: Shutdown storage byte 2.
+    bit_offset: 0
+    bit_size: 8
+fieldset/SHUTDNSTORE3:
+  description: Shutdown storage memory (byte 3).
+  fields:
+  - name: DATA
+    description: Shutdown storage byte 3.
+    bit_offset: 0
+    bit_size: 8
+fieldset/SRAMCFG:
+  description: System SRAM configuration.
+  fields:
+  - name: BANKINITDIS0
+    description: SRAM BANK0 Initialization.
+    bit_offset: 16
+    bit_size: 1
+  - name: BANKINITDIS1
+    description: SRAM BANK1 Initialization.
+    bit_offset: 17
+    bit_size: 1
+  - name: BANKINITDIS2
+    description: SRAM BANK2 Initialization.
+    bit_offset: 18
+    bit_size: 1
+  - name: BANKINITDIS3
+    description: SRAM BANK3 Initialization.
+    bit_offset: 19
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: SRAMCFG_KEY
+fieldset/STAT_MCPERIPH:
+  description: IP State Register - Read Only.
+  fields:
+  - name: eqep0
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 0
+    bit_size: 1
+  - name: eqep1
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 1
+    bit_size: 1
+  - name: eqep2
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 2
+    bit_size: 1
+  - name: ecap0
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 3
+    bit_size: 1
+  - name: ecap1
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 4
+    bit_size: 1
+  - name: pwm0
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 5
+    bit_size: 1
+  - name: pwm1
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 6
+    bit_size: 1
+  - name: pwm2
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 7
+    bit_size: 1
+  - name: pwm3
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 8
+    bit_size: 1
+  - name: pwm4
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 9
+    bit_size: 1
+  - name: cmpss0
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 10
+    bit_size: 1
+  - name: cmpss1
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 11
+    bit_size: 1
+  - name: cmpss2
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 12
+    bit_size: 1
+  - name: cmpss3
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 13
+    bit_size: 1
+  - name: xbar
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 14
+    bit_size: 1
+fieldset/STAT_SYSPERIPH:
+  description: IP State Register - Read Only.
+  fields:
+  - name: tinie
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 0
+    bit_size: 1
+  - name: pga0
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 1
+    bit_size: 1
+  - name: pga1
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 2
+    bit_size: 1
+  - name: pga2
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 3
+    bit_size: 1
+  - name: epi
+    description: This bit indicates, if the peripheral was reset, since this bit was cleared by RESETSTKYCLR in the RSTCTL register.
+    bit_offset: 4
+    bit_size: 1
+fieldset/SWDJCFG:
+  description: Disable the SWD/JTAG function on the SWD/JTAG pins.
+  fields:
+  - name: DISABLE
+    description: Set DISABLE to disable the SWD/JTAG function on SWD/JTAG pins, allowing the SWD/JTAG pins to be used as GPIO.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: SWDJCFG_KEY
+fieldset/SYSOSCCFG:
+  description: SYSOSC configuration.
+  fields:
+  - name: DISABLE
+    description: DISABLE sets the SYSOSC enable/disable policy. SYSOSC may be powered off in RUN, SLEEP, and STOP modes to reduce power consumption. When SYSOSC is disabled, MCLK and ULPCLK are sourced from LFCLK.
+    bit_offset: 10
+    bit_size: 1
+  - name: BLOCKASYNCALL
+    description: BLOCKASYNCALL may be used to mask block all asynchronous fast clock requests, preventing hardware from dynamically changing the active clock configuration when operating in a given mode.
+    bit_offset: 16
+    bit_size: 1
+  - name: FASTCPUEVENT
+    description: if disabled CPU will not wakeup and continue in STANDBY.
+    bit_offset: 17
+    bit_size: 1
+fieldset/SYSOSCFCLCTL:
+  description: SYSOSC frequency correction loop (FCL) ROSC enable.
+  fields:
+  - name: SETUSEFCL
+    description: Set SETUSEFCL to enable the frequency correction loop in SYSOSC. Once enabled, this state is locked until the next BOOTRST.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: SYSOSCFCLCTL_KEY
+fieldset/SYSPLLCFG0:
+  description: SYSPLL reference and output configuration.
+  fields:
+  - name: SYSPLLREF
+    description: SYSPLLREF selects the system PLL (SYSPLL) reference clock source.
+    bit_offset: 0
+    bit_size: 1
+  - name: ENABLECLK0
+    description: ENABLECLK0 enables or disables the SYSPLLCLK0 output.
+    bit_offset: 4
+    bit_size: 1
+  - name: ENABLECLK1
+    description: ENABLECLK1 enables or disables the SYSPLLCLK1 output.
+    bit_offset: 5
+    bit_size: 1
+  - name: RDIVCLK0
+    description: RDIVCLK0 sets the final divider for the SYSPLLCLK0 output.
+    bit_offset: 8
+    bit_size: 4
+    enum: RDIVCLK0
+  - name: RDIVCLK1
+    description: RDIVCLK1 sets the final divider for the SYSPLLCLK1 output.
+    bit_offset: 12
+    bit_size: 4
+    enum: RDIVCLK1
+fieldset/SYSPLLCFG1:
+  description: SYSPLL reference and feedback divider.
+  fields:
+  - name: PDIV
+    description: PDIV selects the SYSPLL reference clock prescale divider.
+    bit_offset: 0
+    bit_size: 2
+    enum: PDIV
+  - name: QDIV
+    description: QDIV selects the SYSPLL feedback path divider.
+    bit_offset: 8
+    bit_size: 7
+fieldset/SYSPLLLDOCTL:
+  description: SYSPLL LDO CTL (load from FACTORY region).
+  fields:
+  - name: LDOCTLLOWV
+    description: LDO Configurability.
+    bit_offset: 0
+    bit_size: 16
+fieldset/SYSPLLLDOPROG:
+  description: SYSPLL LDO VOUT PROG (load from FACTORY region).
+  fields:
+  - name: LDOVOUTPROGLOWV
+    description: HPLL LDO Vout Prog.
+    bit_offset: 0
+    bit_size: 3
+fieldset/SYSPLLPARAM0:
+  description: SYSPLL PARAM0 (load from FACTORY region).
+  fields:
+  - name: STARTTIME
+    description: Startup time from enable to locked clock, in 1us resolution.
+    bit_offset: 0
+    bit_size: 7
+  - name: STARTTIMELP
+    description: Startup time from low power mode exit to locked clock, in 1us resolution.
+    bit_offset: 8
+    bit_size: 7
+  - name: CPCURRENT
+    description: Charge pump current.
+    bit_offset: 16
+    bit_size: 6
+  - name: CAPBVAL
+    description: Override value for Cap B.
+    bit_offset: 24
+    bit_size: 5
+  - name: CAPBOVERRIDE
+    description: CAPBOVERRIDE controls the override for Cap B.
+    bit_offset: 31
+    bit_size: 1
+fieldset/SYSPLLPARAM1:
+  description: SYSPLL PARAM1 (load from FACTORY region).
+  fields:
+  - name: LPFCAPA
+    description: Loop filter Cap A.
+    bit_offset: 0
+    bit_size: 5
+  - name: LPFRESA
+    description: Loop filter Res A.
+    bit_offset: 8
+    bit_size: 10
+  - name: LPFRESC
+    description: Loop filter Res C.
+    bit_offset: 24
+    bit_size: 8
+fieldset/SYSPLLPARAM2:
+  description: SYSPLL PARAM2 (load from FACTORY region).
+  fields:
+  - name: LPFCAPC
+    description: Loop filter Cap C.
+    bit_offset: 0
+    bit_size: 2
+  - name: RNGFIXVCOIBIASCFG
+    description: 0 value for Temperature Compensation R addition.
+    bit_offset: 3
+    bit_size: 1
+fieldset/SYSSTATUS:
+  description: System status information.
+  fields:
+  - name: FLASHDED
+    description: FLASHDED indicates if a flash ECC double bit error was detected (DED).
+    bit_offset: 0
+    bit_size: 1
+  - name: FLASHSEC
+    description: FLASHSEC indicates if a flash ECC single bit error was detected and corrected (SEC).
+    bit_offset: 1
+    bit_size: 1
+  - name: PMUIREFGOOD
+    description: PMUIREFGOOD is set by hardware when the PMU current reference is ready.
+    bit_offset: 6
+    bit_size: 1
+  - name: MCAN0READY
+    description: MCAN0READY indicates when the MCAN0 peripheral is ready.
+    bit_offset: 8
+    bit_size: 1
+  - name: EXTRSTPINDIS
+    description: EXTRSTPINDIS indicates when user has disabled the use of external reset pin.
+    bit_offset: 12
+    bit_size: 1
+  - name: SWDJCFGDIS
+    description: SWDJCFGDIS indicates when user has disabled the use of SWD/JTAG Port.
+    bit_offset: 13
+    bit_size: 1
+  - name: SHDNIOLOCK
+    description: SHDNIOLOCK indicates when IO is locked due to SHUTDOWN.
+    bit_offset: 14
+    bit_size: 1
+  - name: SRAMBANK0READY
+    description: SRAM BANK0 READY STATE.
+    bit_offset: 16
+    bit_size: 1
+  - name: SRAMBANK1READY
+    description: SRAM BANK1 READY STATE.
+    bit_offset: 17
+    bit_size: 1
+  - name: SRAMBANK2READY
+    description: SRAM BANK2 READY STATE.
+    bit_offset: 18
+    bit_size: 1
+  - name: SRAMBANK3READY
+    description: SRAM BANK3 READY STATE.
+    bit_offset: 19
+    bit_size: 1
+  - name: REBOOTATTEMPTS
+    description: REBOOTATTEMPTS indicates the number of boot attempts taken before the user application starts.
+    bit_offset: 30
+    bit_size: 2
+fieldset/SYSSTATUSCLR:
+  description: Clear sticky bits of SYSSTATUS.
+  fields:
+  - name: ALLECC
+    description: Set ALLECC to clear all ECC related SYSSTATUS indicators.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: SYSSTATUSCLR_KEY
+fieldset/SYSTEMCFG:
+  description: System configuration.
+  fields:
+  - name: WWDTLP0RSTDIS
+    description: WWDTLP0RSTDIS specifies whether a WWDT Error Event will trigger a BOOTRST or an NMI.
+    bit_offset: 0
+    bit_size: 1
+  - name: FLASHECCRSTDIS
+    description: FLASHECCRSTDIS specifies whether a flash ECC double error detect (DED) will trigger a SYSRST or an NMI.
+    bit_offset: 2
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: SYSTEMCFG_KEY
+fieldset/TSNSSCTL:
+  description: Temperature Sensor Control Register.
+  fields:
+  - name: ENABLE
+    description: Temperature Sensor Enable.
+    bit_offset: 0
+    bit_size: 1
+fieldset/WRITELOCK:
+  description: SYSCTL register write lockout.
+  fields:
+  - name: ACTIVE
+    description: ACTIVE controls whether critical SYSCTL registers are write protected or not.
+    bit_offset: 0
+    bit_size: 1
+fieldset/X1CNT:
+  description: x1cnt status register.
+  fields:
+  - name: X1CNT
+    description: This counter increments on every X1 CLOCKs positive-edge. Once it reaches the values of 0x7ff, it freezes. Before switching from SYSOSC/PLL clock to X1, application must check this counter and make sure that it has saturated. This will ensure that the Crystal connected to X1/X2 is oscillating.
+    bit_offset: 0
+    bit_size: 11
+  - name: CLR
+    description: 'X1 Counter clear: A write of 1 to this bit field clears the X1CNT and makes it count from 0x0 again (provided X1 clock is ticking). Writes of 0 are ignore to this bit field.'
+    bit_offset: 16
+    bit_size: 1
+fieldset/XTALCR:
+  description: XTAL Control Register.
+  fields:
+  - name: OSCOFF
+    description: This bit if 1, powers-down the XTAL oscillator macro and hence doesnt let X2 to be driven by the XTAL oscillator. If a crystal is connected to X1/X2, user needs to first clear this bit, wait for the oscillator to power up (using X1CNT) and then only switch the clock source to X1/X2.
+    bit_offset: 0
+    bit_size: 1
+  - name: SE
+    description: XTAL Oscilator in Single-Ended.
+    bit_offset: 1
+    bit_size: 1
+fieldset/XTALCR2:
+  description: XTAL Control Register for pad init.
+  fields:
+  - name: XIF
+    description: XI Initial value deposited before XOSC start. Polarity selection to initialise XI/X1 pad of the XOSC before start-up. This value shall be deposited on the pad before XOSC started (XOSCOFF=1). If FEN=0 or XOSC is in XTAL or SE mode; then this value will not be applied to the pad.
+    bit_offset: 0
+    bit_size: 1
+  - name: XOF
+    description: XO Initial value deposited before XOSC start. Polarity selection to initialise XO/X2 pad of the XOSC before start-up. This value shall be deposited on the pad before XOSC started (XOSCOFF=1). If FEN=0 or XOSC is in XTAL or SE mode; then this value will not be applied to the pad.
+    bit_offset: 1
+    bit_size: 1
+  - name: FEN
+    description: XOSC pads initialisation enable. Configures XTAL oscillator pad initilisation. This register has effect only when XOSC is OFF (no SE , no XTAL mode). If this register is set during XOSC off state (XOSCOFF=1 & SE=0); then upon change of these controls this bit gets reset and rearmed.
+    bit_offset: 2
+    bit_size: 1
+  - name: FKEEPXI
+    description: 'This field when written 0xface allows to hold the force value on XI as programmed on XIF. 0xface: Force on XI is continued as per XIF value regardless of XOSC ON/OFF state only in XTAL mode. In Single ended mode this field has no impact. Any other value: Force on XI is removed with enabling of XOSC as per FEN function.'
+    bit_offset: 16
+    bit_size: 16
+enum/DSLEEP:
+  bit_size: 2
+  variants:
+  - name: STOP
+    description: STOP mode is entered.
+    value: 0
+  - name: STANDBY
+    description: STANDBY mode is entered.
+    value: 1
+  - name: SHUTDOWN
+    description: SHUTDOWN mode is entered.
+    value: 2
+  - name: RESERVED
+    description: Reserved.
+    value: 3
+enum/EXCLKDIVVAL:
+  bit_size: 3
+  variants:
+  - name: DIV2
+    description: CLK_OUT source is divided by 2.
+    value: 0
+  - name: DIV4
+    description: CLK_OUT source is divided by 4.
+    value: 1
+  - name: DIV6
+    description: CLK_OUT source is divided by 6.
+    value: 2
+  - name: DIV8
+    description: CLK_OUT source is divided by 8.
+    value: 3
+  - name: DIV10
+    description: CLK_OUT source is divided by 10.
+    value: 4
+  - name: DIV12
+    description: CLK_OUT source is divided by 12.
+    value: 5
+  - name: DIV14
+    description: CLK_OUT source is divided by 14.
+    value: 6
+  - name: DIV16
+    description: CLK_OUT source is divided by 16.
+    value: 7
+enum/EXCLKSRC:
+  bit_size: 3
+  variants:
+  - name: SYSOSC
+    description: CLK_OUT is SYSOSC.
+    value: 0
+  - name: ULPCLK
+    description: CLK_OUT is ULPCLK (EXCLKDIVEN must be enabled).
+    value: 1
+  - name: LFCLK
+    description: CLK_OUT is LFCLK.
+    value: 2
+  - name: MFPCLK
+    description: CLK_OUT is MFPCLK (EXCLKDIVEN must be enabled).
+    value: 3
+  - name: HFCLK
+    description: CLK_OUT is HFCLK.
+    value: 4
+  - name: SYSPLLOUT1
+    description: CLK_OUT is SYSPLLCLK1 (SYSPLLCLK1 must be <=48MHz).
+    value: 5
+enum/EXRSTPIN_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 30
+enum/EXTDIVCAN:
+  bit_size: 3
+  variants:
+  - name: DIV2
+    description: CLK_OUT source is divided by 2.
+    value: 0
+  - name: DIV4
+    description: CLK_OUT source is divided by 4.
+    value: 1
+  - name: DIV6
+    description: CLK_OUT source is divided by 6.
+    value: 2
+  - name: DIV8
+    description: CLK_OUT source is divided by 8.
+    value: 3
+  - name: DIV10
+    description: CLK_OUT source is divided by 10.
+    value: 4
+  - name: DIV12
+    description: CLK_OUT source is divided by 12.
+    value: 5
+  - name: DIV14
+    description: CLK_OUT source is divided by 14.
+    value: 6
+  - name: DIV16
+    description: CLK_OUT source is divided by 16.
+    value: 7
+enum/EXTDIVMCLK:
+  bit_size: 3
+  variants:
+  - name: DIV2
+    description: CLK_OUT source is divided by 2.
+    value: 0
+  - name: DIV4
+    description: CLK_OUT source is divided by 4.
+    value: 1
+  - name: DIV6
+    description: CLK_OUT source is divided by 6.
+    value: 2
+  - name: DIV8
+    description: CLK_OUT source is divided by 8.
+    value: 3
+  - name: DIV10
+    description: CLK_OUT source is divided by 10.
+    value: 4
+  - name: DIV12
+    description: CLK_OUT source is divided by 12.
+    value: 5
+  - name: DIV14
+    description: CLK_OUT source is divided by 14.
+    value: 6
+  - name: DIV16
+    description: CLK_OUT source is divided by 16.
+    value: 7
+enum/FCCCMD_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 14
+enum/FCCSELCLK:
+  bit_size: 4
+  variants:
+  - name: MCLKBY4
+    description: FCC clock is MCLK/4.
+    value: 0
+  - name: SYSOSC
+    description: FCC clock is SYSOSC.
+    value: 1
+  - name: HFCLK
+    description: FCC clock is HFCLK.
+    value: 2
+  - name: EXTCLK
+    description: FCC clock is the CLK_OUT selection.
+    value: 3
+  - name: SYSPLLCLK0
+    description: FCC clock is SYSPLLCLK0.
+    value: 4
+  - name: SYSPLLCLK1
+    description: FCC clock is SYSPLLCLK1.
+    value: 5
+  - name: Reserved
+    description: Reserved.
+    value: 6
+  - name: FCCIN
+    description: FCC clock is the FCCIN external input.
+    value: 7
+enum/ID:
+  bit_size: 5
+  variants:
+  - name: NORST
+    description: No reset since last read.
+    value: 0
+  - name: PORHWFAIL
+    description: POR- violation, SHUTDNSTOREx or PMU trim parity fault.
+    value: 1
+  - name: POREXNRST
+    description: NRST triggered POR (>1s hold).
+    value: 2
+  - name: PORSW
+    description: Software triggered POR.
+    value: 3
+  - name: BORSUPPLY
+    description: BOR0- violation.
+    value: 4
+  - name: BORWAKESHUTDN
+    description: SHUTDOWN mode exit.
+    value: 5
+  - name: BOOTNONPMUPARITY
+    description: Non-PMU trim parity fault.
+    value: 8
+  - name: BOOTCLKFAIL
+    description: Fatal clock failure.
+    value: 9
+  - name: BOOTEXNRST
+    description: NRST triggered BOOTRST (<1s hold).
+    value: 12
+  - name: BOOTSW
+    description: Software triggered BOOTRST.
+    value: 13
+  - name: BOOTWWDT0
+    description: WWDT0 violation.
+    value: 14
+  - name: SYSBSLEXIT
+    description: BSL exit.
+    value: 16
+  - name: SYSBSLENTRY
+    description: BSL entry.
+    value: 17
+  - name: SYSFLASHECC
+    description: Flash uncorrectable ECC error.
+    value: 20
+  - name: SYSCPULOCK
+    description: CPULOCK violation.
+    value: 21
+  - name: SYSDBG
+    description: Debug triggered SYSRST.
+    value: 26
+  - name: SYSSW
+    description: Software triggered SYSRST.
+    value: 27
+  - name: CPUDBG
+    description: Debug triggered CPURST.
+    value: 28
+  - name: CPUSW
+    description: Software triggered CPURST.
+    value: 29
+enum/IIDX_STAT:
+  bit_size: 3
+  variants:
+  - name: NO_INTR
+    description: No interrupt pending.
+    value: 0
+  - name: LFOSCGOOD
+    description: LFOSCGOOD interrupt pending.
+    value: 1
+  - name: ANACLKERR
+    description: ANACLKERR.
+    value: 2
+  - name: FLASHSEC
+    description: FLASHSEC.
+    value: 3
+  - name: SRAMSEC
+    description: SRAMSEC.
+    value: 4
+  - name: HFCLKGOOD
+    description: HFCLKGOOD.
+    value: 5
+  - name: SYSPLLGOOD
+    description: SYSPLLGOOD.
+    value: 6
+  - name: HSCLKGOOD
+    description: HSCLKGOOD.
+    value: 7
+enum/LEVEL:
+  bit_size: 3
+  variants:
+  - name: SYS
+    description: Issue a SYSRST (CPU plus peripherals only).
+    value: 0
+  - name: BOOT
+    description: Issue a BOOTRST (CPU, peripherals, and boot configuration routine).
+    value: 1
+  - name: BOOTLOADERENTRY
+    description: Issue a SYSRST and enter the boot strap loader (BSL).
+    value: 2
+  - name: POR
+    description: Issue a power-on reset (POR).
+    value: 3
+  - name: BOOTLOADEREXIT
+    description: Issue a SYSRST and exit the boot strap loader (BSL).
+    value: 4
+enum/MCLKDIVCFG:
+  bit_size: 3
+  variants:
+  - name: RATIO_1_1_1
+    description: 'MCLK: No Divide, MCLK2: No Divide, MCLK4: No Divide.'
+    value: 0
+  - name: RATIO_1_1_2
+    description: 'MCLK: No Divide, MCLK2: No Divide, MCLK4: Divide MCLK by 2.'
+    value: 1
+  - name: RATIO_1_1_4
+    description: 'MCLK: No Divide, MCLK2: No Divide, MCLK4: Divide MCLK by 4.'
+    value: 3
+  - name: RATIO_1_2_2
+    description: 'MCLK: No Divide, MCLK2: Divide MCLK by 2, MCLK4: Divide MCLK by 2.'
+    value: 5
+  - name: RATIO_1_2_4
+    description: 'MCLK: No Divide, MCLK2: Divide MCLK by 2, MCLK4: MCLK by 4.'
+    value: 7
+enum/NMIIIDX_STAT:
+  bit_size: 3
+  variants:
+  - name: NO_INTR
+    description: No NMI pending.
+    value: 0
+  - name: BORLVL
+    description: Reserved.
+    value: 1
+  - name: WWDT0
+    description: WWDT0.
+    value: 2
+  - name: SECURITY
+    description: SECURITY.
+    value: 3
+  - name: FLASHDED
+    description: FLASHDED.
+    value: 4
+  - name: SRAMPAR
+    description: SRAMPAR.
+    value: 5
+  - name: TMUROMPAR
+    description: TMUROMPAR.
+    value: 6
+  - name: SYSMEMACC
+    description: SYSMEMACC.
+    value: 7
+enum/PDIV:
+  bit_size: 2
+  variants:
+  - name: REFDIV1
+    description: SYSPLLREF is not divided.
+    value: 0
+  - name: REFDIV2
+    description: SYSPLLREF is divided by 2.
+    value: 1
+  - name: REFDIV4
+    description: SYSPLLREF is divided by 4.
+    value: 2
+  - name: REFDIV8
+    description: SYSPLLREF is divided by 8.
+    value: 3
+enum/PWREN_MCPERIPH_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 38
+enum/PWREN_SYSPERIPH_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 38
+enum/RDIVCLK0:
+  bit_size: 4
+  variants:
+  - name: CLK0DIV2
+    description: SYSPLLCLK0 is divided by 2.
+    value: 0
+  - name: CLK0DIV4
+    description: SYSPLLCLK0 is divided by 4.
+    value: 1
+  - name: CLK0DIV6
+    description: SYSPLLCLK0 is divided by 6.
+    value: 2
+  - name: CLK0DIV8
+    description: SYSPLLCLK0 is divided by 8.
+    value: 3
+  - name: CLK0DIV10
+    description: SYSPLLCLK0 is divided by 10.
+    value: 4
+  - name: CLK0DIV12
+    description: SYSPLLCLK0 is divided by 12.
+    value: 5
+  - name: CLK0DIV14
+    description: SYSPLLCLK0 is divided by 14.
+    value: 6
+  - name: CLK0DIV16
+    description: SYSPLLCLK0 is divided by 16.
+    value: 7
+  - name: CLK0DIV18
+    description: SYSPLLCLK0 is divided by 18.
+    value: 8
+  - name: CLK0DIV20
+    description: SYSPLLCLK0 is divided by 20.
+    value: 9
+  - name: CLK0DIV22
+    description: SYSPLLCLK0 is divided by 22.
+    value: 10
+  - name: CLK0DIV24
+    description: SYSPLLCLK0 is divided by 24.
+    value: 11
+  - name: CLK0DIV26
+    description: SYSPLLCLK0 is divided by 26.
+    value: 12
+  - name: CLK0DIV28
+    description: SYSPLLCLK0 is divided by 28.
+    value: 13
+  - name: CLK0DIV30
+    description: SYSPLLCLK0 is divided by 30.
+    value: 14
+  - name: CLK0DIV32
+    description: SYSPLLCLK0 is divided by 32.
+    value: 15
+enum/RDIVCLK1:
+  bit_size: 4
+  variants:
+  - name: CLK1DIV2
+    description: SYSPLLCLK1 is divided by 2.
+    value: 0
+  - name: CLK1DIV4
+    description: SYSPLLCLK1 is divided by 4.
+    value: 1
+  - name: CLK1DIV6
+    description: SYSPLLCLK1 is divided by 6.
+    value: 2
+  - name: CLK1DIV8
+    description: SYSPLLCLK1 is divided by 8.
+    value: 3
+  - name: CLK1DIV10
+    description: SYSPLLCLK1 is divided by 10.
+    value: 4
+  - name: CLK1DIV12
+    description: SYSPLLCLK1 is divided by 12.
+    value: 5
+  - name: CLK1DIV14
+    description: SYSPLLCLK1 is divided by 14.
+    value: 6
+  - name: CLK1DIV16
+    description: SYSPLLCLK1 is divided by 16.
+    value: 7
+  - name: CLK1DIV18
+    description: SYSPLLCLK1 is divided by 18.
+    value: 8
+  - name: CLK1DIV20
+    description: SYSPLLCLK1 is divided by 20.
+    value: 9
+  - name: CLK1DIV22
+    description: SYSPLLCLK1 is divided by 22.
+    value: 10
+  - name: CLK1DIV24
+    description: SYSPLLCLK1 is divided by 24.
+    value: 11
+  - name: CLK1DIV26
+    description: SYSPLLCLK1 is divided by 26.
+    value: 12
+  - name: CLK1DIV28
+    description: SYSPLLCLK1 is divided by 28.
+    value: 13
+  - name: CLK1DIV30
+    description: SYSPLLCLK1 is divided by 30.
+    value: 14
+  - name: CLK1DIV32
+    description: SYSPLLCLK1 is divided by 32.
+    value: 15
+enum/RESETCMD_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 228
+enum/RSTCTL_ASSERT_MCPERIPH_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 177
+enum/RSTCTL_ASSERT_SYSPERIPH_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 177
+enum/RSTCTL_CLEAR_MCPERIPH_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 177
+enum/RSTCTL_CLEAR_SYSPERIPH_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 177
+enum/SHDNIOREL_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 145
+enum/SRAMCFG_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 181
+enum/SWDJCFG_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 98
+enum/SYSOSCFCLCTL_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 42
+enum/SYSOSCFREQ:
+  bit_size: 2
+  variants:
+  - name: SYSOSC32M
+    description: SYSOSC is at base frequency (32MHz).
+    value: 0
+  - name: SYSOSC4M
+    description: SYSOSC is at low frequency (4MHz).
+    value: 1
+enum/SYSSTATUSCLR_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 206
+enum/SYSTEMCFG_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 27
