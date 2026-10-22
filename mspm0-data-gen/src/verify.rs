@@ -1,6 +1,6 @@
 use std::{collections::HashSet, sync::LazyLock};
 
-use anyhow::{bail, Context};
+use anyhow::bail;
 use mspm0_data_types::{Chip, PeripheralType, PowerDomain};
 use regex::Regex;
 
@@ -92,6 +92,20 @@ fn register_blocks_exist(chip: &Chip, name: &str) -> anyhow::Result<()> {
 
 /// Verify all core peripherals are present.
 fn core_peripherals(chip: &Chip, name: &str) -> anyhow::Result<()> {
+    // The AM13E2x parts have a full NVIC (no CPUSS interrupt groups), no event fabric and a
+    // different flash controller.
+    if chip.family.starts_with("am13") {
+        for peripheral in [
+            "DEBUGSS", "DMA", "GPIOA", "IOMUX", "NVMNW", "SYSCTL", "WWDT0",
+        ] {
+            if !chip.peripherals.contains_key(peripheral) {
+                bail!("{name}: does not have {peripheral}");
+            }
+        }
+
+        return Ok(());
+    }
+
     if !chip.peripherals.contains_key("CPUSS") {
         bail!("{name}: does not have CPUSS");
     }
@@ -196,7 +210,10 @@ fn verify_aesadv_power_domain(chip: &Chip, name: &str) -> anyhow::Result<()> {
 ///
 /// For all MSPM0 parts CPUSS is in PD1.
 fn verify_cpuss_power_domain(chip: &Chip, name: &str) -> anyhow::Result<()> {
-    let peripheral = chip.peripherals.get("CPUSS").context("CPUSS not present")?;
+    // `core_peripherals` reports a missing CPUSS on the families which must have one.
+    let Some(peripheral) = chip.peripherals.get("CPUSS") else {
+        return Ok(());
+    };
 
     if peripheral.power_domain != PowerDomain::Pd1 {
         bail!("{name}: CPUSS is not in power domain PD1");

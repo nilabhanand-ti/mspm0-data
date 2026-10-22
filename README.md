@@ -21,6 +21,52 @@ The generated JSON files are [available here in the mspm0-data-generated](https:
 
 The generated PAC is [available here in the mspm0-data-generated](https://github.com/mspm0-rs/mspm0-data-generated/tree/master/mspm0-metapac) repo.
 
+# AM13E230x
+
+This fork also generates the TI **AM13E230x** (Arm Cortex-M33) parts: `am13e23019` and
+`am13e23018`, in every package. They are built from MSPM0 peripherals (GPIO, IOMUX, GPTIMER,
+DMA, UNICOMM, WWDT), which share the MSPM0 register blocks or close variants of them, next to C2000
+style control peripherals. Their sources are laid out differently from the MSPM0 ones, so they go
+through [`mspm0-data-gen/src/am13.rs`](./mspm0-data-gen/src/am13.rs) instead of the MSPM0 path:
+
+* Peripheral addresses and interrupts: `hw_memmap.h` and `hw_ints.h` of the [AM13E2x SDK].
+* Pins, PINCM indices and pin functions: `hw_pinmap.h` of the SDK. The SysConfig metadata of these
+  parts has neither the PINCM nor the PF values.
+* Packages and pinouts: SysConfig (`sysconfig/AM13E230x`).
+* Registers: TI ships no SVD for the family. `tools/targetdb2svd.py` in mspm0-data-sources builds
+  `svd/AM13E230X.svd` from the register descriptions in the CCS targetdb, adding the KEY fields
+  the targetdb omits from the SDK headers.
+
+Register blocks:
+
+| Peripheral | Block | Source |
+|---|---|---|
+| GPIO, TIMG4/TIMG12, WWDT0 | `gpio_v1`, `tim_v1`, `wwdt_v1` | The MSPM0 blocks. Checked field by field and enum by enum against the AM13 SVD. |
+| DMA | `dma_v2` | `dma_v1` with 12 channels, a 7-bit trigger select and 128-bit transfers ([`transforms/am13e230x.py`](./transforms/am13e230x.py)). |
+| IOMUX | `iomux_am13e230x` | `iomux_v1` with PINCM0 at offset 0. |
+| UCx | `unicomm_v1` | The UNICOMM wrapper: power, reset and mode selection. |
+| UCx_UART | `unicommuart_v1` | `uart_v1` moved down by 0x1000, with the AM13 status bits, FIFO levels and interrupt indexes. |
+| SYSCTL | `sysctl_am13e230x` | The AM13 SVD, through [`transforms/SYSCTL_AM13E230X.yaml`](./transforms/SYSCTL_AM13E230X.yaml). |
+
+Differences from the MSPM0 metadata:
+
+* GPIO ports are named `GPIOA` to `GPIOD` like the pins (the SDK calls them `GPIO0` to `GPIO3`),
+  and each port has an interrupt of its own. There are no interrupt groups.
+* PINCM numbers are given from 1, like SysConfig gives them for the MSPM0; the AM13 registers start
+  at PINCM0, which `iomux_am13e230x` accounts for.
+* A UNICOMM instance `UCx` is the wrapper. The registers of each mode are separate peripherals,
+  `UCx_UART` and so on.
+* `nvic_priority_bits` is 4 and the vector table has 48 entries.
+* Power domains are not transcribed yet, and the ADC (a different peripheral from the MSPM0 one)
+  has no register block.
+* Chip names carry the package designator, with the pinout variant of the LQFP-64 and LQFP-100
+  packages (STM32G4 or STM32H5 compatible) in front: `am13e23019gpm` is the LQFP-64 G part on the
+  LP-AM13E230 LaunchPad.
+
+The MSPM0 output of this fork is identical to upstream's.
+
+[AM13E2x SDK]: https://github.com/TexasInstruments/am13e2x_sdk
+
 # Data sources
 
 These are the data sources currently used.

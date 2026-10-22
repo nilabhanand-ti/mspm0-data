@@ -1,3 +1,4 @@
+mod am13;
 mod clock_tree;
 mod generate;
 mod header;
@@ -68,7 +69,7 @@ fn main() -> anyhow::Result<()> {
     // TODO: Expanded family names (ex. C110X -> C1103 & C1104)
 
     stopwatch.section("Generate data");
-    generate::generate(&parts, &headers, &sysconfig, &int_groups)?;
+    generate::generate(&data_sources, &parts, &headers, &sysconfig, &int_groups)?;
 
     stopwatch.stop();
 

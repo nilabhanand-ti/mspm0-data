@@ -3,6 +3,7 @@ use std::{
     cmp::Ordering,
     collections::{BTreeMap, BTreeSet},
     fs,
+    path::Path,
     sync::LazyLock,
 };
 
@@ -14,6 +15,7 @@ use mspm0_data_types::{
 use regex::Regex;
 
 use crate::{
+    am13,
     header::{Header, Headers},
     int_group::Groups,
     parts::{PartFamily, PartMemory, PartsFile},
@@ -23,6 +25,7 @@ use crate::{
 };
 
 pub fn generate(
+    data_sources: &Path,
     parts: &PartsFile,
     headers: &Headers,
     sysconfig: &Sysconfig,
@@ -31,6 +34,13 @@ pub fn generate(
     fs::create_dir_all("./build/data/").unwrap();
 
     for family in parts.families.iter() {
+        // The AM13E2x families use MSPM0 peripherals but have their own SDK and metadata layout.
+        if am13::is_am13(&family.family) {
+            am13::generate_family(family, data_sources)
+                .context(format!("Error when generating family: {}", family.family))?;
+            continue;
+        }
+
         let sysconfig = sysconfig
             .files
             .get(&family.family.to_uppercase())
@@ -106,6 +116,7 @@ fn generate_family(
             dma_channels: dma_channels.clone(),
             adc_memctl,
             adc_vrsel: adc_vrsel_mapping(&family.adc_vrsel)?,
+            nvic_priority_bits: None,
         };
 
         for err in verify::verify(&chip, &part_number.name) {
@@ -859,7 +870,7 @@ fn generate_adc_memctl_dim(chip_name: &str, sysconfig: &SysconfigFile) -> anyhow
     Ok(result.unwrap())
 }
 
-fn adc_vrsel_mapping(vrsel: &String) -> anyhow::Result<u8> {
+pub(crate) fn adc_vrsel_mapping(vrsel: &String) -> anyhow::Result<u8> {
     match vrsel.as_str() {
         "VDD_INTREF" => Ok(3),
         "VDD_INTREF_EXTREF" => Ok(5),
@@ -879,7 +890,7 @@ fn skip_peripheral_pin(pin_name: &String, chip_name: &str) -> bool {
     false
 }
 
-fn convert_memory(memory: &PartMemory) -> Memory {
+pub(crate) fn convert_memory(memory: &PartMemory) -> Memory {
     Memory {
         name: memory.name.clone(),
         length: memory.length,

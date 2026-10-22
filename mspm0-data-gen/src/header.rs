@@ -1,4 +1,9 @@
-use std::{collections::BTreeMap, fs, path::Path, sync::LazyLock};
+use std::{
+    collections::BTreeMap,
+    fs,
+    path::{Path, PathBuf},
+    sync::LazyLock,
+};
 
 use anyhow::Context;
 use regex::Regex;
@@ -48,6 +53,22 @@ pub struct Header {
 impl Header {
     fn read(chip_name: &str, path: &Path) -> anyhow::Result<Self> {
         let content = fs::read_to_string(path)?;
+        Self::parse(chip_name, &content)
+    }
+
+    /// Read a family whose addresses and interrupts are split over several headers, as the
+    /// AM13E2x SDK has them (`hw_memmap.h` and `hw_ints.h`).
+    pub fn read_files(chip_name: &str, paths: &[PathBuf]) -> anyhow::Result<Self> {
+        let mut content = String::new();
+        for path in paths {
+            content.push_str(
+                &fs::read_to_string(path).context(format!("reading {}", path.display()))?,
+            );
+        }
+        Self::parse(chip_name, &content)
+    }
+
+    fn parse(chip_name: &str, content: &str) -> anyhow::Result<Self> {
         let peripheral_addresses = Self::get_peripheral_addresses(chip_name, &content)?;
 
         // MSPM0 is a bit cursed in that multiple peripheral's interrupts exist under one IRQ.

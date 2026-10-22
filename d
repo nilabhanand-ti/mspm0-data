@@ -4,16 +4,19 @@ set -e
 cd $(dirname $0)
 CMD=$1
 
-# Revision of the data sources 
-REV=99668fa76f2b3bb81996c24512e494d2c3a8b344
+# Data sources: upstream's at revision 99668fa, plus the AM13E230x sources.
+SOURCES=https://github.com/nilabhanand-ti/mspm0-data-sources
+REV=123c11d7ab7670586764861be9abb43a904c8d24
 shift
 
 case "$CMD" in
     download-all)
         rm -rf ./sources/
-        git clone https://github.com/mspm0-rs/mspm0-data-sources ./sources/ --recursive --shallow-submodules
+        git clone $SOURCES ./sources/ --recursive --shallow-submodules
         cd ./sources/
         git checkout $REV
+        # The submodules of REV, which need not be those of the default branch cloned above.
+        git submodule update --init --recursive --depth 1
     ;;
     install-chiptool)
         cargo install --git https://github.com/embassy-rs/chiptool
