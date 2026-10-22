@@ -1,13 +1,15 @@
-//! The AM13E2x families.
+//! The AM13E2x families: AM13E230x and AM13E232x.
 //!
 //! The AM13E2x are Cortex-M33 MCUs built from MSPM0 peripherals (GPIO, IOMUX, GPTIMER, DMA,
-//! UNICOMM, WWDT) next to C2000 control peripherals (MCPWM, ECAP, EQEP, CMPSS). The peripherals
-//! the two families share have the same register blocks, but the AM13 sources are laid out
-//! differently, so they are read here instead of by the MSPM0 path:
+//! UNICOMM, WWDT) next to C2000 control peripherals (MCPWM, ECAP, EQEP, CMPSS, and on the
+//! AM13E232x ETPWM, SDFM and FSI, plus an EtherCAT slave controller). The peripherals the two
+//! families share have the same register blocks, but the AM13 sources are laid out differently, so
+//! they are read here instead of by the MSPM0 path:
 //!
-//! - `am13e2x-sdk` `hw_memmap.h` and `hw_ints.h`: peripheral addresses and interrupts.
-//! - `am13e2x-sdk` `hw_pinmap.h`: the PINCM index of every pin and its pin functions (PF). The
+//! - The SDK `hw_memmap.h` and `hw_ints.h`: peripheral addresses and interrupts.
+//! - The SDK `hw_pinmap.h`: the PINCM index of every pin and its pin functions (PF). The
 //!   SysConfig metadata of these parts carries neither.
+//! - The SDK `soc.h`: the number of NVIC priority bits.
 //! - SysConfig `<FAMILY>.json`: packages and their pinouts.
 //!
 //! Interrupts are not grouped: the M33 NVIC has a line for every peripheral.
@@ -65,8 +67,8 @@ const fn p(
 ///
 /// A version names the `data/registers` block. Each was checked against the AM13E230X SVD
 /// (mspm0-data-sources `svd/`): `gpio_v1`, `tim_v1` and `wwdt_v1` match the AM13 blocks as they
-/// are; `dma_v2`, `iomux_am13e230x`, `unicomm_v1` and `unicommuart_v1` are written for them by
-/// `transforms/am13e230x.py`, and `sysctl_am13e230x` comes from `transforms/SYSCTL_AM13E230X.yaml`.
+/// are; `dma_v2`, `iomux_am13`, `unicomm_v1` and `unicommuart_v1` are written for them by
+/// `transforms/am13.py`, and `sysctl_am13e230x` comes from `transforms/SYSCTL_AM13E230X.yaml`.
 /// `None` means no register block has been curated yet.
 #[rustfmt::skip]
 const AM13E230X: &[Desc] = {
@@ -94,7 +96,7 @@ const AM13E230X: &[Desc] = {
         p("FRI", "FRI", Fri, None),
         p("GSC", "GSC", Gsc, None),
         p("INPUTXBAR", "INPUTXBAR", Xbar, None),
-        p("IOMUX", "IOMUX", Iomux, Some("am13e230x")),
+        p("IOMUX", "IOMUX", Iomux, Some("am13")),
         p("KEYSTORE", "KEYSTORE", KeystoreCtl, None),
         p("MCAN0", "MCAN0", Canfd, None),
         p("MCPWM0", "MCPWM0", Mcpwm, None),
@@ -116,6 +118,81 @@ const AM13E230X: &[Desc] = {
         p("TIMG4", "TIMG4", Tim, Some("v1")),
         p("TIMG12", "TIMG12", Tim, Some("v1")),
         p("TINIE", "TINIE", Npu, None),
+        p("WWDT0", "WWDT0", Wwdt, Some("v1")),
+    ]
+};
+
+/// The peripherals of the AM13E232x, other than GPIO and UNICOMM.
+///
+/// The blocks it shares with the AM13E230x are the same (compared against the AM13E232X SVD);
+/// SYSCTL has the EtherCAT and SDFM controls on top and comes from
+/// `transforms/SYSCTL_AM13E232X.yaml`.
+#[rustfmt::skip]
+const AM13E232X: &[Desc] = {
+    use PeripheralType::*;
+    &[
+        p("ADC0", "ADC0", Adc, None),
+        p("ADC1", "ADC1", Adc, None),
+        p("ADC2", "ADC2", Adc, None),
+        p("AES", "AES", Aes, None),
+        p("CMPSS0", "CMPSS0", Cmpss, None),
+        p("CMPSS1", "CMPSS1", Cmpss, None),
+        p("CMPSS2", "CMPSS2", Cmpss, None),
+        p("CMPSS3", "CMPSS3", Cmpss, None),
+        p("CRC", "CRC", Crc, None),
+        p("DEBUGSS", "DEBUGSS", Debugss, None),
+        p("DMA", "DMA0", Dma, Some("v2")),
+        p("EAM", "EAM", Eam, None),
+        p("ECAP0", "ECAP0", Ecap, None),
+        p("ECAP1", "ECAP1", Ecap, None),
+        p("ECAP2", "ECAP2", Ecap, None),
+        p("EQEP0", "EQEP0", Eqep, None),
+        p("EQEP1", "EQEP1", Eqep, None),
+        p("ESCSS", "ESCSS", Escss, None),
+        p("ETPWM0", "ETPWM0", Etpwm, None),
+        p("ETPWM1", "ETPWM1", Etpwm, None),
+        p("ETPWM2", "ETPWM2", Etpwm, None),
+        p("ETPWM3", "ETPWM3", Etpwm, None),
+        p("ETPWM4", "ETPWM4", Etpwm, None),
+        p("ETPWM5", "ETPWM5", Etpwm, None),
+        p("FACTORYREGION", "FACTORYREGION", FactoryRegion, None),
+        p("FRI", "FRI", Fri, None),
+        p("FSI_RX_A", "FSI_RX_A", FsiRx, None),
+        p("FSI_TX_A", "FSI_TX_A", FsiTx, None),
+        p("GSC", "GSC", Gsc, None),
+        p("INPUTXBAR", "INPUTXBAR", Xbar, None),
+        p("IOMUX", "IOMUX", Iomux, Some("am13")),
+        p("KEYSTORE", "KEYSTORE", KeystoreCtl, None),
+        p("MCAN0", "MCAN0", Canfd, None),
+        p("MCAN1", "MCAN1", Canfd, None),
+        p("MCPWM0", "MCPWM0", Mcpwm, None),
+        p("MCPWM1", "MCPWM1", Mcpwm, None),
+        p("MCPWM2", "MCPWM2", Mcpwm, None),
+        p("MEMCFG", "MEMCFG", Memcfg, None),
+        p("NVMNW", "NVMNW", FlashCtl, None),
+        p("OUTPUTXBAR", "OUTPUTXBAR", Xbar, None),
+        p("PGA0", "PGA0", Pga, None),
+        p("PGA1", "PGA1", Pga, None),
+        p("PGA2", "PGA2", Pga, None),
+        p("PWMXBAR", "PWMXBAR", Xbar, None),
+        p("SDFM0", "SDFM0", Sdfm, None),
+        p("SPG0", "SPG0", Spgss, None),
+        p("SPG1", "SPG1", Spgss, None),
+        p("SYNC", "SYNC", Xbar, None),
+        p("SYSCTL", "SYSCTL", Sysctl, Some("am13e232x")),
+        p("TIMG4", "TIMG4", Tim, Some("v1")),
+        p("TIMG12", "TIMG12", Tim, Some("v1")),
+        p("TINIE", "TINIE", Npu, None),
+        p("WWDT0", "WWDT0", Wwdt, Some("v1")),
+    ]
+};
+
+/// The UNICOMM instances, the same on both families: the wrapper `UCx` and the register block of
+/// each mode.
+#[rustfmt::skip]
+const UNICOMM: &[Desc] = {
+    use PeripheralType::*;
+    &[
         p("UC0", "UNICOMM0", Unicomm, Some("v1")),
         p("UC1", "UNICOMM1", Unicomm, Some("v1")),
         p("UC2", "UNICOMM2", Unicomm, Some("v1")),
@@ -145,7 +222,6 @@ const AM13E230X: &[Desc] = {
         p("UC3_UART", "UC3_UART", UnicommUart, Some("v1")),
         p("UC4_UART", "UC4_UART", UnicommUart, Some("v1")),
         p("UC5_UART", "UC5_UART", UnicommUart, Some("v1")),
-        p("WWDT0", "WWDT0", Wwdt, Some("v1")),
     ]
 };
 
@@ -170,7 +246,7 @@ const IRQ_RENAMES: &[(&str, &str)] = &[
 /// LQFP64 and LQFP100 come in two pinouts, pin compatible with the STM32G4 (`G`) and STM32H5 (`H`)
 /// respectively. The pinout letter goes in front of the designator, as in the device marking
 /// (`AM13E230 19GTPM`).
-const PACKAGES: &[(&str, &str, &str)] = &[
+const AM13E230X_PACKAGES: &[(&str, &str, &str)] = &[
     ("LQFP128", "PDT", "TQFP-128"),
     ("LQFP100_G", "GPZ", "LQFP-100"),
     ("LQFP100_H", "HPZ", "LQFP-100"),
@@ -181,10 +257,54 @@ const PACKAGES: &[(&str, &str, &str)] = &[
     ("QFN48", "RGZ", "VQFN-48"),
 ];
 
+/// The packages of the AM13E232x.
+///
+/// There is no public AM13E232x datasheet yet to give the package designators, so the chip names
+/// use the SysConfig package names (`LQFP64_G` is `lqfp64g`), except for the LQFP128: the
+/// LP-AM13E232 LaunchPad carries an `AM13E232N91TPDTR`, so it is `PDT` like on the AM13E230x.
+/// Rename the others to their designators once the datasheet is published.
+const AM13E232X_PACKAGES: &[(&str, &str, &str)] = &[
+    ("LQFP128", "PDT", "TQFP-128"),
+    ("LQFP100_G", "LQFP100G", "LQFP-100"),
+    ("LQFP64_G", "LQFP64G", "LQFP-64"),
+    ("BGA144", "BGA144", "BGA-144"),
+    ("BGA121", "BGA121", "BGA-121"),
+    ("BGA100", "BGA100", "BGA-100"),
+    ("BGA99", "BGA99", "BGA-99"),
+    ("MCM_BGA121", "MCMBGA121", "BGA-121 (MCM)"),
+    ("MCM_BGA100", "MCMBGA100", "BGA-100 (MCM)"),
+    ("WCSP49", "WCSP49", "WCSP-49"),
+];
+
+/// The sources and tables of an AM13E2x family.
+struct Family {
+    /// Directory of the family's SDK in the data sources.
+    sdk: &'static str,
+    peripherals: &'static [&'static [Desc]],
+    packages: &'static [(&'static str, &'static str, &'static str)],
+}
+
+fn family(name: &str) -> anyhow::Result<Family> {
+    Ok(match name {
+        "am13e230x" => Family {
+            sdk: "am13e2x-sdk",
+            peripherals: &[AM13E230X, UNICOMM],
+            packages: AM13E230X_PACKAGES,
+        },
+        "am13e232x" => Family {
+            sdk: "am13e232x-sdk",
+            peripherals: &[AM13E232X, UNICOMM],
+            packages: AM13E232X_PACKAGES,
+        },
+        _ => bail!("{name}: unknown AM13 family"),
+    })
+}
+
 pub fn generate_family(family: &PartFamily, data_sources: &Path) -> anyhow::Result<()> {
     let name = &family.family;
+    let desc = self::family(name)?;
     let hw = data_sources
-        .join("am13e2x-sdk")
+        .join(desc.sdk)
         .join("source")
         .join("device")
         .join(name)
@@ -194,22 +314,24 @@ pub fn generate_family(family: &PartFamily, data_sources: &Path) -> anyhow::Resu
     let header = Header::read_files(name, &[hw.join("hw_memmap.h"), hw.join("hw_ints.h")])?;
     let pinmap = PinMap::read(&hw.join("hw_pinmap.h"))?;
     let sysconfig = read_sysconfig(data_sources, name)?;
+    let nvic_priority_bits = read_nvic_priority_bits(&hw.join("soc.h"))?;
 
-    let descs = match name.as_str() {
-        "am13e230x" => AM13E230X,
-        _ => bail!("{name}: no peripheral list"),
-    };
+    let descs = desc
+        .peripherals
+        .iter()
+        .flat_map(|d| d.iter())
+        .collect::<Vec<_>>();
 
-    let peripherals = generate_peripherals(name, descs, &header, &pinmap)?;
+    let peripherals = generate_peripherals(name, &descs, &header, &pinmap)?;
     let interrupts = generate_interrupts(name, &header)?;
-    let packages = generate_packages(name, &sysconfig)?;
+    let packages = generate_packages(name, desc.packages, &sysconfig)?;
 
     let iomux = pinmap
         .pincm
         .iter()
         // The metadata numbers PINCM from 1, as SysConfig does for the MSPM0 (PINCM1 is the first
         // register there). The AM13 starts at PINCM0, so it is offset here and the IOMUX block
-        // (`iomux_am13e230x`) places the array at 0 to match.
+        // (`iomux_am13`) places the array at 0 to match.
         .map(|(pin, &index)| (pin.clone(), index + 1))
         .collect::<BTreeMap<_, _>>();
 
@@ -253,7 +375,7 @@ pub fn generate_family(family: &PartFamily, data_sources: &Path) -> anyhow::Resu
             // references only, so consumers which expect them still accept the chip.
             adc_memctl: 0,
             adc_vrsel: adc_vrsel_mapping(&family.adc_vrsel)?,
-            nvic_priority_bits: Some(4),
+            nvic_priority_bits: Some(nvic_priority_bits),
         };
 
         for err in verify::verify(&chip, &part_number.name) {
@@ -268,6 +390,23 @@ pub fn generate_family(family: &PartFamily, data_sources: &Path) -> anyhow::Resu
     }
 
     Ok(())
+}
+
+/// `__NVIC_PRIO_BITS` from the SDK's `soc.h`.
+///
+/// The AM13E230x SDK gives 4 and the AM13E232x SDK 2. Taking the SDK's value is safe either way:
+/// priorities are kept in the top bits, so a lower count only uses fewer of the levels.
+fn read_nvic_priority_bits(path: &Path) -> anyhow::Result<u8> {
+    static PRIO_BITS: LazyLock<Regex> = LazyLock::new(|| {
+        Regex::new(r"(?m)^#define\s+__NVIC_PRIO_BITS\s+(?:0x)?(?<bits>[0-9A-Fa-f]+)U?").unwrap()
+    });
+
+    let content = fs::read_to_string(path).context(format!("reading {}", path.display()))?;
+    let c = PRIO_BITS
+        .captures(&content)
+        .context(format!("{}: no __NVIC_PRIO_BITS", path.display()))?;
+
+    Ok(u8::from_str_radix(&c["bits"], 16)?)
 }
 
 /// The contents of `hw_pinmap.h`.
@@ -336,8 +475,13 @@ fn classify(function: &str) -> anyhow::Result<Option<(String, Vec<String>)>> {
             r"^(?<peri>UC\d)_(?<signals>.+)$",
             r"^(?<peri>TIMG\d+)_\d+_(?<signals>CCP\d)$",
             r"^(?<peri>MCPWM\d)_(?<pwm>\d[AB])$",
+            r"^(?<peri>ETPWM\d)_(?<pwm>\d[AB])$",
             r"^(?<peri>MCAN\d)_(?<signals>TX|RX)$",
             r"^(?<peri>EPI\d)_(?<signals>S\d+)$",
+            // AM13E232x: SDFM, FSI and the EtherCAT slave controller.
+            r"^SD(?<sdfm>\d)_(?<signal>[CD]\d)$",
+            r"^FSI0_FSI(?<fsi>RX|TX)_(?<signal>CLK|D\d)$",
+            r"^ESC_(?<esc>\w+)$",
             r"^OUTPUTXBAR(?<out>\d+)$",
             r"^SYSCTL_(?<sysctl>XCLKOUT|FCC_IN|HFCLKIN)$",
             r"^DEBUG_(?:TMS_SWDIO|JTCK_SWCLK|JTDI|JTDO_SWO)$",
@@ -359,6 +503,18 @@ fn classify(function: &str) -> anyhow::Result<Option<(String, Vec<String>)>> {
             c["signals"].split('_').map(String::from).collect()
         };
         Some((peri.as_str().to_string(), signals))
+    } else if let Some(sdfm) = c.name("sdfm") {
+        Some((
+            format!("SDFM{}", sdfm.as_str()),
+            vec![c["signal"].to_string()],
+        ))
+    } else if let Some(fsi) = c.name("fsi") {
+        Some((
+            format!("FSI_{}_A", fsi.as_str()),
+            vec![c["signal"].to_string()],
+        ))
+    } else if let Some(esc) = c.name("esc") {
+        Some(("ESCSS".to_string(), vec![esc.as_str().to_string()]))
     } else if let Some(out) = c.name("out") {
         Some((
             "OUTPUTXBAR".to_string(),
@@ -384,7 +540,7 @@ fn classify(function: &str) -> anyhow::Result<Option<(String, Vec<String>)>> {
 
 fn generate_peripherals(
     chip_name: &str,
-    descs: &[Desc],
+    descs: &[&Desc],
     header: &Header,
     pinmap: &PinMap,
 ) -> anyhow::Result<BTreeMap<String, Peripheral>> {
@@ -553,13 +709,17 @@ fn read_sysconfig(data_sources: &Path, family: &str) -> anyhow::Result<Sysconfig
     serde_json::from_str(&content).context(format!("parsing {}", path.display()))
 }
 
-fn generate_packages(chip_name: &str, sysconfig: &SysconfigFile) -> anyhow::Result<Vec<Package>> {
+fn generate_packages(
+    chip_name: &str,
+    designators: &[(&str, &str, &str)],
+    sysconfig: &SysconfigFile,
+) -> anyhow::Result<Vec<Package>> {
     let mut packages = Vec::new();
 
     for package in sysconfig.packages.values() {
-        let Some(&(_, designator, display)) = PACKAGES.iter().find(|(n, ..)| *n == package.name)
+        let Some(&(_, designator, display)) = designators.iter().find(|(n, ..)| *n == package.name)
         else {
-            // SysConfig also lists packages of the AM13E232x, which share its metadata.
+            // SysConfig lists packages the datasheet does not (QFN32 for the AM13E230x).
             continue;
         };
 

@@ -4,9 +4,9 @@ set -e
 cd $(dirname $0)
 CMD=$1
 
-# Data sources: upstream's at revision 99668fa, plus the AM13E230x sources.
+# Data sources: upstream's at revision 99668fa, plus the AM13E2x sources.
 SOURCES=https://github.com/nilabhanand-ti/mspm0-data-sources
-REV=123c11d7ab7670586764861be9abb43a904c8d24
+REV=308c2452dae96af517c95867f584c40ae0f91434
 shift
 
 case "$CMD" in
