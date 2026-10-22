@@ -137,6 +137,12 @@ pub enum PeripheralType {
     /// Enhanced quadrature encoder pulse.
     Eqep,
 
+    /// EtherCAT slave controller subsystem.
+    Escss,
+
+    /// Enhanced PWM (C2000 ePWM).
+    Etpwm,
+
     Event,
 
     /// This region contains read-only device constants such as the device id, flash and SRAM
@@ -147,6 +153,12 @@ pub enum PeripheralType {
 
     /// Flash read interface: wait states, prefetch and cache.
     Fri,
+
+    /// Fast serial interface receiver.
+    FsiRx,
+
+    /// Fast serial interface transmitter.
+    FsiTx,
 
     GpAmp,
 
@@ -183,6 +195,9 @@ pub enum PeripheralType {
 
     /// Programmable gain amplifier.
     Pga,
+
+    /// Sigma-delta filter module.
+    Sdfm,
 
     Rtc,
 
@@ -251,10 +266,14 @@ impl fmt::Display for PeripheralType {
             PeripheralType::Ecap => "ecap",
             PeripheralType::Epi => "epi",
             PeripheralType::Eqep => "eqep",
+            PeripheralType::Escss => "escss",
+            PeripheralType::Etpwm => "etpwm",
             PeripheralType::Event => "event",
             PeripheralType::FactoryRegion => "factoryregion",
             PeripheralType::FlashCtl => "flashctl",
             PeripheralType::Fri => "fri",
+            PeripheralType::FsiRx => "fsirx",
+            PeripheralType::FsiTx => "fsitx",
             PeripheralType::GpAmp => "gpamp",
             PeripheralType::Gpio => "gpio",
             PeripheralType::Gsc => "gsc",
@@ -271,6 +290,7 @@ impl fmt::Display for PeripheralType {
             PeripheralType::Npu => "npu",
             PeripheralType::Opa => "opa",
             PeripheralType::Pga => "pga",
+            PeripheralType::Sdfm => "sdfm",
             PeripheralType::Rtc => "rtc",
             PeripheralType::Spgss => "spgss",
             PeripheralType::Spi => "spi",
