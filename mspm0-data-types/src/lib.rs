@@ -104,6 +104,9 @@ pub enum PeripheralType {
 
     Adc,
 
+    /// The result registers of an AM13E2x ADC, a block of their own.
+    AdcResult,
+
     AesAdv,
 
     Aes,
@@ -252,6 +255,7 @@ impl fmt::Display for PeripheralType {
         let content = match self {
             PeripheralType::Unknown => "",
             PeripheralType::Adc => "adc",
+            PeripheralType::AdcResult => "adcresult",
             PeripheralType::Aes => "aes",
             PeripheralType::AesAdv => "aesadv",
             PeripheralType::Canfd => "canfd",

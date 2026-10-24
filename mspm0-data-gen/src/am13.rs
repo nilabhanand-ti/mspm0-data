@@ -68,15 +68,20 @@ const fn p(
 /// A version names the `data/registers` block. Each was checked against the AM13E230X SVD
 /// (mspm0-data-sources `svd/`): `gpio_v1`, `tim_v1` and `wwdt_v1` match the AM13 blocks as they
 /// are; `dma_v2`, `iomux_am13`, `unicomm_v1` and `unicommuart_v1` are written for them by
-/// `transforms/am13.py`, and `sysctl_am13e230x` comes from `transforms/SYSCTL_AM13E230X.yaml`.
+/// `transforms/am13.py`. `sysctl_am13e230x`, `adc_am13`, `adcresult_am13`, `unicommspi_v1` and
+/// `unicommi2cc_v1` are extracted from the SVD and cleaned up by the chiptool transforms of the
+/// same name in `transforms/`.
 /// `None` means no register block has been curated yet.
 #[rustfmt::skip]
 const AM13E230X: &[Desc] = {
     use PeripheralType::*;
     &[
-        p("ADC0", "ADC0", Adc, None),
-        p("ADC1", "ADC1", Adc, None),
-        p("ADC2", "ADC2", Adc, None),
+        p("ADC0", "ADC0", Adc, Some("am13")),
+        p("ADC1", "ADC1", Adc, Some("am13")),
+        p("ADC2", "ADC2", Adc, Some("am13")),
+        p("ADC0RESULT", "ADC0RESULT", AdcResult, Some("am13")),
+        p("ADC1RESULT", "ADC1RESULT", AdcResult, Some("am13")),
+        p("ADC2RESULT", "ADC2RESULT", AdcResult, Some("am13")),
         p("AES", "AES", Aes, None),
         p("CMPSS0", "CMPSS0", Cmpss, None),
         p("CMPSS1", "CMPSS1", Cmpss, None),
@@ -131,9 +136,12 @@ const AM13E230X: &[Desc] = {
 const AM13E232X: &[Desc] = {
     use PeripheralType::*;
     &[
-        p("ADC0", "ADC0", Adc, None),
-        p("ADC1", "ADC1", Adc, None),
-        p("ADC2", "ADC2", Adc, None),
+        p("ADC0", "ADC0", Adc, Some("am13")),
+        p("ADC1", "ADC1", Adc, Some("am13")),
+        p("ADC2", "ADC2", Adc, Some("am13")),
+        p("ADC0RESULT", "ADC0RESULT", AdcResult, Some("am13")),
+        p("ADC1RESULT", "ADC1RESULT", AdcResult, Some("am13")),
+        p("ADC2RESULT", "ADC2RESULT", AdcResult, Some("am13")),
         p("AES", "AES", Aes, None),
         p("CMPSS0", "CMPSS0", Cmpss, None),
         p("CMPSS1", "CMPSS1", Cmpss, None),
@@ -199,12 +207,12 @@ const UNICOMM: &[Desc] = {
         p("UC3", "UNICOMM3", Unicomm, Some("v1")),
         p("UC4", "UNICOMM4", Unicomm, Some("v1")),
         p("UC5", "UNICOMM5", Unicomm, Some("v1")),
-        p("UC0_I2CC", "UC0_I2CC", UnicommI2cc, None),
-        p("UC1_I2CC", "UC1_I2CC", UnicommI2cc, None),
-        p("UC2_I2CC", "UC2_I2CC", UnicommI2cc, None),
-        p("UC3_I2CC", "UC3_I2CC", UnicommI2cc, None),
-        p("UC4_I2CC", "UC4_I2CC", UnicommI2cc, None),
-        p("UC5_I2CC", "UC5_I2CC", UnicommI2cc, None),
+        p("UC0_I2CC", "UC0_I2CC", UnicommI2cc, Some("v1")),
+        p("UC1_I2CC", "UC1_I2CC", UnicommI2cc, Some("v1")),
+        p("UC2_I2CC", "UC2_I2CC", UnicommI2cc, Some("v1")),
+        p("UC3_I2CC", "UC3_I2CC", UnicommI2cc, Some("v1")),
+        p("UC4_I2CC", "UC4_I2CC", UnicommI2cc, Some("v1")),
+        p("UC5_I2CC", "UC5_I2CC", UnicommI2cc, Some("v1")),
         p("UC0_I2CT", "UC0_I2CT", UnicommI2ct, None),
         p("UC1_I2CT", "UC1_I2CT", UnicommI2ct, None),
         p("UC2_I2CT", "UC2_I2CT", UnicommI2ct, None),
@@ -212,10 +220,10 @@ const UNICOMM: &[Desc] = {
         p("UC4_I2CT", "UC4_I2CT", UnicommI2ct, None),
         p("UC5_I2CT", "UC5_I2CT", UnicommI2ct, None),
         // UC2 and UC5 have no SPI.
-        p("UC0_SPI", "UC0_SPI", UnicommSpi, None),
-        p("UC1_SPI", "UC1_SPI", UnicommSpi, None),
-        p("UC3_SPI", "UC3_SPI", UnicommSpi, None),
-        p("UC4_SPI", "UC4_SPI", UnicommSpi, None),
+        p("UC0_SPI", "UC0_SPI", UnicommSpi, Some("v1")),
+        p("UC1_SPI", "UC1_SPI", UnicommSpi, Some("v1")),
+        p("UC3_SPI", "UC3_SPI", UnicommSpi, Some("v1")),
+        p("UC4_SPI", "UC4_SPI", UnicommSpi, Some("v1")),
         p("UC0_UART", "UC0_UART", UnicommUart, Some("v1")),
         p("UC1_UART", "UC1_UART", UnicommUart, Some("v1")),
         p("UC2_UART", "UC2_UART", UnicommUart, Some("v1")),
@@ -322,7 +330,8 @@ pub fn generate_family(family: &PartFamily, data_sources: &Path) -> anyhow::Resu
         .flat_map(|d| d.iter())
         .collect::<Vec<_>>();
 
-    let peripherals = generate_peripherals(name, &descs, &header, &pinmap)?;
+    let mut peripherals = generate_peripherals(name, &descs, &header, &pinmap)?;
+    add_adc_pins(name, &mut peripherals, &sysconfig)?;
     let interrupts = generate_interrupts(name, &header)?;
     let packages = generate_packages(name, desc.packages, &sysconfig)?;
 
@@ -676,7 +685,90 @@ fn generate_interrupts(
 struct SysconfigFile {
     #[serde(rename = "devicePins")]
     device_pins: BTreeMap<String, DevicePin>,
+    #[serde(rename = "peripheralPins")]
+    peripheral_pins: BTreeMap<String, SysconfigPeripheralPin>,
+    muxes: Vec<SysconfigMux>,
     packages: BTreeMap<String, SysconfigPackage>,
+}
+
+#[derive(Deserialize)]
+struct SysconfigPeripheralPin {
+    name: String,
+}
+
+/// The functions of a device pin.
+#[derive(Deserialize)]
+struct SysconfigMux {
+    #[serde(rename = "devicePinID")]
+    device_pin_id: String,
+    #[serde(rename = "muxSetting")]
+    settings: Vec<SysconfigMuxSetting>,
+}
+
+#[derive(Deserialize)]
+struct SysconfigMuxSetting {
+    #[serde(rename = "peripheralPinID")]
+    peripheral_pin_id: String,
+}
+
+/// The analog inputs of the ADCs, which `hw_pinmap.h` does not list.
+///
+/// SysConfig names them `A<adc>_<channel>` (`A0_28` is channel 28 of ADC0). The signal is the
+/// channel number with PF 0, as in the MSPM0 metadata: an analog input is used with the pin
+/// disconnected from its digital functions.
+fn add_adc_pins(
+    chip_name: &str,
+    peripherals: &mut BTreeMap<String, Peripheral>,
+    sysconfig: &SysconfigFile,
+) -> anyhow::Result<()> {
+    static ANALOG: LazyLock<Regex> =
+        LazyLock::new(|| Regex::new(r"^A(?<adc>\d)_(?<channel>\d+)$").unwrap());
+
+    for mux in sysconfig.muxes.iter() {
+        let device_pin = sysconfig
+            .device_pins
+            .get(&mux.device_pin_id)
+            .context(format!("{chip_name}: unknown device pin {}", mux.device_pin_id))?;
+        let pin = pin_name(&device_pin.name);
+        // Analog-only pins (VREFHI and so on) have no GPIO to use them through.
+        if !(pin.starts_with('P') && pin[1..2].chars().all(|c| c.is_ascii_uppercase())) {
+            continue;
+        }
+
+        for setting in mux.settings.iter() {
+            let Some(peripheral_pin) = sysconfig.peripheral_pins.get(&setting.peripheral_pin_id)
+            else {
+                continue;
+            };
+            let Some(c) = ANALOG.captures(&peripheral_pin.name) else {
+                continue;
+            };
+
+            let adc = format!("ADC{}", &c["adc"]);
+            let peripheral = peripherals
+                .get_mut(&adc)
+                .context(format!("{chip_name}: {pin} is an input of unknown {adc}"))?;
+            peripheral.pins.push(PeripheralPin {
+                pin: pin.clone(),
+                signal: c["channel"].to_string(),
+                pf: Some(0),
+            });
+        }
+    }
+
+    for adc in ["ADC0", "ADC1", "ADC2"] {
+        let peripheral = peripherals.get_mut(adc).context(format!("{chip_name}: no {adc}"))?;
+        peripheral.pins.sort_by(|a, b| {
+            let channel = |p: &PeripheralPin| p.signal.parse::<u32>().unwrap_or(u32::MAX);
+            channel(a).cmp(&channel(b)).then(a.pin.cmp(&b.pin))
+        });
+        peripheral.pins.dedup();
+        if peripheral.pins.is_empty() {
+            bail!("{chip_name}: {adc} has no analog inputs in the SysConfig metadata");
+        }
+    }
+
+    Ok(())
 }
 
 #[derive(Deserialize)]

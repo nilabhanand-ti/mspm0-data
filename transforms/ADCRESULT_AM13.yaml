@@ -1,0 +1,55 @@
+# Transform for the result registers of the AM13E2x ADC, from ADC0RESULT of the AM13E232X SVD
+#
+#   chiptool extract-peripheral --svd sources/svd/AM13E232X.svd --peripheral ADC0RESULT > tmp/ADC0RESULT.yaml
+#   ./transforms/transform.sh tmp/ADC0RESULT.yaml transforms/ADCRESULT_AM13.yaml
+#
+# The AM13E230X block is the same.
+transforms:
+  - !Rename
+    type: Block
+    from: ADC0RESULT
+    to: ADCRESULT
+
+  - !DeleteFieldsets
+    from: .*
+    useless: true
+
+  - !MakeRegisterArray
+    blocks: ADCRESULT
+    from: ADCRESULT(\d+)
+    to: ADCRESULT
+
+  - !MergeFieldsets
+    from: ADCPPB\dRESULT
+    to: ADCPPBRESULT
+  - !MergeFieldsets
+    from: ADCPPB\dSUM
+    to: ADCPPBSUM
+  - !MergeFieldsets
+    from: ADCPPB\dCOUNT
+    to: ADCPPBCOUNT
+  - !MergeFieldsets
+    from: ADCSEQ\dFIFOSTATUS
+    to: ADCSEQFIFOSTATUS
+  - !MakeRegisterArray
+    blocks: ADCRESULT
+    from: ADCPPB(\d)RESULT
+    to: ADCPPBRESULT
+  - !MakeRegisterArray
+    blocks: ADCRESULT
+    from: ADCPPB(\d)SUM
+    to: ADCPPBSUM
+  - !MakeRegisterArray
+    blocks: ADCRESULT
+    from: ADCPPB(\d)COUNT
+    to: ADCPPBCOUNT
+  - !MakeRegisterArray
+    blocks: ADCRESULT
+    from: ADCSEQ(\d)FIFORESULT
+    to: ADCSEQFIFORESULT
+  - !MakeRegisterArray
+    blocks: ADCRESULT
+    from: ADCSEQ(\d)FIFOSTATUS
+    to: ADCSEQFIFOSTATUS
+
+  - !Sort

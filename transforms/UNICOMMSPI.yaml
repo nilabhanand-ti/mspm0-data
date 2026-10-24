@@ -1,0 +1,43 @@
+# Transform for the SPI of a UNICOMM instance, from UC0_SPI of the AM13E232X SVD
+#
+#   chiptool extract-peripheral --svd sources/svd/AM13E232X.svd --peripheral UC0_SPI > tmp/UC0_SPI.yaml
+#   ./transforms/transform.sh tmp/UC0_SPI.yaml transforms/UNICOMMSPI.yaml
+#
+# The AM13E230X block is the same. Power, reset and the mode selection are in the UNICOMM
+# wrapper (unicomm_v1).
+transforms:
+  - !Rename
+    type: Block
+    from: UC0_SPI
+    to: UNICOMMSPI
+
+  - !DeleteFieldsets
+    from: .*
+    useless: true
+
+  # Single bit fields are flags. Their enums are ENABLE/DISABLE, SET/CLR and so on.
+  - !DeleteEnums
+    from: .*
+    bit_size: 1
+
+  # The interrupt registers of each event have the same layout.
+  - !MergeFieldsets
+    from: (CPU_INT_(IMASK|RIS|MIS|ISET)|ICLR)
+    to: CPU_INT
+  - !MergeFieldsets
+    from: DMA_TRIG_RX_(IMASK|RIS|MIS|ISET)
+    to: DMA_TRIG_RX
+  - !MergeFieldsets
+    from: DMA_TRIG_TX_(IMASK|RIS|MIS|ISET)
+    to: DMA_TRIG_TX
+
+  # These "enums" only mark the minimum and maximum of a numeric field, or name every value.
+  - !DeleteEnums
+    from: (SCR|DSAMPLE|RATIO|RXDATA_DATA|TXDATA_DATA)
+
+  - !Rename
+    type: Enum
+    from: STAT
+    to: IIDX_STAT
+
+  - !Sort

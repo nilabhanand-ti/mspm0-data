@@ -1,0 +1,88 @@
+# Result registers of the AM13E2x ADC, from the AM13E232X SVD by transforms/ADCRESULT_AM13.yaml.
+# The AM13E230X SVD has the same block.
+block/ADCRESULT:
+  description: ADC_RESULT module.
+  items:
+  - name: ADCRESULT
+    description: ADC Result 0 Register.
+    array:
+      len: 16
+      stride: 2
+    byte_offset: 0
+    bit_size: 16
+  - name: ADCPPBRESULT
+    description: ADC Post Processing Block 1 Result Register.
+    array:
+      len: 4
+      stride: 4
+    byte_offset: 64
+    fieldset: ADCPPBRESULT
+  - name: ADCPPBSUM
+    description: ADC PPB 1 Final Sum Result Register.
+    array:
+      len: 4
+      stride: 8
+    byte_offset: 80
+    fieldset: ADCPPBSUM
+  - name: ADCPPBCOUNT
+    description: ADC PPB1 Final Conversion Count Register.
+    array:
+      len: 4
+      stride: 8
+    byte_offset: 84
+    bit_size: 16
+    fieldset: ADCPPBCOUNT
+  - name: ADCSEQFIFORESULT
+    description: ADC Sequence 1 FIFO Result Register.
+    array:
+      len: 4
+      stride: 4
+    byte_offset: 192
+  - name: ADCSEQFIFOSTATUS
+    description: ADC Sequence 1 FIFO Status.
+    array:
+      len: 4
+      stride: 4
+    byte_offset: 208
+    fieldset: ADCSEQFIFOSTATUS
+fieldset/ADCPPBCOUNT:
+  description: ADC PPB1 Final Conversion Count Register.
+  bit_size: 16
+  fields:
+  - name: COUNT
+    description: Post Processing Block 1 Final Count.
+    bit_offset: 0
+    bit_size: 4
+fieldset/ADCPPBRESULT:
+  description: ADC Post Processing Block 1 Result Register.
+  fields:
+  - name: PPBRESULT
+    description: ADC Post Processing Block Result.
+    bit_offset: 0
+    bit_size: 13
+  - name: SIGN
+    description: Sign Extended Bits.
+    bit_offset: 13
+    bit_size: 19
+fieldset/ADCPPBSUM:
+  description: ADC PPB 1 Final Sum Result Register.
+  fields:
+  - name: SUM
+    description: Post Processing Block 1 Oversampling Sum.
+    bit_offset: 0
+    bit_size: 16
+  - name: SIGN
+    description: Sign Extended Bits.
+    bit_offset: 16
+    bit_size: 16
+fieldset/ADCSEQFIFOSTATUS:
+  description: ADC Sequence 1 FIFO Status.
+  fields:
+  - name: SEQFIFOVALID
+    description: Sequencer 1 FIFO Valid.
+    bit_offset: 0
+    bit_size: 1
+  - name: SEQFIFOPENDREAD
+    description: Sequencer 1 FIFO Pending reads.
+    bit_offset: 1
+    bit_size: 4

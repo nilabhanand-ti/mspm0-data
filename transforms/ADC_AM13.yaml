@@ -1,0 +1,117 @@
+# Transform for the AM13E2x ADC, from ADC0 of the AM13E232X SVD
+#
+#   chiptool extract-peripheral --svd sources/svd/AM13E232X.svd --peripheral ADC0 > tmp/ADC0.yaml
+#   ./transforms/transform.sh tmp/ADC0.yaml transforms/ADC_AM13.yaml
+#
+# The AM13E230X block is the same. This is not the MSPM0 ADC12 (adc_v1): conversions are set up
+# in start-of-conversion (SOC) registers and run by four sequencers, and the results are in a
+# separate block (adcresult_am13, transforms/ADCRESULT_AM13.yaml).
+transforms:
+  - !Rename
+    type: Block
+    from: ADC0
+    to: ADC
+
+  - !DeleteFieldsets
+    from: .*
+    useless: true
+
+  # Single bit fields are flags. Their enums are ENABLE/DISABLE, SET/CLR and so on.
+  - !DeleteEnums
+    from: .*
+    bit_size: 1
+
+  - !MergeFieldsets
+    from: ADCSOC\d+CTL
+    to: ADCSOCCTL
+  - !MakeRegisterArray
+    blocks: ADC
+    from: ADCSOC(\d+)CTL
+    to: ADCSOCCTL
+
+  - !MergeFieldsets
+    from: ADCSEQ\dCONFIG
+    to: ADCSEQCONFIG
+  - !MakeRegisterArray
+    blocks: ADC
+    from: ADCSEQ(\d)CONFIG
+    to: ADCSEQCONFIG
+
+  # The post-processing blocks (PPB) 1..4.
+  - !MergeFieldsets
+    from: ADCPPB\dCONFIG
+    to: ADCPPBCONFIG
+  - !MergeFieldsets
+    from: ADCPPB\dCONFIG2
+    to: ADCPPBCONFIG2
+  - !MergeFieldsets
+    from: ADCPPB\dTRIPHI
+    to: ADCPPBTRIPHI
+  - !MergeFieldsets
+    from: ADCPPB\dTRIPLO
+    to: ADCPPBTRIPLO
+  - !MergeFieldsets
+    from: ADCPPB\dLIMIT
+    to: ADCPPBLIMIT
+  - !MergeFieldsets
+    from: ADCPPB\dPCOUNT
+    to: ADCPPBPCOUNT
+  - !MergeFieldsets
+    from: ADCPPB\dPSUM
+    to: ADCPPBPSUM
+  - !MakeRegisterArray
+    blocks: ADC
+    from: ADCPPB(\d)CONFIG
+    to: ADCPPBCONFIG
+  - !MakeRegisterArray
+    blocks: ADC
+    from: ADCPPB(\d)TRIPHI
+    to: ADCPPBTRIPHI
+  - !MakeRegisterArray
+    blocks: ADC
+    from: ADCPPB(\d)TRIPLO
+    to: ADCPPBTRIPLO
+  - !MakeRegisterArray
+    blocks: ADC
+    from: ADCPPB(\d)LIMIT
+    to: ADCPPBLIMIT
+  - !MakeRegisterArray
+    blocks: ADC
+    from: ADCPPB(\d)PCOUNT
+    to: ADCPPBPCOUNT
+  - !MakeRegisterArray
+    blocks: ADC
+    from: ADCPPB(\d)CONFIG2
+    to: ADCPPBCONFIG2
+  - !MakeRegisterArray
+    blocks: ADC
+    from: ADCPPB(\d)PSUM
+    to: ADCPPBPSUM
+
+  # One field per interrupt line 1..4.
+  - !MakeFieldArray
+    fieldsets: ADCINTSEL
+    from: INT\dSEL
+    to: INTSEL
+  - !MakeFieldArray
+    fieldsets: ADCINTSEL
+    from: INT\dCONT
+    to: INTCONT
+  - !MakeFieldArray
+    fieldsets: ADCINTSEL
+    from: INT\dE
+    to: INTE
+  - !MakeFieldArray
+    fieldsets: .*
+    from: ADCINT\d
+    to: ADCINT
+  - !MakeFieldArray
+    fieldsets: .*
+    from: ADCINT\dRESULT
+    to: ADCINTRESULT
+  - !MakeFieldArray
+    fieldsets: .*
+    from: ADCDMAINT\d
+    to: ADCDMAINT
+
+  - !Sort

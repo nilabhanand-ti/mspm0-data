@@ -1,0 +1,44 @@
+# Transform for the I2C controller of a UNICOMM instance, from UC0_I2CC of the AM13E232X SVD
+#
+#   chiptool extract-peripheral --svd sources/svd/AM13E232X.svd --peripheral UC0_I2CC > tmp/UC0_I2CC.yaml
+#   ./transforms/transform.sh tmp/UC0_I2CC.yaml transforms/UNICOMMI2CC.yaml
+#
+# The AM13E230X block is the same. Power, reset and the mode selection are in the UNICOMM
+# wrapper (unicomm_v1).
+transforms:
+  - !Rename
+    type: Block
+    from: UC0_I2CC
+    to: UNICOMMI2CC
+
+  - !DeleteFieldsets
+    from: .*
+    useless: true
+
+  # Single bit fields are flags. Their enums are ENABLE/DISABLE, SET/CLR and so on.
+  - !DeleteEnums
+    from: .*
+    bit_size: 1
+
+  # The interrupt registers of each event have the same layout.
+  - !MergeFieldsets
+    from: (CPU_INT_(IMASK|RIS|MIS|ISET)|ICLR)
+    to: CPU_INT
+  - !MergeFieldsets
+    from: DMA_TRIG0_(IMASK|RIS|MIS|ISET)
+    to: DMA_TRIG0
+  - !MergeFieldsets
+    from: DMA_TRIG1_(IMASK|RIS|MIS|ISET)
+    to: DMA_TRIG1
+
+  # These "enums" only mark the minimum and maximum of a numeric field. RATIO also lists ratios
+  # which do not fit its 3 bits (hw_unicommi2cc.h: UNICOMMI2CC_CLKDIV_RATIO_MASK is 0x7).
+  - !DeleteEnums
+    from: (ADDR|BCNT|BLEN|PECBYTECNT|PECCNT|RATIO|RXDATA_DATA|TXDATA_DATA|TCNTA|TCNTB|TCNTLA|TCNTLB|TPR)
+
+  - !Rename
+    type: Enum
+    from: STAT
+    to: IIDX_STAT
+
+  - !Sort

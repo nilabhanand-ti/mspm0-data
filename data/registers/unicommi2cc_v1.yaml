@@ -1,0 +1,648 @@
+# I2C controller of a UNICOMM instance (AM13E2x), from the AM13E232X SVD by transforms/UNICOMMI2CC.yaml.
+# The AM13E230X SVD has the same block.
+block/CPU_INT:
+  description: CPU_INT.
+  items:
+  - name: IIDX
+    description: Interrupt index.
+    byte_offset: 0
+    fieldset: IIDX
+  - name: IMASK
+    description: Interrupt mask.
+    byte_offset: 8
+    fieldset: CPU_INT
+  - name: RIS
+    description: Raw interrupt status.
+    byte_offset: 16
+    fieldset: CPU_INT
+  - name: MIS
+    description: Masked interrupt status.
+    byte_offset: 24
+    fieldset: CPU_INT
+  - name: ISET
+    description: Interrupt set.
+    byte_offset: 32
+    fieldset: CPU_INT
+  - name: ICLR
+    description: Interrupt clear.
+    byte_offset: 40
+    fieldset: CPU_INT
+block/DMA_TRIG0:
+  description: DMA_TRIG0.
+  items:
+  - name: IMASK
+    description: Interrupt mask.
+    byte_offset: 8
+    fieldset: DMA_TRIG0
+  - name: RIS
+    description: Raw interrupt status.
+    byte_offset: 16
+    fieldset: DMA_TRIG0
+  - name: MIS
+    description: Masked interrupt status.
+    byte_offset: 24
+    fieldset: DMA_TRIG0
+  - name: ISET
+    description: Interrupt set.
+    byte_offset: 32
+    fieldset: DMA_TRIG0
+block/DMA_TRIG1:
+  description: DMA_TRIG1.
+  items:
+  - name: IMASK
+    description: Interrupt mask.
+    byte_offset: 8
+    fieldset: DMA_TRIG1
+  - name: RIS
+    description: Raw interrupt status.
+    byte_offset: 16
+    fieldset: DMA_TRIG1
+  - name: MIS
+    description: Masked interrupt status.
+    byte_offset: 24
+    fieldset: DMA_TRIG1
+  - name: ISET
+    description: Interrupt set.
+    byte_offset: 32
+    fieldset: DMA_TRIG1
+block/UNICOMMI2CC:
+  description: UNICOMMI2CC module.
+  items:
+  - name: CLKDIV
+    description: Clock Divider.
+    byte_offset: 0
+    fieldset: CLKDIV
+  - name: CLKSEL
+    description: Clock Select for Ultra Low Power peripherals.
+    byte_offset: 8
+    fieldset: CLKSEL
+  - name: PDBGCTL
+    description: Peripheral Debug Control.
+    byte_offset: 24
+    fieldset: PDBGCTL
+  - name: CPU_INT
+    description: CPU_INT.
+    byte_offset: 32
+    block: CPU_INT
+  - name: DMA_TRIG1
+    description: DMA_TRIG1.
+    byte_offset: 80
+    block: DMA_TRIG1
+  - name: DMA_TRIG0
+    description: DMA_TRIG0.
+    byte_offset: 128
+    block: DMA_TRIG0
+  - name: INTCTL
+    description: Interrupt control register.
+    byte_offset: 228
+    fieldset: INTCTL
+  - name: CTR
+    description: Control Register.
+    byte_offset: 256
+    fieldset: CTR
+  - name: CR
+    description: Configuration.
+    byte_offset: 260
+    fieldset: CR
+  - name: SR
+    description: Status Register.
+    byte_offset: 264
+    fieldset: SR
+  - name: IFLS
+    description: Interrupt FIFO Level Select Register.
+    byte_offset: 268
+    fieldset: IFLS
+  - name: TPR
+    description: Timer Period.
+    byte_offset: 272
+    fieldset: TPR
+  - name: GFCTL
+    description: I2C Glitch Filter Control.
+    byte_offset: 280
+    fieldset: GFCTL
+  - name: BMON
+    description: Bus Monitor.
+    byte_offset: 284
+    fieldset: BMON
+  - name: TXDATA
+    description: TXData.
+    byte_offset: 288
+    fieldset: TXDATA
+  - name: RXDATA
+    description: RXData.
+    byte_offset: 292
+    fieldset: RXDATA
+  - name: PECSR
+    description: PEC status register.
+    byte_offset: 296
+    fieldset: PECSR
+  - name: TA
+    description: Target Address Register.
+    byte_offset: 332
+    fieldset: TA
+  - name: TIMEOUT_CNT
+    description: I2C Timeout Count Register.
+    byte_offset: 336
+    fieldset: TIMEOUT_CNT
+  - name: TIMEOUT_CTL
+    description: I2C Timeout Count Control Register.
+    byte_offset: 340
+    fieldset: TIMEOUT_CTL
+  - name: PECCTL
+    description: I2C PEC control register.
+    byte_offset: 344
+    fieldset: PECCTL
+fieldset/BMON:
+  description: Bus Monitor.
+  fields:
+  - name: SCL
+    description: I2C SCL Status.
+    bit_offset: 0
+    bit_size: 1
+  - name: SDA
+    description: I2C SDA Status.
+    bit_offset: 1
+    bit_size: 1
+fieldset/CLKDIV:
+  description: Clock Divider.
+  fields:
+  - name: RATIO
+    description: 'Selects divide ratio of module clock Division factor 0 : DIV_BY_1 1 : DIV_BY_2 .... 63: DIV_BY_64.'
+    bit_offset: 0
+    bit_size: 3
+fieldset/CLKSEL:
+  description: Clock Select for Ultra Low Power peripherals.
+  fields:
+  - name: BUSCLK_SEL
+    description: Selects BUS CLK as clock source if enabled.
+    bit_offset: 3
+    bit_size: 1
+fieldset/CPU_INT:
+  description: Interrupt mask.
+  fields:
+  - name: RXDONE
+    description: RXDONE interrupt.
+    bit_offset: 0
+    bit_size: 1
+  - name: TXDONE
+    description: Transmit Transaction completed Interrupt.
+    bit_offset: 1
+    bit_size: 1
+  - name: RXTRG
+    description: Receive FIFO Trigger.
+    bit_offset: 2
+    bit_size: 1
+  - name: TXTRG
+    description: Transmit Trigger.
+    bit_offset: 3
+    bit_size: 1
+  - name: RXFULL
+    description: RXFIFO full event.
+    bit_offset: 4
+    bit_size: 1
+  - name: TXEMPTY
+    description: Interrupt Mask for Transmit FIFO Empty.
+    bit_offset: 5
+    bit_size: 1
+  - name: NACK
+    description: NACK interrupt.
+    bit_offset: 7
+    bit_size: 1
+  - name: START
+    description: START interrupt.
+    bit_offset: 8
+    bit_size: 1
+  - name: STOP
+    description: STOP interrupt.
+    bit_offset: 9
+    bit_size: 1
+  - name: ARBLOST
+    description: Arbitration Lost interrupt.
+    bit_offset: 10
+    bit_size: 1
+  - name: PEC_RX_ERR
+    description: RX Pec Error Interrupt.
+    bit_offset: 11
+    bit_size: 1
+  - name: TIMEOUTA
+    description: TIMEOUTA interrupt.
+    bit_offset: 12
+    bit_size: 1
+  - name: TIMEOUTB
+    description: Timeout B Interrupt.
+    bit_offset: 13
+    bit_size: 1
+  - name: DMA_DONE_RX
+    description: DMA Done on Event Channel RX.
+    bit_offset: 15
+    bit_size: 1
+  - name: DMA_DONE_TX
+    description: DMA Done on Event Channel TX.
+    bit_offset: 16
+    bit_size: 1
+fieldset/CR:
+  description: Configuration.
+  fields:
+  - name: ENABLE
+    description: Enable module. After this bit has been set, it should not be set again unless it has been cleared by writing a 0 or by a reset, otherwise transfer failures may occur.
+    bit_offset: 0
+    bit_size: 1
+  - name: MCTL
+    description: MultiController mode. In MultiController mode the SCL high time counts once the SCL line has been detected high. If this is not enabled the high time counts as soon as the SCL line has been set high by the I2C controller.
+    bit_offset: 1
+    bit_size: 1
+  - name: CLKSTRETCH
+    description: Clock Stretching.
+    bit_offset: 2
+    bit_size: 1
+fieldset/CTR:
+  description: Control Register.
+  fields:
+  - name: FRM_START
+    description: Start Transfer.
+    bit_offset: 0
+    bit_size: 1
+  - name: START
+    description: Generate START.
+    bit_offset: 1
+    bit_size: 1
+  - name: STOP
+    description: Generate STOP.
+    bit_offset: 2
+    bit_size: 1
+  - name: ACK
+    description: Data Acknowledge Enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: ACKOEN
+    description: ACK overrride Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: RD_ON_TXEMPTY
+    description: Read on TX Empty.
+    bit_offset: 5
+    bit_size: 1
+  - name: SUSPEND
+    description: Suspend external communication.
+    bit_offset: 6
+    bit_size: 1
+  - name: BLEN
+    description: I2C transaction length.
+    bit_offset: 16
+    bit_size: 12
+fieldset/DMA_TRIG0:
+  description: Interrupt mask.
+  fields:
+  - name: TXTRG
+    description: Transmit FIFO Trigger.
+    bit_offset: 3
+    bit_size: 1
+fieldset/DMA_TRIG1:
+  description: Interrupt mask.
+  fields:
+  - name: RXTRG
+    description: Receive FIFO Trigger.
+    bit_offset: 2
+    bit_size: 1
+fieldset/GFCTL:
+  description: I2C Glitch Filter Control.
+  fields:
+  - name: DGFSEL
+    description: Glitch Suppression Pulse Width This field controls the pulse width select for glitch suppression on the SCL and SDA lines. The following values are the glitch suppression values in terms of functional clocks. (Core Domain only).
+    bit_offset: 0
+    bit_size: 3
+    enum: DGFSEL
+  - name: AGFEN
+    description: Analog Glitch Suppression Enable.
+    bit_offset: 8
+    bit_size: 1
+fieldset/IFLS:
+  description: Interrupt FIFO Level Select Register.
+  fields:
+  - name: TXIFLSEL
+    description: 'FIFO Level Select for generating events (interrupt/dma). Note: for undefined settings the default configuration is used.'
+    bit_offset: 0
+    bit_size: 3
+    enum: TXIFLSEL
+  - name: TXCLR
+    description: RX FIFO Flush.
+    bit_offset: 3
+    bit_size: 1
+  - name: RXIFLSEL
+    description: 'FIFO Level Select for generating events (interrupt/dma). Note: for undefined settings the default configuration is used.'
+    bit_offset: 4
+    bit_size: 3
+    enum: RXIFLSEL
+  - name: RXCLR
+    description: RX FIFO CLEAR.
+    bit_offset: 7
+    bit_size: 1
+fieldset/IIDX:
+  description: Interrupt index.
+  fields:
+  - name: STAT
+    description: I2C Module Interrupt Vector Value. This register provides the highes priority interrupt index. A read clears the corresponding interrupt flag in RIS and MISC. 15h-1Fh = Reserved.
+    bit_offset: 0
+    bit_size: 8
+    enum: IIDX_STAT
+fieldset/INTCTL:
+  description: Interrupt control register.
+  fields:
+  - name: INTEVAL
+    description: Writing a 1 to this field re-evaluates the interrupt sources.
+    bit_offset: 0
+    bit_size: 1
+fieldset/PDBGCTL:
+  description: Peripheral Debug Control.
+  fields:
+  - name: FREE
+    description: Free run control.
+    bit_offset: 0
+    bit_size: 1
+  - name: SOFT
+    description: Soft halt boundary control. This function is only available, if [FREE] is set to 'STOP'.
+    bit_offset: 1
+    bit_size: 1
+fieldset/PECCTL:
+  description: I2C PEC control register.
+  fields:
+  - name: PECCNT
+    description: PEC Count.
+    bit_offset: 0
+    bit_size: 9
+  - name: PECEN
+    description: PEC Enable.
+    bit_offset: 12
+    bit_size: 1
+fieldset/PECSR:
+  description: PEC status register.
+  fields:
+  - name: PECBYTECNT
+    description: PEC Current Count.
+    bit_offset: 0
+    bit_size: 9
+  - name: PECSTS_CHECK
+    description: PEC Check Status.
+    bit_offset: 16
+    bit_size: 1
+  - name: PECSTS_ERROR
+    description: PEC Error Status.
+    bit_offset: 17
+    bit_size: 1
+fieldset/RXDATA:
+  description: RXData.
+  fields:
+  - name: DATA
+    description: Received Data. This field contains the last received data.
+    bit_offset: 0
+    bit_size: 8
+fieldset/SR:
+  description: Status Register.
+  fields:
+  - name: BUSY
+    description: FSM Busy The BUSY bit is set during an ongoing transaction, so is set during the transmit/receive of the amount of data set in MBLEN including START, RESTART, Address and STOP signal generation when required for the current transaction.
+    bit_offset: 0
+    bit_size: 1
+  - name: ERR
+    description: Error The error can be from the Target address not being acknowledged or the transmit data not being acknowledged.
+    bit_offset: 1
+    bit_size: 1
+  - name: ADRACK
+    description: Acknowledge Address.
+    bit_offset: 2
+    bit_size: 1
+  - name: DATACK
+    description: Acknowledge Data.
+    bit_offset: 3
+    bit_size: 1
+  - name: ARBLST
+    description: Arbitration Lost.
+    bit_offset: 4
+    bit_size: 1
+  - name: IDLE
+    description: I2C Idle.
+    bit_offset: 5
+    bit_size: 1
+  - name: BUSBSY
+    description: I2C Bus is Busy Controller State Machine will wait until this bit to be cleared before starting a transaction. When first enabling the Controller in multi Controller environments, FW should wait for one I2C clock period after setting ACTIVE high before writing to the CTR register to start the transaction so that if SCL goes low it will trigger the BUSBSY.
+    bit_offset: 6
+    bit_size: 1
+  - name: RXCLR
+    description: RX FIFO Clear Status.
+    bit_offset: 9
+    bit_size: 1
+  - name: TXCLR
+    description: TX FIFO Clear Status.
+    bit_offset: 10
+    bit_size: 1
+  - name: RXFE
+    description: Receive FIFO Empty The meaning of this bit depends on the state of the FEN bit in the CTL0 register.
+    bit_offset: 11
+    bit_size: 1
+  - name: RXFF
+    description: Receive FIFO Full The meaning of this bit depends on the state of the FEN bit in the CTL0 register.
+    bit_offset: 12
+    bit_size: 1
+  - name: TXFE
+    description: Transmit FIFO Empty The meaning of this bit depends on the state of the FEN bit in the CTL0 register.
+    bit_offset: 13
+    bit_size: 1
+  - name: TXFF
+    description: Transmit FIFO Full The meaning of this bit depends on the state of the FEN bit in the CTL0 register.
+    bit_offset: 14
+    bit_size: 1
+  - name: BCNT
+    description: transaction count.
+    bit_offset: 16
+    bit_size: 12
+fieldset/TA:
+  description: Target Address Register.
+  fields:
+  - name: DIR
+    description: Receive/Send The DIR bit specifies if the next operation is a Receive (High) or Transmit (Low). 0h = Transmit 1h = Receive.
+    bit_offset: 0
+    bit_size: 1
+  - name: ADDR
+    description: Target Address.
+    bit_offset: 1
+    bit_size: 10
+  - name: MODE
+    description: Addressing Mode.
+    bit_offset: 15
+    bit_size: 1
+fieldset/TIMEOUT_CNT:
+  description: I2C Timeout Count Register.
+  fields:
+  - name: TCNTA
+    description: 'Timeout Count A Current Count: This field contains the upper 8 bits of a 12-bit current counter for timeout counter A.'
+    bit_offset: 0
+    bit_size: 8
+  - name: TCNTB
+    description: 'Timeout Count B Current Count: This field contains the upper 8 bits of a 12-bit current counter for timeout counter B.'
+    bit_offset: 16
+    bit_size: 8
+fieldset/TIMEOUT_CTL:
+  description: I2C Timeout Count Control Register.
+  fields:
+  - name: TCNTLA
+    description: 'Timeout counter A load value Counter A is used for SCL low detection. This field contains the upper 8 bits of a 12-bit pre-load value for the Timeout A count. NOTE: The value of CNTLA must be greater than 1h. Each count is equal to 520 times the timeout period of functional clock. For example, with 8MHz functional clock and a 100KHz operating I2C clock, one timeout period will be equal to (1 / 8MHz) * 520 or 65 us.'
+    bit_offset: 0
+    bit_size: 8
+  - name: TCNTAEN
+    description: Timeout Counter A Enable.
+    bit_offset: 15
+    bit_size: 1
+  - name: TCNTLB
+    description: 'Timeout Count B Load: Counter B is used for SCL High Detection. This field contains the upper 8 bits of a 12-bit pre-load value for the Timeout B count. NOTE: The value of CNTLB must be greater than 1h. Each count is equal to 1* clock period. For example, with 10MHz functional clock one timeout period will be equal to1*100ns.'
+    bit_offset: 16
+    bit_size: 8
+  - name: TCNTBEN
+    description: Timeout Counter B Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/TPR:
+  description: Timer Period.
+  fields:
+  - name: TPR
+    description: 'Timer Period This field is used in the equation to configure SCL_PERIOD : SCL_PERIOD = (1 + TPR ) * (SCL_LP + SCL_HP ) * INT_CLK_PRD where: SCL_PRD is the SCL line period (I2C clock). TPR is the Timer Period register value (range of 1 to 127). SCL_LP is the SCL Low period (fixed at 6). SCL_HP is the SCL High period (fixed at 4). CLK_PRD is the functional clock period in ns.'
+    bit_offset: 0
+    bit_size: 7
+fieldset/TXDATA:
+  description: TXData.
+  fields:
+  - name: DATA
+    description: Transmit Data This byte contains the data to be transferred during the next transaction.
+    bit_offset: 0
+    bit_size: 8
+enum/DGFSEL:
+  bit_size: 3
+  variants:
+  - name: DISABLED
+    description: Bypass.
+    value: 0
+  - name: CLK_1
+    description: 1 clock.
+    value: 1
+  - name: CLK_2
+    description: 2 clocks.
+    value: 2
+  - name: CLK_3
+    description: 3 clocks.
+    value: 3
+  - name: CLK_4
+    description: 4 clocks.
+    value: 4
+  - name: CLK_8
+    description: 8 clocks.
+    value: 5
+  - name: CLK_16
+    description: 16 clocks.
+    value: 6
+  - name: CLK_31
+    description: 31 clocks.
+    value: 7
+enum/IIDX_STAT:
+  bit_size: 8
+  variants:
+  - name: NO_INTR
+    description: No interrupt pending.
+    value: 0
+  - name: RXDONEFG
+    description: Data received.
+    value: 1
+  - name: TXDONEFG
+    description: data transmitted.
+    value: 2
+  - name: RXTRG
+    description: Receive Trigger.
+    value: 3
+  - name: TXTRG
+    description: Transmit Trigger.
+    value: 4
+  - name: RXFULL
+    description: RX FIFO FULL Event/interrupt pending.
+    value: 5
+  - name: TXEMPTY
+    description: Transmit FIFO/Buffer Empty Event/interrupt pending.
+    value: 6
+  - name: NACKFG
+    description: Address/Data NACK.
+    value: 8
+  - name: STARTFG
+    description: Start Event.
+    value: 9
+  - name: STOPFG
+    description: Stop Event.
+    value: 10
+  - name: ARBLOSTFG
+    description: Arbitration Lost.
+    value: 11
+  - name: PEC_RX_ERR
+    description: PEC Receive Error Event.
+    value: 12
+  - name: TIMEOUTA
+    description: Timeout A Event.
+    value: 13
+  - name: TIMEOUTB
+    description: Timeout B Event.
+    value: 14
+  - name: DMA_DONE_RX
+    description: DMA DONE on Channel RX.
+    value: 16
+  - name: DMA_DONE_TX
+    description: DMA DONE on Channel TX.
+    value: 17
+  - name: DMA_PREIRQ_RX
+    description: DMA PRE IRQ INTERRUPT.
+    value: 19
+  - name: DMA_PREIRQ_TX
+    description: DMA PRE IRQ INTERRUPT.
+    value: 20
+enum/RXIFLSEL:
+  bit_size: 3
+  variants:
+  - name: LVL_1_4
+    description: RX FIFO >= 1/4 full.
+    value: 1
+  - name: LVL_1_2
+    description: RX FIFO >= 1/2 full (default).
+    value: 2
+  - name: LVL_3_4
+    description: RX FIFO >= 3/4 full.
+    value: 3
+  - name: LVL_NOT_EMPTY
+    description: Opposite of empty.
+    value: 4
+  - name: LVL_FULL
+    description: RX FIFO is full.
+    value: 5
+  - name: LVL_ALMOST_FULL
+    description: RX_FIFO >= (MAX_FIFO_LEN -1).
+    value: 6
+  - name: LVL_ALMOST_EMPTY
+    description: RX_FIFO <= 1.
+    value: 7
+enum/TXIFLSEL:
+  bit_size: 3
+  variants:
+  - name: LVL_3_4
+    description: TX FIFO <= 3/4 empty.
+    value: 1
+  - name: LVL_1_2
+    description: TX FIFO <= 1/2 empty (default).
+    value: 2
+  - name: LVL_1_4
+    description: TX FIFO <= 1/4 empty.
+    value: 3
+  - name: LVL_NOT_FULL
+    description: Opposite of full.
+    value: 4
+  - name: LVL_EMPTY
+    description: TX FIFO is empty.
+    value: 5
+  - name: LVL_ALMOST_EMPTY
+    description: TX FIFO <= 1.
+    value: 6
+  - name: LVL_ALMOST_FULL
+    description: TX_FIFO >= (MAX_FIFO_LEN -1).
+    value: 7

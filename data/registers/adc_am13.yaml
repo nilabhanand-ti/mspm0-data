@@ -1,0 +1,1109 @@
+# ADC of the AM13E2x (SOC and sequencer based, not the MSPM0 ADC12), from the AM13E232X SVD by transforms/ADC_AM13.yaml.
+# The AM13E230X SVD has the same block.
+block/ADC:
+  description: ADC module.
+  items:
+  - name: GPRCM
+    description: GPRCM.
+    byte_offset: 2048
+    block: GPRCM
+  - name: ADCCTL1
+    description: ADC Control 1 Register.
+    byte_offset: 4096
+    fieldset: ADCCTL1
+  - name: ADCCTL2
+    description: ADC Control 2 Register.
+    byte_offset: 4100
+    fieldset: ADCCTL2
+  - name: ADCINTSEL
+    description: ADC Interrupt 1, 2, 3 and 4 Selection Register.
+    byte_offset: 4112
+    fieldset: ADCINTSEL
+  - name: ADCDMAINTSEL
+    description: ADC DMA Interrupt 1, 2, 3 and 4 Selection Register.
+    byte_offset: 4116
+    fieldset: ADCDMAINTSEL
+  - name: ADCRAWINTFLG
+    description: ADC Raw Interrupt Flag Register.
+    byte_offset: 4120
+    fieldset: ADCRAWINTFLG
+  - name: ADCINTFLG
+    description: ADC Interrupt Flag Register.
+    byte_offset: 4124
+    fieldset: ADCINTFLG
+  - name: ADCINTFLGFRC
+    description: ADC Interrupt Flag Force Register.
+    byte_offset: 4128
+    fieldset: ADCINTFLGFRC
+  - name: ADCINTFLGCLR
+    description: ADC Interrupt Flag Clear Register.
+    byte_offset: 4132
+    fieldset: ADCINTFLGCLR
+  - name: ADCINTOVF
+    description: ADC Interrupt Overflow Register.
+    byte_offset: 4136
+    fieldset: ADCINTOVF
+  - name: ADCINTOVFCLR
+    description: ADC Interrupt Overflow Clear Register.
+    byte_offset: 4140
+    fieldset: ADCINTOVFCLR
+  - name: ADCSOCFLG1
+    description: ADC SOC Flag 1 Register.
+    byte_offset: 4156
+    fieldset: ADCSOCFLG1
+  - name: ADCSOCOVF1
+    description: ADC SOC Overflow 1 Register.
+    byte_offset: 4164
+    fieldset: ADCSOCOVF1
+  - name: ADCSOCOVFCLR1
+    description: ADC SOC Overflow Clear 1 Register.
+    byte_offset: 4168
+    fieldset: ADCSOCOVFCLR1
+  - name: ADCSOCCTL
+    description: ADC SOC0 Control Register.
+    array:
+      len: 16
+      stride: 4
+    byte_offset: 4172
+    fieldset: ADCSOCCTL
+  - name: ADCEVTSTAT
+    description: ADC Event Status Register.
+    byte_offset: 4300
+    fieldset: ADCEVTSTAT
+  - name: ADCEVTCLR
+    description: ADC Event Clear Register.
+    byte_offset: 4304
+    fieldset: ADCEVTCLR
+  - name: ADCEVTSEL
+    description: ADC Event Selection Register.
+    byte_offset: 4308
+    fieldset: ADCEVTSEL
+  - name: ADCEVTINTSEL
+    description: ADC Event Interrupt Selection Register.
+    byte_offset: 4312
+    fieldset: ADCEVTINTSEL
+  - name: ADCREV
+    description: ADC Revision Register.
+    byte_offset: 4324
+    fieldset: ADCREV
+  - name: ADCOFFTRIM
+    description: ADC Offset Trim Register 1.
+    byte_offset: 4328
+    fieldset: ADCOFFTRIM
+  - name: ADCPPBCONFIG
+    description: ADC PPB1 Config Register.
+    array:
+      len: 4
+      stride: 32
+    byte_offset: 4352
+    fieldset: ADCPPBCONFIG
+  - name: ADCPPBTRIPHI
+    description: ADC PPB1 Trip High Register.
+    array:
+      len: 4
+      stride: 32
+    byte_offset: 4368
+    fieldset: ADCPPBTRIPHI
+  - name: ADCPPBTRIPLO
+    description: ADC PPB1 Trip Low/Trigger Time Stamp Register.
+    array:
+      len: 4
+      stride: 32
+    byte_offset: 4372
+    fieldset: ADCPPBTRIPLO
+  - name: ADCINTCYCLE
+    description: ADC Early Interrupt Generation Cycle.
+    byte_offset: 4480
+    fieldset: ADCINTCYCLE
+  - name: ADCREV2
+    description: ADC Wrapper Revision Register.
+    byte_offset: 4508
+    fieldset: ADCREV2
+  - name: ADCPPBLIMIT
+    description: ADC PPB1Conversion Count Limit Register.
+    array:
+      len: 4
+      stride: 64
+    byte_offset: 4608
+    fieldset: ADCPPBLIMIT
+  - name: ADCPPBPCOUNT
+    description: ADC PPB1 Partial Conversion Count Register.
+    array:
+      len: 4
+      stride: 64
+    byte_offset: 4612
+    fieldset: ADCPPBPCOUNT
+  - name: ADCPPBCONFIG2
+    description: ADC PPB1 Sum Shift Register.
+    array:
+      len: 4
+      stride: 64
+    byte_offset: 4616
+    fieldset: ADCPPBCONFIG2
+  - name: ADCPPBPSUM
+    description: ADC PPB1 Partial Sum Register.
+    array:
+      len: 4
+      stride: 64
+    byte_offset: 4620
+    fieldset: ADCPPBPSUM
+  - name: ADCSEQCTL
+    description: ADC Sequencer common control Register.
+    byte_offset: 4896
+    fieldset: ADCSEQCTL
+  - name: ADCSEQCONFIG
+    description: ADC Sequencer 1 Config register.
+    array:
+      len: 4
+      stride: 4
+    byte_offset: 4900
+    fieldset: ADCSEQCONFIG
+block/GPRCM:
+  description: GPRCM.
+  items:
+  - name: PWREN
+    description: Power enable.
+    byte_offset: 0
+    fieldset: PWREN
+  - name: RSTCTL
+    description: Reset Control.
+    byte_offset: 4
+    fieldset: RSTCTL
+  - name: STAT
+    description: Status Register.
+    byte_offset: 20
+    fieldset: STAT
+fieldset/ADCCTL1:
+  description: ADC Control 1 Register.
+  fields:
+  - name: INTPULSEPOS
+    description: ADC Interrupt Pulse Position.
+    bit_offset: 2
+    bit_size: 1
+  - name: ADCPWDNZ
+    description: ADC Power Down.
+    bit_offset: 7
+    bit_size: 1
+  - name: ADCBSYCHN
+    description: ADC Busy Channel.
+    bit_offset: 8
+    bit_size: 4
+  - name: ADCBSY
+    description: ADC Busy.
+    bit_offset: 13
+    bit_size: 1
+fieldset/ADCCTL2:
+  description: ADC Control 2 Register.
+  fields:
+  - name: PRESCALE
+    description: ADC Clock Prescaler.
+    bit_offset: 0
+    bit_size: 4
+fieldset/ADCDMAINTSEL:
+  description: ADC DMA Interrupt 1, 2, 3 and 4 Selection Register.
+  fields:
+  - name: DMAINT1SEL
+    description: ADCDMAINT1 EOC Source Select.
+    bit_offset: 0
+    bit_size: 4
+  - name: DMAINT1CONT
+    description: ADCDMAINT1 Continue to Interrupt Mode.
+    bit_offset: 6
+    bit_size: 1
+  - name: DMAINT1E
+    description: ADCDMAINT1 Interrupt Enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: DMAINT2SEL
+    description: ADCDMAINT2 EOC Source Select.
+    bit_offset: 8
+    bit_size: 4
+  - name: DMAINT2CONT
+    description: ADCDMAINT2 Continue to Interrupt Mode.
+    bit_offset: 14
+    bit_size: 1
+  - name: DMAINT2E
+    description: ADCDMAINT2 Interrupt Enable.
+    bit_offset: 15
+    bit_size: 1
+  - name: DMAINT3SEL
+    description: ADCDMAINT3 EOC Source Select.
+    bit_offset: 16
+    bit_size: 4
+  - name: DMAINT3CONT
+    description: ADCDMAINT3 Continue to Interrupt Mode.
+    bit_offset: 22
+    bit_size: 1
+  - name: DMAINT3E
+    description: ADCDMAINT3 Interrupt Enable.
+    bit_offset: 23
+    bit_size: 1
+  - name: DMAINT4SEL
+    description: ADCDMAINT4 EOC Source Select.
+    bit_offset: 24
+    bit_size: 4
+  - name: DMAINT4CONT
+    description: ADCDMAINT4 Continue to Interrupt Mode.
+    bit_offset: 30
+    bit_size: 1
+  - name: DMAINT4E
+    description: ADCDMAINT4 Interrupt Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/ADCEVTCLR:
+  description: ADC Event Clear Register.
+  fields:
+  - name: PPB1TRIPHI
+    description: Post Processing Block 1 Trip High Clear.
+    bit_offset: 0
+    bit_size: 1
+  - name: PPB1TRIPLO
+    description: Post Processing Block 1 Trip Low Clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: PPB1ZERO
+    description: Post Processing Block 1 Zero Crossing Clear.
+    bit_offset: 2
+    bit_size: 1
+  - name: PPB1INLIMIT
+    description: Post Processing Block 1 Within trip limit flag Clear.
+    bit_offset: 3
+    bit_size: 1
+  - name: PPB2TRIPHI
+    description: Post Processing Block 2 Trip High Clear.
+    bit_offset: 4
+    bit_size: 1
+  - name: PPB2TRIPLO
+    description: Post Processing Block 2 Trip Low Clear.
+    bit_offset: 5
+    bit_size: 1
+  - name: PPB2ZERO
+    description: Post Processing Block 2 Zero Crossing Clear.
+    bit_offset: 6
+    bit_size: 1
+  - name: PPB2INLIMIT
+    description: Post Processing Block 2 Within trip limit flag Clear.
+    bit_offset: 7
+    bit_size: 1
+  - name: PPB3TRIPHI
+    description: Post Processing Block 3 Trip High Clear.
+    bit_offset: 8
+    bit_size: 1
+  - name: PPB3TRIPLO
+    description: Post Processing Block 3 Trip Low Clear.
+    bit_offset: 9
+    bit_size: 1
+  - name: PPB3ZERO
+    description: Post Processing Block 3 Zero Crossing Clear.
+    bit_offset: 10
+    bit_size: 1
+  - name: PPB3INLIMIT
+    description: Post Processing Block 3 Within trip limit flag Clear.
+    bit_offset: 11
+    bit_size: 1
+  - name: PPB4TRIPHI
+    description: Post Processing Block 4 Trip High Clear.
+    bit_offset: 12
+    bit_size: 1
+  - name: PPB4TRIPLO
+    description: Post Processing Block 4 Trip Low Clear.
+    bit_offset: 13
+    bit_size: 1
+  - name: PPB4ZERO
+    description: Post Processing Block 4 Zero Crossing Clear.
+    bit_offset: 14
+    bit_size: 1
+  - name: PPB4INLIMIT
+    description: Post Processing Block 4 Within trip limit flag Clear.
+    bit_offset: 15
+    bit_size: 1
+fieldset/ADCEVTINTSEL:
+  description: ADC Event Interrupt Selection Register.
+  fields:
+  - name: PPB1TRIPHI
+    description: Post Processing Block 1 Trip High Interrupt Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: PPB1TRIPLO
+    description: Post Processing Block 1 Trip Low Interrupt Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: PPB1ZERO
+    description: Post Processing Block 1 Zero Crossing Interrupt Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: PPB1INLIMIT
+    description: Post Processing Block 1 Within trip limit Interrupt enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: PPB2TRIPHI
+    description: Post Processing Block 2 Trip High Interrupt Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: PPB2TRIPLO
+    description: Post Processing Block 2 Trip Low Interrupt Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: PPB2ZERO
+    description: Post Processing Block 2 Zero Crossing Interrupt Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: PPB2INLIMIT
+    description: Post Processing Block 2 Within trip limit Interrupt enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: PPB3TRIPHI
+    description: Post Processing Block 3 Trip High Interrupt Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: PPB3TRIPLO
+    description: Post Processing Block 3 Trip Low Interrupt Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: PPB3ZERO
+    description: Post Processing Block 3 Zero Crossing Interrupt Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: PPB3INLIMIT
+    description: Post Processing Block 3 Within trip limit Interrupt enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: PPB4TRIPHI
+    description: Post Processing Block 4 Trip High Interrupt Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: PPB4TRIPLO
+    description: Post Processing Block 4 Trip Low Interrupt Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: PPB4ZERO
+    description: Post Processing Block 4 Zero Crossing Interrupt Enable.
+    bit_offset: 14
+    bit_size: 1
+  - name: PPB4INLIMIT
+    description: Post Processing Block 4 Within trip limit Interrupt enable.
+    bit_offset: 15
+    bit_size: 1
+fieldset/ADCEVTSEL:
+  description: ADC Event Selection Register.
+  fields:
+  - name: PPB1TRIPHI
+    description: Post Processing Block 1 Trip High Event Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: PPB1TRIPLO
+    description: Post Processing Block 1 Trip Low Event Enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: PPB1ZERO
+    description: Post Processing Block 1 Zero Crossing Event Enable.
+    bit_offset: 2
+    bit_size: 1
+  - name: PPB1INLIMIT
+    description: Post Processing Block 1 Within trip limit event enable.
+    bit_offset: 3
+    bit_size: 1
+  - name: PPB2TRIPHI
+    description: Post Processing Block 2 Trip High Event Enable.
+    bit_offset: 4
+    bit_size: 1
+  - name: PPB2TRIPLO
+    description: Post Processing Block 2 Trip Low Event Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: PPB2ZERO
+    description: Post Processing Block 2 Zero Crossing Event Enable.
+    bit_offset: 6
+    bit_size: 1
+  - name: PPB2INLIMIT
+    description: Post Processing Block 2 Within trip limit event enable.
+    bit_offset: 7
+    bit_size: 1
+  - name: PPB3TRIPHI
+    description: Post Processing Block 3 Trip High Event Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: PPB3TRIPLO
+    description: Post Processing Block 3 Trip Low Event Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: PPB3ZERO
+    description: Post Processing Block 3 Zero Crossing Event Enable.
+    bit_offset: 10
+    bit_size: 1
+  - name: PPB3INLIMIT
+    description: Post Processing Block 3 Within trip limit event enable.
+    bit_offset: 11
+    bit_size: 1
+  - name: PPB4TRIPHI
+    description: Post Processing Block 4 Trip High Event Enable.
+    bit_offset: 12
+    bit_size: 1
+  - name: PPB4TRIPLO
+    description: Post Processing Block 4 Trip Low Event Enable.
+    bit_offset: 13
+    bit_size: 1
+  - name: PPB4ZERO
+    description: Post Processing Block 4 Zero Crossing Event Enable.
+    bit_offset: 14
+    bit_size: 1
+  - name: PPB4INLIMIT
+    description: Post Processing Block 4 Within trip limit event enable.
+    bit_offset: 15
+    bit_size: 1
+fieldset/ADCEVTSTAT:
+  description: ADC Event Status Register.
+  fields:
+  - name: PPB1TRIPHI
+    description: Post Processing Block 1 Trip High Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: PPB1TRIPLO
+    description: Post Processing Block 1 Trip Low Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: PPB1ZERO
+    description: Post Processing Block 1 Zero Crossing Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: PPB1INLIMIT
+    description: Post Processing Block 1 Within trip limit Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: PPB2TRIPHI
+    description: Post Processing Block 2 Trip High Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: PPB2TRIPLO
+    description: Post Processing Block 2 Trip Low Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: PPB2ZERO
+    description: Post Processing Block 2 Zero Crossing Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: PPB2INLIMIT
+    description: Post Processing Block 2 Within trip limit Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: PPB3TRIPHI
+    description: Post Processing Block 3 Trip High Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: PPB3TRIPLO
+    description: Post Processing Block 3 Trip Low Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: PPB3ZERO
+    description: Post Processing Block 3 Zero Crossing Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: PPB3INLIMIT
+    description: Post Processing Block 3 Within trip limit Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: PPB4TRIPHI
+    description: Post Processing Block 4 Trip High Flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: PPB4TRIPLO
+    description: Post Processing Block 4 Trip Low Flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: PPB4ZERO
+    description: Post Processing Block 4 Zero Crossing Flag.
+    bit_offset: 14
+    bit_size: 1
+  - name: PPB4INLIMIT
+    description: Post Processing Block 4 Within trip limit Flag.
+    bit_offset: 15
+    bit_size: 1
+fieldset/ADCINTCYCLE:
+  description: ADC Early Interrupt Generation Cycle.
+  fields:
+  - name: DELAY
+    description: Delay from ADCSOC fall edge to early Interrupt generation.
+    bit_offset: 0
+    bit_size: 6
+fieldset/ADCINTFLG:
+  description: ADC Interrupt Flag Register.
+  fields:
+  - name: ADCINT
+    description: ADC Interrupt 1 Flag.
+    bit_offset: 0
+    bit_size: 1
+    array:
+      len: 4
+      stride: 1
+  - name: ADCINTRESULT
+    description: ADC Interrupt 1 Results Ready.
+    bit_offset: 8
+    bit_size: 1
+    array:
+      len: 4
+      stride: 1
+  - name: ADCDMAINT
+    description: ADC DMA Interrupt 1 Flag.
+    bit_offset: 16
+    bit_size: 1
+    array:
+      len: 4
+      stride: 1
+fieldset/ADCINTFLGCLR:
+  description: ADC Interrupt Flag Clear Register.
+  fields:
+  - name: ADCINT
+    description: ADC Interrupt 1 Flag Clear.
+    bit_offset: 0
+    bit_size: 1
+    array:
+      len: 4
+      stride: 1
+  - name: ADCDMAINT
+    description: ADC DMA Interrupt 1 Flag Clear.
+    bit_offset: 16
+    bit_size: 1
+    array:
+      len: 4
+      stride: 1
+fieldset/ADCINTFLGFRC:
+  description: ADC Interrupt Flag Force Register.
+  fields:
+  - name: ADCINT
+    description: ADC Interrupt 1 Flag Force.
+    bit_offset: 0
+    bit_size: 1
+    array:
+      len: 4
+      stride: 1
+  - name: ADCDMAINT
+    description: ADC DMA Interrupt 1 Flag Force.
+    bit_offset: 16
+    bit_size: 1
+    array:
+      len: 4
+      stride: 1
+fieldset/ADCINTOVF:
+  description: ADC Interrupt Overflow Register.
+  fields:
+  - name: ADCINT1OVF
+    description: ADC Interrupt 1 Overflow Flags.
+    bit_offset: 0
+    bit_size: 1
+  - name: ADCINT2OVF
+    description: ADC Interrupt 2 Overflow Flags.
+    bit_offset: 1
+    bit_size: 1
+  - name: ADCINT3OVF
+    description: ADC Interrupt 3 Overflow Flags.
+    bit_offset: 2
+    bit_size: 1
+  - name: ADCINT4OVF
+    description: ADC Interrupt 4 Overflow Flags.
+    bit_offset: 3
+    bit_size: 1
+  - name: ADCDMAINT1OVF
+    description: ADC DMA Interrupt 1 Overflow Flags.
+    bit_offset: 16
+    bit_size: 1
+  - name: ADCDMAINT2OVF
+    description: ADC DMA Interrupt 2 Overflow Flags.
+    bit_offset: 17
+    bit_size: 1
+  - name: ADCDMAINT3OVF
+    description: ADC DMA Interrupt 3 Overflow Flags.
+    bit_offset: 18
+    bit_size: 1
+  - name: ADCDMAINT4OVF
+    description: ADC DMA Interrupt 4 Overflow Flags.
+    bit_offset: 19
+    bit_size: 1
+fieldset/ADCINTOVFCLR:
+  description: ADC Interrupt Overflow Clear Register.
+  fields:
+  - name: ADCINT1OVF
+    description: ADC Interrupt 1 Overflow Clear Bits.
+    bit_offset: 0
+    bit_size: 1
+  - name: ADCINT2OVF
+    description: ADC Interrupt 2 Overflow Clear Bits.
+    bit_offset: 1
+    bit_size: 1
+  - name: ADCINT3OVF
+    description: ADC Interrupt 3 Overflow Clear Bits.
+    bit_offset: 2
+    bit_size: 1
+  - name: ADCINT4OVF
+    description: ADC Interrupt 4 Overflow Clear Bits.
+    bit_offset: 3
+    bit_size: 1
+  - name: ADCDMAINT1OVF
+    description: ADC DMA Interrupt 1 Overflow Clear Bits.
+    bit_offset: 16
+    bit_size: 1
+  - name: ADCDMAINT2OVF
+    description: ADC DMA Interrupt 2 Overflow Clear Bits.
+    bit_offset: 17
+    bit_size: 1
+  - name: ADCDMAINT3OVF
+    description: ADC DMA Interrupt 3 Overflow Clear Bits.
+    bit_offset: 18
+    bit_size: 1
+  - name: ADCDMAINT4OVF
+    description: ADC DMA Interrupt 4 Overflow Clear Bits.
+    bit_offset: 19
+    bit_size: 1
+fieldset/ADCINTSEL:
+  description: ADC Interrupt 1, 2, 3 and 4 Selection Register.
+  fields:
+  - name: INTSEL
+    description: ADCINT1 EOC Source Select.
+    bit_offset: 0
+    bit_size: 4
+    array:
+      len: 4
+      stride: 8
+  - name: INTCONT
+    description: ADCINT1 Continue to Interrupt Mode.
+    bit_offset: 6
+    bit_size: 1
+    array:
+      len: 4
+      stride: 8
+  - name: INTE
+    description: ADCINT1 Interrupt Enable.
+    bit_offset: 7
+    bit_size: 1
+    array:
+      len: 4
+      stride: 8
+fieldset/ADCOFFTRIM:
+  description: ADC Offset Trim Register 1.
+  fields:
+  - name: OFFTRIM
+    description: ADC Offset Trim.
+    bit_offset: 0
+    bit_size: 8
+fieldset/ADCPPBCONFIG:
+  description: ADC PPB1 Config Register.
+  fields:
+  - name: CBCEN
+    description: Cycle By Cycle Enable.
+    bit_offset: 5
+    bit_size: 1
+fieldset/ADCPPBCONFIG2:
+  description: ADC PPB1 Sum Shift Register.
+  fields:
+  - name: SHIFT
+    description: Post Processing Block 1 Right Shift.
+    bit_offset: 0
+    bit_size: 3
+  - name: SYNCINSEL
+    description: Post Processing Block 1 Sync. Input Select.
+    bit_offset: 4
+    bit_size: 5
+  - name: SWSYNC
+    description: Post Processing Block 1 Software Force Sync.
+    bit_offset: 11
+    bit_size: 1
+  - name: COMPSEL
+    description: Post Processing Block 1 Compare Source Select.
+    bit_offset: 15
+    bit_size: 1
+fieldset/ADCPPBLIMIT:
+  description: ADC PPB1Conversion Count Limit Register.
+  fields:
+  - name: LIMIT
+    description: Post Processing Block 1 Limit.
+    bit_offset: 0
+    bit_size: 2
+fieldset/ADCPPBPCOUNT:
+  description: ADC PPB1 Partial Conversion Count Register.
+  fields:
+  - name: PCOUNT
+    description: Post Processing Block 1 Partial Count.
+    bit_offset: 0
+    bit_size: 3
+fieldset/ADCPPBPSUM:
+  description: ADC PPB1 Partial Sum Register.
+  fields:
+  - name: PSUM
+    description: Post Processing Block 1 Oversampling Partial Sum.
+    bit_offset: 0
+    bit_size: 16
+  - name: SIGN
+    description: Sign Extended Bits.
+    bit_offset: 16
+    bit_size: 16
+fieldset/ADCPPBTRIPHI:
+  description: ADC PPB1 Trip High Register.
+  fields:
+  - name: LIMITHI
+    description: ADC Post Processing Block 1 Trip High Limit.
+    bit_offset: 0
+    bit_size: 16
+fieldset/ADCPPBTRIPLO:
+  description: ADC PPB1 Trip Low/Trigger Time Stamp Register.
+  fields:
+  - name: LIMITLO
+    description: ADC Post Processing Block 1 Trip Low Limit.
+    bit_offset: 0
+    bit_size: 16
+fieldset/ADCRAWINTFLG:
+  description: ADC Raw Interrupt Flag Register.
+  fields:
+  - name: ADCRAWINT1
+    description: ADC Raw Interrupt 1 Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: ADCRAWINT2
+    description: ADC Raw Interrupt 2 Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: ADCRAWINT3
+    description: ADC Raw Interrupt 3 Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: ADCRAWINT4
+    description: ADC Raw Interrupt 4 Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: ADCDMARAWINT1
+    description: ADC DMA Raw Interrupt 1 Flag.
+    bit_offset: 16
+    bit_size: 1
+  - name: ADCDMARAWINT2
+    description: ADC DMA Raw Interrupt 2 Flag.
+    bit_offset: 17
+    bit_size: 1
+  - name: ADCDMARAWINT3
+    description: ADC DMA Raw Interrupt 3 Flag.
+    bit_offset: 18
+    bit_size: 1
+  - name: ADCDMARAWINT4
+    description: ADC DMA Raw Interrupt 4 Flag.
+    bit_offset: 19
+    bit_size: 1
+fieldset/ADCREV:
+  description: ADC Revision Register.
+  fields:
+  - name: TYPE
+    description: ADC Type.
+    bit_offset: 0
+    bit_size: 8
+  - name: REV
+    description: ADC Revision.
+    bit_offset: 8
+    bit_size: 24
+fieldset/ADCREV2:
+  description: ADC Wrapper Revision Register.
+  fields:
+  - name: WRAPPERTYPE
+    description: ADC Wrapper Type.
+    bit_offset: 0
+    bit_size: 8
+  - name: WRAPPERREV
+    description: ADC Wrapper Revision.
+    bit_offset: 8
+    bit_size: 24
+fieldset/ADCSEQCONFIG:
+  description: ADC Sequencer 1 Config register.
+  fields:
+  - name: ACQPS
+    description: SEQ1 Acquisition Prescale.
+    bit_offset: 0
+    bit_size: 8
+  - name: SAMPCAPRESETDISABLE
+    description: SEQ1 Sample Cap Reset Enable.
+    bit_offset: 9
+    bit_size: 1
+  - name: SAMPCAPRESETSEL
+    description: SEQ1 Sample Cap Reset Select.
+    bit_offset: 10
+    bit_size: 1
+  - name: SEQSTART
+    description: Beginning SOC of SEQ1.
+    bit_offset: 15
+    bit_size: 4
+  - name: TRIGSEL
+    description: SEQ1 Trigger Source Select.
+    bit_offset: 20
+    bit_size: 5
+  - name: SEQSWFRC
+    description: SEQ1 Software Force.
+    bit_offset: 30
+    bit_size: 1
+  - name: SEQENABLE
+    description: SEQ1Enable.
+    bit_offset: 31
+    bit_size: 1
+fieldset/ADCSEQCTL:
+  description: ADC Sequencer common control Register.
+  fields:
+  - name: SEQEND
+    description: END SOC of SEQ4.
+    bit_offset: 0
+    bit_size: 4
+  - name: SEQPREEMPT
+    description: SOC Sequnece Preempt and restart setting.
+    bit_offset: 16
+    bit_size: 2
+fieldset/ADCSOCCTL:
+  description: ADC SOC0 Control Register.
+  fields:
+  - name: CHSEL
+    description: SOC0 Channel Select.
+    bit_offset: 15
+    bit_size: 5
+  - name: COMPEN
+    description: SOC0 Threshold comparator enable.
+    bit_offset: 25
+    bit_size: 1
+fieldset/ADCSOCFLG1:
+  description: ADC SOC Flag 1 Register.
+  fields:
+  - name: SOC0
+    description: SOC0 Start of Conversion Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: SOC1
+    description: SOC1 Start of Conversion Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: SOC2
+    description: SOC2 Start of Conversion Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: SOC3
+    description: SOC3 Start of Conversion Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: SOC4
+    description: SOC4 Start of Conversion Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: SOC5
+    description: SOC5 Start of Conversion Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: SOC6
+    description: SOC6 Start of Conversion Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: SOC7
+    description: SOC7 Start of Conversion Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: SOC8
+    description: SOC8 Start of Conversion Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: SOC9
+    description: SOC9 Start of Conversion Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: SOC10
+    description: SOC10 Start of Conversion Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: SOC11
+    description: SOC11 Start of Conversion Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: SOC12
+    description: SOC12 Start of Conversion Flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: SOC13
+    description: SOC13 Start of Conversion Flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: SOC14
+    description: SOC14 Start of Conversion Flag.
+    bit_offset: 14
+    bit_size: 1
+  - name: SOC15
+    description: SOC15 Start of Conversion Flag.
+    bit_offset: 15
+    bit_size: 1
+fieldset/ADCSOCOVF1:
+  description: ADC SOC Overflow 1 Register.
+  fields:
+  - name: SOC0OVF
+    description: SOC0 Start of Conversion Overflow Flag.
+    bit_offset: 0
+    bit_size: 1
+  - name: SOC1OVF
+    description: SOC1 Start of Conversion Overflow Flag.
+    bit_offset: 1
+    bit_size: 1
+  - name: SOC2OVF
+    description: SOC2 Start of Conversion Overflow Flag.
+    bit_offset: 2
+    bit_size: 1
+  - name: SOC3OVF
+    description: SOC3 Start of Conversion Overflow Flag.
+    bit_offset: 3
+    bit_size: 1
+  - name: SOC4OVF
+    description: SOC4 Start of Conversion Overflow Flag.
+    bit_offset: 4
+    bit_size: 1
+  - name: SOC5OVF
+    description: SOC5 Start of Conversion Overflow Flag.
+    bit_offset: 5
+    bit_size: 1
+  - name: SOC6OVF
+    description: SOC6 Start of Conversion Overflow Flag.
+    bit_offset: 6
+    bit_size: 1
+  - name: SOC7OVF
+    description: SOC7 Start of Conversion Overflow Flag.
+    bit_offset: 7
+    bit_size: 1
+  - name: SOC8OVF
+    description: SOC8 Start of Conversion Overflow Flag.
+    bit_offset: 8
+    bit_size: 1
+  - name: SOC9OVF
+    description: SOC9 Start of Conversion Overflow Flag.
+    bit_offset: 9
+    bit_size: 1
+  - name: SOC10OVF
+    description: SOC10 Start of Conversion Overflow Flag.
+    bit_offset: 10
+    bit_size: 1
+  - name: SOC11OVF
+    description: SOC11 Start of Conversion Overflow Flag.
+    bit_offset: 11
+    bit_size: 1
+  - name: SOC12OVF
+    description: SOC12 Start of Conversion Overflow Flag.
+    bit_offset: 12
+    bit_size: 1
+  - name: SOC13OVF
+    description: SOC13 Start of Conversion Overflow Flag.
+    bit_offset: 13
+    bit_size: 1
+  - name: SOC14OVF
+    description: SOC14 Start of Conversion Overflow Flag.
+    bit_offset: 14
+    bit_size: 1
+  - name: SOC15OVF
+    description: SOC15 Start of Conversion Overflow Flag.
+    bit_offset: 15
+    bit_size: 1
+fieldset/ADCSOCOVFCLR1:
+  description: ADC SOC Overflow Clear 1 Register.
+  fields:
+  - name: SOC0OVF
+    description: SOC0 Clear Start of Conversion Overflow Bit.
+    bit_offset: 0
+    bit_size: 1
+  - name: SOC1OVF
+    description: SOC1 Clear Start of Conversion Overflow Bit.
+    bit_offset: 1
+    bit_size: 1
+  - name: SOC2OVF
+    description: SOC2 Clear Start of Conversion Overflow Bit.
+    bit_offset: 2
+    bit_size: 1
+  - name: SOC3OVF
+    description: SOC3 Clear Start of Conversion Overflow Bit.
+    bit_offset: 3
+    bit_size: 1
+  - name: SOC4OVF
+    description: SOC4 Clear Start of Conversion Overflow Bit.
+    bit_offset: 4
+    bit_size: 1
+  - name: SOC5OVF
+    description: SOC5 Clear Start of Conversion Overflow Bit.
+    bit_offset: 5
+    bit_size: 1
+  - name: SOC6OVF
+    description: SOC6 Clear Start of Conversion Overflow Bit.
+    bit_offset: 6
+    bit_size: 1
+  - name: SOC7OVF
+    description: SOC7 Clear Start of Conversion Overflow Bit.
+    bit_offset: 7
+    bit_size: 1
+  - name: SOC8OVF
+    description: SOC8 Clear Start of Conversion Overflow Bit.
+    bit_offset: 8
+    bit_size: 1
+  - name: SOC9OVF
+    description: SOC9 Clear Start of Conversion Overflow Bit.
+    bit_offset: 9
+    bit_size: 1
+  - name: SOC10OVF
+    description: SOC10 Clear Start of Conversion Overflow Bit.
+    bit_offset: 10
+    bit_size: 1
+  - name: SOC11OVF
+    description: SOC11 Clear Start of Conversion Overflow Bit.
+    bit_offset: 11
+    bit_size: 1
+  - name: SOC12OVF
+    description: SOC12 Clear Start of Conversion Overflow Bit.
+    bit_offset: 12
+    bit_size: 1
+  - name: SOC13OVF
+    description: SOC13 Clear Start of Conversion Overflow Bit.
+    bit_offset: 13
+    bit_size: 1
+  - name: SOC14OVF
+    description: SOC14 Clear Start of Conversion Overflow Bit.
+    bit_offset: 14
+    bit_size: 1
+  - name: SOC15OVF
+    description: SOC15 Clear Start of Conversion Overflow Bit.
+    bit_offset: 15
+    bit_size: 1
+fieldset/PWREN:
+  description: Power enable.
+  fields:
+  - name: ENABLE
+    description: Power Enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: PWREN_KEY
+fieldset/RSTCTL:
+  description: Reset Control.
+  fields:
+  - name: RESETASSERT
+    description: Reset assertion to the peripheral.
+    bit_offset: 0
+    bit_size: 1
+  - name: RESETSTKYCLR
+    description: Reset sticky bit clear.
+    bit_offset: 1
+    bit_size: 1
+  - name: KEY
+    description: Key which must be written for the write to take effect.
+    bit_offset: 24
+    bit_size: 8
+    enum: RSTCTL_KEY
+fieldset/STAT:
+  description: Status Register.
+  fields:
+  - name: RESETSTKYCLR
+    description: Reset sticky bit.
+    bit_offset: 16
+    bit_size: 1
+enum/PWREN_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 38
+enum/RSTCTL_KEY:
+  bit_size: 8
+  variants:
+  - name: KEY
+    description: Write key.
+    value: 177

@@ -53,6 +53,10 @@ Register blocks (the same on both families unless noted):
 | IOMUX | `iomux_am13` | `iomux_v1` with PINCM0 at offset 0 (117 entries; the AM13E230x uses the first 108). |
 | UCx | `unicomm_v1` | The UNICOMM wrapper: power, reset and mode selection. |
 | UCx_UART | `unicommuart_v1` | `uart_v1` moved down by 0x1000, with the AM13 status bits, FIFO levels and interrupt indexes. |
+| UCx_SPI | `unicommspi_v1` | The AM13 SVDs, through [`transforms/UNICOMMSPI.yaml`](./transforms/UNICOMMSPI.yaml). UC2 and UC5 have no SPI. |
+| UCx_I2CC | `unicommi2cc_v1` | The I2C controller registers, from the AM13 SVDs through [`transforms/UNICOMMI2CC.yaml`](./transforms/UNICOMMI2CC.yaml). |
+| ADC0..2 | `adc_am13` | The AM13 SVDs, through [`transforms/ADC_AM13.yaml`](./transforms/ADC_AM13.yaml). A SOC and sequencer based ADC, not the MSPM0 ADC12. |
+| ADC0RESULT..ADC2RESULT | `adcresult_am13` | The result registers of each ADC, a separate block ([`transforms/ADCRESULT_AM13.yaml`](./transforms/ADCRESULT_AM13.yaml)). |
 | SYSCTL | `sysctl_am13e230x`, `sysctl_am13e232x` | The AM13 SVDs, through [`transforms/SYSCTL_AM13E230X.yaml`](./transforms/SYSCTL_AM13E230X.yaml) and [`transforms/SYSCTL_AM13E232X.yaml`](./transforms/SYSCTL_AM13E232X.yaml). The AM13E232x one adds the EtherCAT and SDFM controls at the same offsets. |
 
 Differences from the MSPM0 metadata:
@@ -65,8 +69,10 @@ Differences from the MSPM0 metadata:
   `UCx_UART` and so on.
 * Flash is two banks at 0x0 and 0x40000. Only the 512 KB parts fill both, so the smaller parts have
   a separate `FLASH_BANK1` region.
-* Power domains are not transcribed yet, and the ADC (a different peripheral from the MSPM0 one)
-  has no register block.
+* Power domains are not transcribed yet.
+* The ADC inputs come from the SysConfig metadata (`hw_pinmap.h` does not list analog functions):
+  the signal of an ADC pin is its channel number (CHSEL), with PF 0, as for the MSPM0 ADC. The
+  results are in the `ADCxRESULT` peripherals.
 * Chip names carry the package designator. On the AM13E230x the pinout variant of the LQFP-64 and
   LQFP-100 packages (STM32G4 or STM32H5 compatible) goes in front: `am13e23019gpm` is the LQFP-64 G
   part on the LP-AM13E230 LaunchPad. The AM13E232x datasheet is not public yet, so its packages keep

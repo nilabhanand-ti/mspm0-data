@@ -1,0 +1,517 @@
+# SPI of a UNICOMM instance (AM13E2x), from the AM13E232X SVD by transforms/UNICOMMSPI.yaml.
+# The AM13E230X SVD has the same block.
+block/CPU_INT:
+  description: CPU_INT.
+  items:
+  - name: IIDX
+    description: Interrupt Index Register.
+    byte_offset: 0
+    fieldset: IIDX
+  - name: IMASK
+    description: Interrupt mask.
+    byte_offset: 8
+    fieldset: CPU_INT
+  - name: RIS
+    description: Raw interrupt status.
+    byte_offset: 16
+    fieldset: CPU_INT
+  - name: MIS
+    description: Masked interrupt status.
+    byte_offset: 24
+    fieldset: CPU_INT
+  - name: ISET
+    description: Interrupt set.
+    byte_offset: 32
+    fieldset: CPU_INT
+  - name: ICLR
+    description: Interrupt clear.
+    byte_offset: 40
+    fieldset: CPU_INT
+block/DMA_TRIG_RX:
+  description: DMA_TRIG_RX.
+  items:
+  - name: IMASK
+    description: Interrupt mask.
+    byte_offset: 8
+    fieldset: DMA_TRIG_RX
+  - name: RIS
+    description: Raw interrupt status.
+    byte_offset: 16
+    fieldset: DMA_TRIG_RX
+  - name: MIS
+    description: Masked interrupt status.
+    byte_offset: 24
+    fieldset: DMA_TRIG_RX
+  - name: ISET
+    description: Interrupt set.
+    byte_offset: 32
+    fieldset: DMA_TRIG_RX
+block/DMA_TRIG_TX:
+  description: DMA_TRIG_TX.
+  items:
+  - name: IMASK
+    description: Interrupt mask.
+    byte_offset: 8
+    fieldset: DMA_TRIG_TX
+  - name: RIS
+    description: Raw interrupt status.
+    byte_offset: 16
+    fieldset: DMA_TRIG_TX
+  - name: MIS
+    description: Masked interrupt status.
+    byte_offset: 24
+    fieldset: DMA_TRIG_TX
+  - name: ISET
+    description: Interrupt set.
+    byte_offset: 32
+    fieldset: DMA_TRIG_TX
+block/UNICOMMSPI:
+  description: UNICOMMSPI module.
+  items:
+  - name: CLKDIV
+    description: Clock Divider.
+    byte_offset: 0
+    fieldset: CLKDIV
+  - name: CLKSEL
+    description: Clock Select for Ultra Low Power peripherals.
+    byte_offset: 8
+    fieldset: CLKSEL
+  - name: PDBGCTL
+    description: Peripheral Debug Control.
+    byte_offset: 24
+    fieldset: PDBGCTL
+  - name: CPU_INT
+    description: CPU_INT.
+    byte_offset: 32
+    block: CPU_INT
+  - name: DMA_TRIG_RX
+    description: DMA_TRIG_RX.
+    byte_offset: 80
+    block: DMA_TRIG_RX
+  - name: DMA_TRIG_TX
+    description: DMA_TRIG_TX.
+    byte_offset: 128
+    block: DMA_TRIG_TX
+  - name: INTCTL
+    description: Interrupt control register.
+    byte_offset: 228
+    fieldset: INTCTL
+  - name: CTL0
+    description: SPI control register 0.
+    byte_offset: 256
+    fieldset: CTL0
+  - name: STAT
+    description: Status Register.
+    byte_offset: 264
+    fieldset: STAT
+  - name: IFLS
+    description: Interrupt FIFO Level Select Register.
+    byte_offset: 268
+    fieldset: IFLS
+  - name: CLKCTL
+    description: Clock prescaler and divider register.
+    byte_offset: 272
+    fieldset: CLKCTL
+  - name: TXDATA
+    description: TXDATA Register.
+    byte_offset: 288
+    fieldset: TXDATA
+  - name: RXDATA
+    description: RXDATA Register.
+    byte_offset: 292
+    fieldset: RXDATA
+  - name: CTL1
+    description: SPI control register 1.
+    byte_offset: 332
+    fieldset: CTL1
+fieldset/CLKCTL:
+  description: Clock prescaler and divider register.
+  fields:
+  - name: SCR
+    description: Serial clock divider.
+    bit_offset: 0
+    bit_size: 10
+  - name: DSAMPLE
+    description: Delayed sampling.
+    bit_offset: 28
+    bit_size: 4
+fieldset/CLKDIV:
+  description: Clock Divider.
+  fields:
+  - name: RATIO
+    description: Selects divide ratio of module clock.
+    bit_offset: 0
+    bit_size: 3
+fieldset/CLKSEL:
+  description: Clock Select for Ultra Low Power peripherals.
+  fields:
+  - name: BUSCLK_SEL
+    description: Selects buscclk as clock source if enabled.
+    bit_offset: 3
+    bit_size: 1
+fieldset/CPU_INT:
+  description: Interrupt mask.
+  fields:
+  - name: PER
+    description: Parity error event.
+    bit_offset: 0
+    bit_size: 1
+  - name: RXFIFO_OVF
+    description: RXFIFO overflow event.
+    bit_offset: 1
+    bit_size: 1
+  - name: RX
+    description: Receive event. If FIFO is present, this bit is set when the programmed threshold is reached. When there is no FIFO, this bit is set when a frame is received.
+    bit_offset: 2
+    bit_size: 1
+  - name: RXFULL
+    description: RX FIFO Full Interrupt Mask.
+    bit_offset: 3
+    bit_size: 1
+  - name: TXFIFO_UNF
+    description: TX FIFO underflow interrupt mask.
+    bit_offset: 4
+    bit_size: 1
+  - name: TX
+    description: Transmit event. When FIFO is present, this bit is set when FIFO threshold is reached. When FIFO is not used, this bit is set when transmit buffer is empty.
+    bit_offset: 5
+    bit_size: 1
+  - name: TXEMPTY
+    description: Transmit FIFO Empty interrupt mask.
+    bit_offset: 6
+    bit_size: 1
+  - name: IDLE
+    description: SPI in Idle mode.
+    bit_offset: 8
+    bit_size: 1
+  - name: DMA_DONE_RX
+    description: Enable DMA Done on RX Event Channel Interrupt.
+    bit_offset: 15
+    bit_size: 1
+  - name: DMA_DONE_TX
+    description: Enable DMA Done on TX Event Channel Interrupt.
+    bit_offset: 16
+    bit_size: 1
+fieldset/CTL0:
+  description: SPI control register 0.
+  fields:
+  - name: DSS
+    description: Data Size Select.
+    bit_offset: 0
+    bit_size: 5
+    enum: DSS
+  - name: FRF
+    description: Frame format Select.
+    bit_offset: 5
+    bit_size: 2
+    enum: FRF
+  - name: SPO
+    description: CLKOUT polarity.
+    bit_offset: 8
+    bit_size: 1
+  - name: SPH
+    description: CLKOUT phase.
+    bit_offset: 9
+    bit_size: 1
+  - name: CSCLR
+    description: Clear on CS inactive.
+    bit_offset: 14
+    bit_size: 1
+fieldset/CTL1:
+  description: SPI control register 1.
+  fields:
+  - name: ENABLE
+    description: SPI enable.
+    bit_offset: 0
+    bit_size: 1
+  - name: LBM
+    description: Loop back mode enable.
+    bit_offset: 1
+    bit_size: 1
+  - name: CP
+    description: Controller or peripheral mode select.
+    bit_offset: 2
+    bit_size: 1
+  - name: POD
+    description: 'Peripheral-mode: Data output disabled.'
+    bit_offset: 3
+    bit_size: 1
+  - name: MSB
+    description: MSB first select.
+    bit_offset: 4
+    bit_size: 1
+  - name: PREN
+    description: Parity Receive Enable.
+    bit_offset: 5
+    bit_size: 1
+  - name: PES
+    description: Even Parity Select.
+    bit_offset: 6
+    bit_size: 1
+  - name: PTEN
+    description: Parity Transmit Enable.
+    bit_offset: 8
+    bit_size: 1
+  - name: SUSPEND
+    description: Suspend external communication.
+    bit_offset: 9
+    bit_size: 1
+fieldset/DMA_TRIG_RX:
+  description: Interrupt mask.
+  fields:
+  - name: RX
+    description: Receive FIFO event.
+    bit_offset: 2
+    bit_size: 1
+fieldset/DMA_TRIG_TX:
+  description: Interrupt mask.
+  fields:
+  - name: TX
+    description: Transmit FIFO event.
+    bit_offset: 5
+    bit_size: 1
+fieldset/IFLS:
+  description: Interrupt FIFO Level Select Register.
+  fields:
+  - name: TXIFLSEL
+    description: 'FIFO Level Select for generating events (interrupt/dma). Note: for undefined settings the default configuration is used.'
+    bit_offset: 0
+    bit_size: 3
+    enum: TXIFLSEL
+  - name: TXCLR
+    description: RX FIFO Flush.
+    bit_offset: 3
+    bit_size: 1
+  - name: RXIFLSEL
+    description: 'FIFO Level Select for generating events (interrupt/dma). Note: for undefined settings the default configuration is used.'
+    bit_offset: 4
+    bit_size: 3
+    enum: RXIFLSEL
+  - name: RXCLR
+    description: RX FIFO CLEAR.
+    bit_offset: 7
+    bit_size: 1
+fieldset/IIDX:
+  description: Interrupt Index Register.
+  fields:
+  - name: STAT
+    description: Interrupt index status.
+    bit_offset: 0
+    bit_size: 8
+    enum: IIDX_STAT
+fieldset/INTCTL:
+  description: Interrupt control register.
+  fields:
+  - name: INTEVAL
+    description: Writing a 1 to this field re-evaluates the interrupt sources.
+    bit_offset: 0
+    bit_size: 1
+fieldset/PDBGCTL:
+  description: Peripheral Debug Control.
+  fields:
+  - name: FREE
+    description: Free run control.
+    bit_offset: 0
+    bit_size: 1
+  - name: SOFT
+    description: Soft halt boundary control. This function is only available, if [FREE] is set to 'STOP'.
+    bit_offset: 1
+    bit_size: 1
+fieldset/RXDATA:
+  description: RXDATA Register.
+  fields:
+  - name: DATA
+    description: Received Data.
+    bit_offset: 0
+    bit_size: 16
+fieldset/STAT:
+  description: Status Register.
+  fields:
+  - name: RXFE
+    description: Receive FIFO empty.
+    bit_offset: 2
+    bit_size: 1
+  - name: RXFF
+    description: Receive FIFO Full The meaning of this bit depends on the state of the FEN bit in the CTL0 register.
+    bit_offset: 3
+    bit_size: 1
+  - name: RXCLR
+    description: RX FIFO Clear Status.
+    bit_offset: 4
+    bit_size: 1
+  - name: TXFE
+    description: Transmit FIFO empty.
+    bit_offset: 5
+    bit_size: 1
+  - name: TXFF
+    description: Transmit FIFO Full The meaning of this bit depends on the state of the FEN bit in the CTL0 register.
+    bit_offset: 6
+    bit_size: 1
+  - name: TXCLR
+    description: TX FIFO Clear Status.
+    bit_offset: 7
+    bit_size: 1
+  - name: BUSY
+    description: Busy.
+    bit_offset: 8
+    bit_size: 1
+fieldset/TXDATA:
+  description: TXDATA Register.
+  fields:
+  - name: DATA
+    description: Transmit Data.
+    bit_offset: 0
+    bit_size: 16
+enum/DSS:
+  bit_size: 5
+  variants:
+  - name: DSS_4
+    description: 'Data Size Select bits: 4.'
+    value: 3
+  - name: DSS_5
+    description: 'Data Size Select bits: 5.'
+    value: 4
+  - name: DSS_6
+    description: 'Data Size Select bits: 6.'
+    value: 5
+  - name: DSS_7
+    description: 'Data Size Select bits: 7.'
+    value: 6
+  - name: DSS_8
+    description: 'Data Size Select bits: 8.'
+    value: 7
+  - name: DSS_9
+    description: 'Data Size Select bits: 9.'
+    value: 8
+  - name: DSS_10
+    description: 'Data Size Select bits: 10.'
+    value: 9
+  - name: DSS_11
+    description: 'Data Size Select bits: 11.'
+    value: 10
+  - name: DSS_12
+    description: 'Data Size Select bits: 12.'
+    value: 11
+  - name: DSS_13
+    description: 'Data Size Select bits: 13.'
+    value: 12
+  - name: DSS_14
+    description: 'Data Size Select bits: 14.'
+    value: 13
+  - name: DSS_15
+    description: 'Data Size Select bits: 15.'
+    value: 14
+  - name: DSS_16
+    description: 'Data Size Select bits: 16.'
+    value: 15
+enum/FRF:
+  bit_size: 2
+  variants:
+  - name: MOTOROLA_3WIRE
+    description: Motorola SPI frame format (3 wire mode).
+    value: 0
+  - name: MOTOROLA_4WIRE
+    description: Motorola SPI frame format (4 wire mode).
+    value: 1
+  - name: TI_SYNC
+    description: TI synchronous serial frame format.
+    value: 2
+  - name: Reserved
+    description: Reserved - not to be selected.
+    value: 3
+enum/IIDX_STAT:
+  bit_size: 8
+  variants:
+  - name: NO_INTR
+    description: No interrupt pending.
+    value: 0
+  - name: PER_EVT
+    description: Transmit Parity Event/interrupt pending.
+    value: 1
+  - name: RXFIFO_OFV_EVT
+    description: RX FIFO Overflow Event/interrupt pending.
+    value: 2
+  - name: RX_EVT
+    description: Receive interrupt.
+    value: 3
+  - name: RXFULL_EVT
+    description: RX FIFO Full Interrupt.
+    value: 4
+  - name: TXFIFO_UNF_EVT
+    description: TX FIFO underflow interrupt.
+    value: 5
+  - name: TX_EVT
+    description: Transmit Event.
+    value: 6
+  - name: TX_EMPTY
+    description: Transmit Buffer Empty Event/interrupt pending.
+    value: 7
+  - name: IDLE_EVT
+    description: End of Transmit Event/interrupt pending.
+    value: 9
+  - name: RTOUT_EVT
+    description: SPI receive time-out interrupt.
+    value: 10
+  - name: DMA_DONE_RX
+    description: DMA DONE on RX.
+    value: 16
+  - name: DMA_DONE_TX
+    description: DMA DONE on TX.
+    value: 17
+  - name: DMA_PREIRQ_RX
+    description: DMA PRE IRQ RX INTERRUPT.
+    value: 19
+  - name: DMA_PREIRQ_TX
+    description: DMA PRE IRQ TX INTERRUPT.
+    value: 20
+  - name: LTOUT
+    description: SPI line time-out interrupt.
+    value: 21
+enum/RXIFLSEL:
+  bit_size: 3
+  variants:
+  - name: LVL_1_4
+    description: RX FIFO >= 1/4 full.
+    value: 1
+  - name: LVL_1_2
+    description: RX FIFO >= 1/2 full (default).
+    value: 2
+  - name: LVL_3_4
+    description: RX FIFO >= 3/4 full.
+    value: 3
+  - name: LVL_NOT_EMPTY
+    description: Opposite of empty.
+    value: 4
+  - name: LVL_FULL
+    description: RX FIFO is full.
+    value: 5
+  - name: LVL_ALMOST_FULL
+    description: RX_FIFO >= (MAX_FIFO_LEN -1).
+    value: 6
+  - name: LVL_ALMOST_EMPTY
+    description: RX_FIFO <= 1.
+    value: 7
+enum/TXIFLSEL:
+  bit_size: 3
+  variants:
+  - name: LVL_3_4
+    description: TX FIFO <= 3/4 empty.
+    value: 1
+  - name: LVL_1_2
+    description: TX FIFO <= 1/2 empty (default).
+    value: 2
+  - name: LVL_1_4
+    description: TX FIFO <= 1/4 empty.
+    value: 3
+  - name: LVL_NOT_FULL
+    description: Opposite of full.
+    value: 4
+  - name: LVL_EMPTY
+    description: TX FIFO is empty.
+    value: 5
+  - name: LVL_ALMOST_EMPTY
+    description: TX FIFO <= 1.
+    value: 6
+  - name: LVL_ALMOST_FULL
+    description: TX_FIFO >= (MAX_FIFO_LEN -1).
+    value: 7
